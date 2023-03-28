@@ -1,0 +1,31 @@
+.Warning {
+    background-color: #B30000;
+    height: 100vh;
+}
+
+.Warning i {
+    font-size: 20em;
+}
+
+.Warning h1 {
+    font-weight: 800;
+    font-size: 64px;
+}
+
+.Warning p {
+    font-size: 40px;
+}
+
+.Warning .btn {
+    background-color: white;
+    color: #B30000;
+    font-weight: 800;
+    font-size: 30px;
+    padding: 15px 30px 15px 30px;
+    border-radius: 20px;
+    border: none;
+}
+
+.Warning .btn:hover {
+    opacity: 0.8;
+}
