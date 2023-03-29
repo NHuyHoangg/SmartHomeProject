@@ -1,0 +1,23 @@
+#logo {
+    width: 75px; 
+    height: 75px;
+    top: 7rem;
+    position: absolute;
+}
+
+.sidebar-icon {
+    width: 45px; 
+    height: 45px;
+}
+
+.sidebar-icon.select {
+    background-color: var(--color-header) !important;
+}
+
+.sidebar-icon:not(:last-child) {
+    margin-bottom: 8rem;
+}
+
+#userName {
+    height: 125px;
+}
