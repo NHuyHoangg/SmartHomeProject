@@ -2,18 +2,27 @@
     background-color: #B30000;
     height: 100vh;
 }
+/* 
+.Warning audio {
+    display: none;
+} */
 
-.Warning i {
-    font-size: 20em;
+.Warning svg {
+    height: 256px;
+    width: 256px;
+    fill: white;
 }
 
 .Warning h1 {
-    font-weight: 800;
+    font-weight: 900;
     font-size: 64px;
+    line-height: 1;
 }
 
 .Warning p {
     font-size: 40px;
+    font-weight: 300;
+    line-height: 1.25;
 }
 
 .Warning .btn {
@@ -22,10 +31,11 @@
     font-weight: 800;
     font-size: 30px;
     padding: 15px 30px 15px 30px;
-    border-radius: 20px;
+    border-radius: 30px;
     border: none;
+    margin-top: 60px;
 }
 
 .Warning .btn:hover {
-    opacity: 0.8;
+    opacity: 0.9;
 }
