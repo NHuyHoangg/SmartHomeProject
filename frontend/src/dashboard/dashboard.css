@@ -1,23 +1,25 @@
-#logo {
-    width: 75px; 
-    height: 75px;
-    top: 7rem;
-    position: absolute;
+#dashboard {
+    height: 82vh;
 }
 
-.sidebar-icon {
-    width: 45px; 
-    height: 45px;
+.date-container,.weather-container {
+    height: 32%;
+    font-size: 4rem;
+    font-weight: 900;
 }
 
-.sidebar-icon.select {
-    background-color: var(--color-header) !important;
+.container-properties {
+    height: 100%;
+    border-radius: 20px;
 }
 
-.sidebar-icon:not(:last-child) {
-    margin-bottom: 8rem;
+.date-container div:first-child, .weather-container div:first-child{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#userName {
-    height: 125px;
+.weather-container .location {
+    font-size: 2rem;
+    font-weight: bold;
 }
