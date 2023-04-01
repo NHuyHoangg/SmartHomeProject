@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+// import React, { useState, useEffect, useRef } from 'react';
 // import { useNavigate } from "react-router-dom";
 // import Axios from "axios";
 import "./warning.css";
@@ -14,7 +14,7 @@ function Warning () {
     // }, []);
     return (
         <div className="Warning px-5 py-5 text-white text-center d-flex flex-column align-items-center justify-content-start">
-            <video width="320" height="240" controls autoplay loop>
+            <video width="320" height="240" controls autoplay muted loop>
                 <source src={alert} type="video/mp4" />
             </video>
             {/* <video controls muted autoPlay {...(muteVid && { muted: true })} ref={videoRef}>
