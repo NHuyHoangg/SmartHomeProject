@@ -1,5 +1,16 @@
-#dashboard {
+.main-container {
     height: 82vh;
+}
+
+.main-container .title {
+    font-size: 2.7rem;
+    font-weight: 1000;
+}
+
+.main-container .text {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #222C34;
 }
 
 .date-container,.weather-container {
@@ -13,7 +24,7 @@
     border-radius: 20px;
 }
 
-.date-container div:first-child, .weather-container div:first-child{
+.date-container div:first-child{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,4 +33,22 @@
 .weather-container .location {
     font-size: 2rem;
     font-weight: bold;
+}
+
+.gas-container {
+    height: 57%;
+}
+
+.rest-container {
+    height: 40.7%;
+}
+
+.main-container .celsius {
+    font-size: 10rem;
+    font-weight: 800;
+}
+
+.main-container .button {
+    cursor: pointer;
+    border-radius: 60%;
 }
