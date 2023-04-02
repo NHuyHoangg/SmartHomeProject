@@ -1,6 +1,12 @@
+import React, { useState, useEffect } from "react";
 import "./profile.css";
 
 function Profile () {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
+
     return (
         <div className="Profile bg-container col-11 d-flex justify-content-center align-items-center">
             <div className="d-flex justify-content-center">
@@ -15,25 +21,31 @@ function Profile () {
                         <path d="M472.27868 386.726351c49.65217 87.680518 216.742009 145.216563 280.466876 105.555632l0.199908-0.116613c4.402143-81.116869-31.964469-145.874594-82.187211-188.963115a260.51355 260.51355 0 0 0-61.725785-39.377728c-30.156967-13.677045-61.325969-20.698816-89.562986-20.21154-2.627958 0.045812-5.247587 0.108284-7.821404 0.283203 8.337833 29.51976-8.267032 88.263583-39.369398 142.830161z" fill="#F29E7D" />
                         <path d="M472.27868 386.726351c31.102366-54.570742 47.711396-113.3104 39.369398-142.830161a148.931522 148.931522 0 0 0-7.517376-0.270709c-36.82057-0.699678-78.676325 11.373937-116.717167 34.47998-0.941234 0.570571-1.861644 1.186954-2.798714 1.770019-2.390567 1.495146-4.781135 2.994456-7.138384 4.577063-0.358169 0.241556-0.703843 0.49977-1.062012 0.741325-61.784092 41.905732-110.590817 113.618592-105.59728 206.971502 0.145766 0.091625 0.291533 0.16659 0.437299 0.258215 76.260769 47.507323 154.716362-24.459587 201.024236-105.697234z" fill="#F29E7D" />
                     </svg>
+                    <input type="file" id="upload" hidden/>
+                    <label className="bg-sleepy text-background p-3" for="upload">Edit</label>
                 </div>
                 <div className="information col-7 text-center">
                     <h1 className="text-main">Thông tin</h1>
                     <form className="text-text row justify-content-center mt-5">
                         <div class="mb-3 col-5 me-5">
-                            <label for="user" class="form-label float-start">Username</label>
-                            <input type="text" class="form-control" id="user" placeholder="luonghoang" />
+                            <label for="name" class="form-label float-start">Họ và tên</label>
+                            <input type="text" class="form-control" id="name" placeholder="Lương Hoàng"
+                                onChange={e => setName(e.target.value)} />
                         </div>
                         <div class="mb-3 col-5 ms-5">
                             <label for="email" class="form-label float-start">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="luonghoang@gmail.com" />
+                            <input type="email" class="form-control" id="email" placeholder="luonghoang@gmail.com" 
+                                onChange={e => setEmail(e.target.value)}/>
                         </div>
                         <div class="mb-3 col-5 me-5">
-                            <label for="name" class="form-label float-start">Họ và tên</label>
-                            <input type="text" class="form-control" id="name" placeholder="Lương Hoàng" />
+                            <label for="address" class="form-label float-start">Địa chỉ</label>
+                            <input type="text" class="form-control" id="address" placeholder="" 
+                                onChange={e => setAddress(e.target.value)}/>
                         </div>
                         <div class="mb-3 col-5 ms-5">
                             <label for="phone" class="form-label float-start">Số điện thoại</label>
-                            <input type="text" class="form-control" id="phone" placeholder="0987xxxxxx" />
+                            <input type="text" class="form-control" id="phone" placeholder="0987xxxxxx" 
+                                onChange={e => setPhone(e.target.value)}/>
                         </div>
                         <button type="submit" class="mt-3 p-3 bg-sleepy">Lưu</button>
                     </form>

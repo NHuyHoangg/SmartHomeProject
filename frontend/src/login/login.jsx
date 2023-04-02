@@ -1,6 +1,10 @@
+import React, { useState, useEffect } from "react";
 import "./login.css";
 
 function Login () {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
     return (
         <div className="Login text-white text-center">
             <div className="login-to bg-container px-5 d-flex flex-column align-items-center col-6">
@@ -12,11 +16,13 @@ function Login () {
                 <form className="text-text col-5">
                     <div class="mb-3">
                         <label for="user" class="form-label float-start">Username</label>
-                        <input type="text" class="form-control" id="user" required/>
+                        <input type="text" class="form-control" id="user" required 
+                            onChange={(e)=>setUsername(e.target.value)} />
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label float-start">Mật khẩu</label>
-                        <input type="password" class="form-control" id="password" required/>
+                        <input type="password" class="form-control" id="password" required
+                            onChange={(e)=>setPassword(e.target.value)} />
                     </div>
                     <div class="alert d-flex align-items-center justify-content-center" role="alert">
                         <i class="fa-solid fa-triangle-exclamation"></i>

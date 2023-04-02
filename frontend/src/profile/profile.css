@@ -9,10 +9,24 @@
     height: 75%;
 }
 
+.Profile .avatar {
+    position: relative;
+}
+
 .Profile h1 {
     font-size: 3rem;
     font-weight: 700;
     margin: 2rem;
+}
+
+.Profile .avatar label {
+    border-radius: 10px;
+    font-size: 2rem;
+    font-weight: 700;
+    position: absolute;
+    top: 70%;
+    right: 25%;
+    cursor: pointer;
 }
 
 .Profile .information h1 {
@@ -21,6 +35,7 @@
 
 .Profile svg {
     width: 50%;
+    /* position: relative; */
 }
 
 .Profile .form-label {
