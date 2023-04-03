@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./login.css";
 
-function Login () {
+function Login ( {setSignup, setLogin} ) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -30,10 +30,10 @@ function Login () {
                             Username hoặc mật khẩu không chính xác
                         </div>
                     </div>
-                    <button type="submit" class="p-3 bg-header">Đăng nhập</button>
+                    <button type="submit" class="p-3 bg-header" onClick={()=>setLogin(true)}>Đăng nhập</button>
                     <p className="signup-link text-header p-3">Chưa có tài khoản?
                         <span className="">
-                            <p className="ms-2">Tạo tài khoản</p>
+                            <p className="ms-2" onClick={()=>setSignup(true)}>Tạo tài khoản</p>
                         </span>
                     </p>
                 </form>

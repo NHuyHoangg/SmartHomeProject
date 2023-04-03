@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import "./signup.css";
 
-function Signup () {
+function Signup ( {setSignup} ) {
     // const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
@@ -74,10 +74,10 @@ function Signup () {
                             </div>
                         </div>
                     }   
-                    <button type="submit" class="p-3 bg-header">Đăng ký</button>
+                    <button type="submit" class="p-3 bg-header" onClick={()=>setSignup(false)}>Đăng ký</button>
                     <p className="signup-link text-header p-3">Đã có tài khoản?
                         <span className="">
-                            <p className="ms-2">Đăng nhập</p>
+                            <p className="ms-2" onClick={()=>setSignup(false)}>Đăng nhập</p>
                         </span>
                     </p>
                 </form>
