@@ -47,11 +47,8 @@ function Signup () {
                     </div>
                     <div class="mb-3 col-6">
                         <label for="name" class="form-label float-start">Họ và tên</label>
-                        <input type="text" class="form-control" id="name" required
+                        <input type="text" class="form-control" id="" required
                             onChange={e => setName(e.target.value)}/>
-                        <div class="invalid-feedback">
-                            Vui lòng nhập lại tên.
-                        </div>
                     </div>
                     <div class="mb-3 col-6">
                         <label  for="phone"class="form-label float-start">Số điện thoại</label>
