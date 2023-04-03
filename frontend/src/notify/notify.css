@@ -1,0 +1,141 @@
+/* .Notify {
+    background-image: url('../assets/img/background1.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+} */
+
+.notify-container {
+    width: 90.67%;
+    backdrop-filter: blur(7.5px);
+    border-radius: 20px;
+    position: absolute;
+    top: 16.67%;
+    margin-right: 20px;
+    height: 75%;
+}
+
+.notify-container .tabs {
+    float: right;
+}
+
+.notify-container li {
+    backdrop-filter: blur(7.5px);
+    font-size: 2rem;
+    padding: 2rem;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.notify-container li.active {
+    color: var( --color-background);
+    background-color: var(--color-header);
+}
+
+.notify-container .log-detect,
+.notify-container .log-gas,
+.notify-container .log-light,
+.notify-container .log-curtain,
+.notify-container .log-AC {
+    display: none;
+}
+
+.notify-container .log-detect.active,
+.notify-container .log-gas.active,
+.notify-container .log-light.active,
+.notify-container .log-curtain.active,
+.notify-container .log-AC.active {
+    display: block;
+    position: absolute;
+    top: 25%;
+    bottom: 0;
+    overflow-y: auto;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.notify-container .log-detect.active::-webkit-scrollbar,
+.notify-container .log-gas.active::-webkit-scrollbar,
+.notify-container .log-light.active::-webkit-scrollbar,
+.notify-container .log-curtain.active::-webkit-scrollbar,
+.notify-container .log-AC.active::-webkit-scrollbar {
+    width: 6px;
+    background-color: var(--color-container);
+}
+
+.Notify .log-detect.active::-webkit-scrollbar-thumb,
+.Notify .log-gas.active::-webkit-scrollbar-thumb,
+.Notify .log-light.active::-webkit-scrollbar-thumb,
+.Notify .log-curtain.active::-webkit-scrollbar-thumb,
+.Notify .log-AC.active::-webkit-scrollbar-thumb {
+    background-color: #32383D;
+    border-radius: 10px;
+}
+
+.Notify table {
+    font-size: 2rem;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+}
+
+.Notify thead {
+    font-weight: 700;
+    border-bottom: 1px solid;
+    color: var(--color-main);
+    border-bottom: 1px solid var(--color-container);
+}
+
+.Notify tbody {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.Notify .td-center {
+    text-align: center;
+}
+
+.Notify th,
+.Notify td {
+    padding: 2rem;
+    border-right: 1px solid var(--color-container);
+}
+
+.Notify th {
+    background-color: var(--color-container);
+}
+
+.Notify tbody tr:nth-child(odd) 
+{
+    background-color: var(--color-header);
+}
+
+.Notify tbody tr:nth-child(even) 
+{
+    background-color: var(--color-sleepy);
+}
+ 
+td:first-child {
+    border-left-style:solid;
+    border-top-left-radius:20px;
+    border-bottom-left-radius:20px;
+}
+ 
+td:last-child {
+    border-right-style:solid;
+    border-bottom-right-radius:20px;
+    border-top-right-radius:20px;
+}
+
+th:first-child {
+    border-left-style:solid;
+    border-top-left-radius:20px;
+    border-bottom-left-radius:20px;
+}
+ 
+th:last-child {
+    border-right-style:solid;
+    border-bottom-right-radius:20px;
+    border-top-right-radius:20px;
+}

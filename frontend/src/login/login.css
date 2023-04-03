@@ -1,23 +1,24 @@
-/* .Signup {
-    background-image: url("../assets/img/background2.jpg");
+/* .Login {
+    background-image: url("img/background2.jpg");
     background-size: cover;
     height: 100vh;
     position: relative;
 } */
 
-.Signup .invalid-feedback {
-    font-size: 16px;
-}
-
-.Signup .alert {
+.Login .alert {
     font-size: 16px;
     background-color: #B30000;
     color: white;
     border-radius: 10px;
-    width: 97%;
+    /* height: 12%; */
 }
 
-.Signup .signup-to {
+.Login .alert svg {
+    width: 80px;
+}
+
+.Login .login-to {
+    /* height: 66.67%; */
     backdrop-filter: blur(7.5px);
     border-radius: 20px;
     position: absolute;
@@ -26,27 +27,27 @@
     transform: translate(-50%, -50%);
 }
 
-.Signup h1 {
+.Login h1 {
     font-weight: 900;
     font-size: 48px;
 }
 
-.Signup .signup-to svg {
+.Login .login-to svg {
     width: 120px;
     margin-right: 12px;
 }
 
-.Signup h2 {
+.Login h2 {
     font-weight: 700;
     font-size: 32px;
 }
 
-.Signup .form-label {
+.Login .form-label {
     font-weight: 700;
     font-size: 20px;
 }
 
-.Signup .form-control {
+.Login .form-control {
     font-weight: 500;
     font-size: 16px;
     line-height: 2;
@@ -54,12 +55,12 @@
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
 }
 
-.Signup .form-control:focus {
+.Login .form-control:focus {
     border: 1px solid var(--color-header);
 }
 
-.Signup button {
-    width: 50%;
+.Login button {
+    width: 100%;
     color: white;
     font-weight: 700;
     font-size: 20px;
@@ -71,31 +72,31 @@
     transition: ease-out 0.4s;
 }
 
-.Signup button:hover {
+.Login button:hover {
     /* opacity: 0.8; */
     box-shadow: inset 400px 0 0 0 #ff8e62;
 }
 
-.Signup button:focus {
+.Login button:focus {
     outline: none;
 }
 
-.Signup p {
+.Login p {
     font-weight: 500;
     font-size: 16px;
 }
 
-.Signup span p:hover {
+.Login span p:hover {
     cursor: pointer;
     font-weight: 700;
 }
 
-.Signup span {
+.Login span {
     display: inline-block;
     position: relative;
 }
   
-.Signup span p::after {
+.Login span p::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -108,7 +109,7 @@
     transition: transform 0.25s ease-out;
 }
   
-.Signup span p:hover::after {
+.Login span p:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
