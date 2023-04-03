@@ -10,9 +10,9 @@
     backdrop-filter: blur(7.5px);
     border-radius: 20px;
     position: absolute;
-    top: 16.67%;
+    top: 15%;
     margin-right: 20px;
-    height: 75%;
+    height: 82%;
 }
 
 .notify-container .tabs {

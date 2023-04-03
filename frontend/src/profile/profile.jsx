@@ -30,7 +30,7 @@ function Profile () {
                         <form className="text-text row justify-content-center mt-5">
                             <div class="mb-3 col-5 me-5">
                                 <label for="name" class="form-label float-start">Họ và tên</label>
-                                <input type="text" class="form-control" id="name" placeholder="Lương Hoàng"
+                                <input type="text" class="form-control" id="" placeholder="Lương Hoàng"
                                     onChange={e => setName(e.target.value)} />
                             </div>
                             <div class="mb-3 col-5 ms-5">
