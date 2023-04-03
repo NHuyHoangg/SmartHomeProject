@@ -1,4 +1,4 @@
-import Dashboard from "./dashboard/dashboard";
+import Index from "./index/index";
 import Warning from "./warning/warning";
 import Login from "./login/login"
 import Signup from "./signup/signup"
@@ -8,12 +8,12 @@ import Notify from "./notify/notify";
 function App() {
     return (
         <div className="App">
-            {/* <Warning /> */}
-            {/* <Dashboard /> */}
+            <Warning />
+            {/* <Index /> */}
             {/* <Login /> */}
             {/* <Signup /> */}
             {/* <Profile /> */}
-            <Notify />
+            {/* <Notify /> */}
         </div>
     )
 }

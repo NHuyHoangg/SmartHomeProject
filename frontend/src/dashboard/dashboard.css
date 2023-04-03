@@ -1,23 +1,54 @@
-#logo {
-    width: 75px; 
-    height: 75px;
-    top: 7rem;
-    position: absolute;
+.main-container {
+    height: 82vh;
 }
 
-.sidebar-icon {
-    width: 45px; 
-    height: 45px;
+.main-container .title {
+    font-size: 2.7rem;
+    font-weight: 1000;
 }
 
-.sidebar-icon.select {
-    background-color: var(--color-header) !important;
+.main-container .text {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #222C34;
 }
 
-.sidebar-icon:not(:last-child) {
-    margin-bottom: 8rem;
+.date-container,.weather-container {
+    height: 32%;
+    font-size: 4rem;
+    font-weight: 900;
 }
 
-#userName {
-    height: 125px;
+.container-properties {
+    height: 100%;
+    border-radius: 20px;
+}
+
+.date-container div:first-child{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-container .location {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.gas-container {
+    height: 57%;
+}
+
+.rest-container {
+    height: 40.7%;
+}
+
+.main-container .celsius {
+    font-size: 10rem;
+    font-weight: 800;
+}
+
+.main-container .button {
+    cursor: pointer;
+    border-radius: 60%;
 }

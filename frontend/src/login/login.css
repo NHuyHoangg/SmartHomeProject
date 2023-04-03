@@ -1,9 +1,9 @@
-.Login {
-    background-image: url("../assets/img/background2.jpg");
+/* .Login {
+    background-image: url("img/background2.jpg");
     background-size: cover;
     height: 100vh;
     position: relative;
-}
+} */
 
 .Login .alert {
     font-size: 16px;

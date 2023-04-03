@@ -2,7 +2,6 @@
 // import { useNavigate } from "react-router-dom";
 // import Axios from "axios";
 import "./warning.css";
-import alert from "../assets/sound/alert.mp4"
 
 function Warning () {
     // const [muteVid, setMuteVid] = useState(false);
@@ -14,9 +13,9 @@ function Warning () {
     // }, []);
     return (
         <div className="Warning px-5 py-5 text-white text-center d-flex flex-column align-items-center justify-content-start">
-            <video width="320" height="240" controls autoplay muted loop>
-                <source src={alert} type="video/mp4" />
-            </video>
+            {/* <video width="320" height="240" controls autoplay muted loop>
+                <source src="https://youtu.be/5LCvj6Z_LrA" type="video/mp4" />
+            </video> */}
             {/* <video controls muted autoPlay {...(muteVid && { muted: true })} ref={videoRef}>
                 <source src={alert} type="video/mp4"/>
             </video> */}

@@ -49,6 +49,7 @@ table {
 
 html {
     font-size: 62.5%;
+	height: 100%;
 }
 
 .test {
@@ -58,12 +59,28 @@ html {
 }
 
 * {
+	-webkit-box-sizing: border-box;
+  	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 body{
 	box-sizing: border-box;
 	/* background-color: #F0EAE2; */
 	font-family: 'Nunito', sans-serif;
+	height: 100%;
+}
+
+.bg {
+	/* The image used */
+	background-image: url("img/background1.jpg");
+
+	/* Full height */
+	height: 100%;
+
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 :root {
@@ -121,4 +138,8 @@ body{
 
 .bg-background {
 	background-color: var(--color-background);
+}
+
+.container-blur {
+	backdrop-filter: blur(8px);
 }
