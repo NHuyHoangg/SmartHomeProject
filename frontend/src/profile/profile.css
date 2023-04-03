@@ -1,25 +1,31 @@
 .Profile {
+    background-image: url('../assets/img/background1.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+}
+
+.profile-container {
+    width: 90.67%;
     backdrop-filter: blur(7.5px);
     border-radius: 20px;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 16.67%;
     margin-right: 20px;
     height: 75%;
 }
 
-.Profile .avatar {
+.profile-container .avatar {
     position: relative;
 }
 
-.Profile h1 {
+.profile-container h1 {
     font-size: 3rem;
     font-weight: 700;
     margin: 2rem;
 }
 
-.Profile .avatar label {
+.profile-container .avatar label {
     border-radius: 10px;
     font-size: 2rem;
     font-weight: 700;
@@ -29,21 +35,21 @@
     cursor: pointer;
 }
 
-.Profile .information h1 {
+.profile-container .information h1 {
     text-align: left;
 }
 
-.Profile svg {
+.profile-container svg {
     width: 50%;
     /* position: relative; */
 }
 
-.Profile .form-label {
+.profile-container .form-label {
     font-weight: 700;
     font-size: 20px;
 }
 
-.Profile .form-control {
+.profile-container .form-control {
     font-weight: 500;
     font-size: 16px;
     line-height: 2;
@@ -51,11 +57,11 @@
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
 }
 
-.Profile .form-control:focus {
+.profile-container .form-control:focus {
     border: 1px solid var(--color-header);
 }
 
-.Profile button {
+.profile-container button {
     width: 15%;
     color: white;
     font-weight: 700;
@@ -68,11 +74,11 @@
     transition: ease-out 0.4s;
 }
 
-.Profile button:hover {
+.profile-container button:hover {
     /* opacity: 0.8; */
     box-shadow: inset 400px 0 0 0 #f5b73b;
 }
 
-.Profile button:focus {
+.profile-container button:focus {
     outline: none;
 }
