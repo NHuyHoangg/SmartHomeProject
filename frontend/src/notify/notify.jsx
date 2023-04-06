@@ -27,28 +27,32 @@ function Notify () {
 
     return (
         <div className="Notify">
-            <div className="notify-container bg-container col-11 offset-1">
-                <div className="tabs text-main my-5 mx-5">
-                    <ul className="list-inline">
-                        <li className={classNames("detect-tab list-inline-item", activeTab === "detect" ? "active" : "")} onClick={handleDetect}>
-                            Nhận diện người
-                        </li>
-                        <li className={classNames("gas-tab list-inline-item", activeTab === "gas" ? "active" : "")} onClick={handleGas}>
-                            Nồng độ khí gas
-                        </li>
-                        <li className={classNames("light-tab list-inline-item", activeTab === "light" ? "active" : "")} onClick={handleLight}>
-                            Đèn
-                        </li>
-                        <li className={classNames("curtain-tab list-inline-item", activeTab === "curtain" ? "active" : "")} onClick={handleCurtain}>
-                            Rèm cửa
-                        </li>
-                        <li className={classNames("AC-tab list-inline-item", activeTab === "AC" ? "active" : "")} onClick={handleAC}>
-                            Điều hoà
-                        </li>
-                    </ul>
-                </div>
-                
-                <div className={classNames("log-detect col-8 mb-5", activeTab === "detect" ? "active" : "")}>
+            <div className="tabs col-3 offset-1 bg-container text-main">
+                <ul className="">
+                    <li className={classNames("detect-tab", activeTab === "detect" ? "active" : "")} onClick={handleDetect}>
+                        <i class="fa-solid fa-caret-right fa-lg me-3"></i>
+                        Nhận diện người
+                    </li>
+                    <li className={classNames("gas-tab", activeTab === "gas" ? "active" : "")} onClick={handleGas}>
+                        <i class="fa-solid fa-caret-right fa-lg me-3"></i>
+                        Nồng độ khí gas
+                    </li>
+                    <li className={classNames("light-tab", activeTab === "light" ? "active" : "")} onClick={handleLight}>
+                        <i class="fa-solid fa-caret-right fa-lg me-3"></i>
+                        Đèn
+                    </li>
+                    <li className={classNames("curtain-tab", activeTab === "curtain" ? "active" : "")} onClick={handleCurtain}>
+                        <i class="fa-solid fa-caret-right fa-lg me-3"></i>
+                        Rèm cửa
+                    </li>
+                    <li className={classNames("AC-tab", activeTab === "AC" ? "active" : "")} onClick={handleAC}>
+                        <i class="fa-solid fa-caret-right fa-lg me-3"></i>
+                        Điều hoà
+                    </li>
+                </ul>
+            </div>
+            <div className="notify-container bg-container col-11 offset-4">                
+                <div className={classNames("log-detect col-8 my-5", activeTab === "detect" ? "active" : "")}>
                     <table class="table text-container table-striped">
                         <thead>
                             <tr>
@@ -81,7 +85,7 @@ function Notify () {
                         </tbody>
                     </table>
                 </div>
-                <div className={classNames("log-gas col-8 mb-5", activeTab === "gas" ? "active" : "")}>
+                <div className={classNames("log-gas col-8 my-5", activeTab === "gas" ? "active" : "")}>
                     <table class="table text-container table-striped">
                         <thead>
                             <tr>
@@ -92,29 +96,29 @@ function Notify () {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Nồng độ khí gas vượt ngưỡng.</td>
+                                <td>Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.</td>
                                 <td className="td-center">10:15</td>
                                 <td className="td-center">16/02/2023</td>
                             </tr>
                             <tr>
-                                <td>Nồng độ khí gas vượt ngưỡng.</td>
+                                <td>Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.</td>
                                 <td className="td-center">09:49</td>
                                 <td className="td-center">16/02/2023</td>
                             </tr>
                             <tr>
-                                <td>Nồng độ khí gas vượt ngưỡng.</td>
+                                <td>Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.</td>
                                 <td className="td-center">09:26</td>
                                 <td className="td-center">16/02/2023</td>
                             </tr>
                             <tr>
-                                <td>Nồng độ khí gas vượt ngưỡng.</td>
+                                <td>Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.</td>
                                 <td className="td-center">08:37</td>
                                 <td className="td-center">16/02/2023</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div className={classNames("log-light col-8 mb-5", activeTab === "light" ? "active" : "")}>
+                <div className={classNames("log-light col-8 my-5", activeTab === "light" ? "active" : "")}>
                     <table class="table text-container table-striped">
                         <thead>
                             <tr>
@@ -147,7 +151,7 @@ function Notify () {
                         </tbody>
                     </table>
                 </div>
-                <div className={classNames("log-curtain col-8 mb-5", activeTab === "curtain" ? "active" : "")}>
+                <div className={classNames("log-curtain col-8 my-5", activeTab === "curtain" ? "active" : "")}>
                     <table class="table text-container table-striped">
                         <thead>
                             <tr>
@@ -180,7 +184,7 @@ function Notify () {
                         </tbody>
                     </table>
                 </div>
-                <div className={classNames("log-AC col-8 mb-5", activeTab === "AC" ? "active" : "")}>
+                <div className={classNames("log-AC col-8 my-5", activeTab === "AC" ? "active" : "")}>
                     <table class="table text-container table-striped">
                         <thead>
                             <tr>
