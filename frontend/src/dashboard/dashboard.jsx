@@ -4,6 +4,20 @@ import React from "react";
 import "./dashboard.css";
 
 export default function Dashboard () {
+    const [counter, setCounter] = useState(26);
+    const addCountHandler = () => {
+        if (counter === 30) {
+            return;
+        }
+        setCounter(counter + 1);
+    };
+    const removeCountHandler = () => {
+        if (counter === 16) {
+            return;
+        }
+        setCounter(counter - 1);
+    };
+
     const [isActiveOnAC, setIsActiveOnAC] = useState(false);
     const [isActiveAutoAC, setIsActiveAutoAC] = useState(false);
     const [isActiveSettingAC, setIsActiveSettingAC] = useState(false);
@@ -198,13 +212,13 @@ export default function Dashboard () {
                         <div className="bg-container container-blur container-properties">
                             <div className="title p-5 pb-4 text-header">Điều hòa</div>
                             <div className="d-flex align-items-center justify-content-center">
-                                <div className="button me-4">
+                                <div className="button me-4" onClick={removeCountHandler}>
                                     <svg width="55px" height="55px" viewBox="0 0 24 24" fill="none">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12ZM12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM7 11C6.44772 11 6 11.4477 6 12C6 12.5523 6.44772 13 7 13H17C17.5523 13 18 12.5523 18 12C18 11.4477 17.5523 11 17 11H7Z" fill="#2B5C64"/>
                                     </svg>
                                 </div>
-                                <div className="text-main celsius p-4">21°C</div>
-                                <div className="button ms-4">
+                                <div className="text-main celsius p-4">{counter}°C</div>
+                                <div className="button ms-4" onClick={addCountHandler}>
                                     <svg width="5.5rem" height="5.5rem" viewBox="0 0 20 20">
                                         <path fill="#2B5C64" fill-rule="evenodd" d="M10 3a7 7 0 100 14 7 7 0 000-14zm-9 7a9 9 0 1118 0 9 9 0 01-18 0zm14 .069a1 1 0 01-1 1h-2.931V14a1 1 0 11-2 0v-2.931H6a1 1 0 110-2h3.069V6a1 1 0 112 0v3.069H14a1 1 0 011 1z"/>
                                     </svg>
