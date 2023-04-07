@@ -82,9 +82,9 @@ export default function Dashboard ( {API_URL, currentHumi, currentTemp} ) {
     
     return(
         <React.Fragment>
-            <div className="col-4 offset-1">
+            <div className="col-lg-4 offset-1">
                 <div className="row main-container">
-                    <div className="col-6 date-container text-header mb-3">
+                    <div className="col-6 date-container text-header">
                         <div className="bg-container container-blur container-properties text-center">
                             {currentDate.getDate()} <br/>
                             {days[currentDate.getDay()]}
@@ -95,7 +95,7 @@ export default function Dashboard ( {API_URL, currentHumi, currentTemp} ) {
                             <div className="w-25 text-center">{currentDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</div>
                         </div>
                     </div>
-                    <div className="col-12 weather-container mb-3">
+                    <div className="col-12 weather-container">
                         <div className="bg-container container-blur container-properties d-flex align-items-center">
                             <div className="w-50 d-flex justify-content-center">
                                 <svg width="60%" height="60%" viewBox="0 0 32 32" enable-background="new 0 0 32 32">
@@ -150,7 +150,7 @@ export default function Dashboard ( {API_URL, currentHumi, currentTemp} ) {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 weather-container mb-3">
+                    <div className="col-12 weather-container">
                         <div className="bg-container container-blur container-properties d-flex align-items-center">
                             <div className="w-50 d-flex justify-content-center">
                                 <svg width="50%" height="50%" viewBox="0 0 32 32" >
@@ -208,7 +208,7 @@ export default function Dashboard ( {API_URL, currentHumi, currentTemp} ) {
             </div>
             <div className="col">
                 <div className="row g-0 main-container ps-3 pe-3">
-                    <div className="col-4 gas-container mb-3 ps-2 pe-2">
+                    <div className="col-4 gas-container ps-2 pe-2">
                         <div className="bg-container container-blur container-properties">
                             <div className="title text-header p-5">Nồng độ khí gas</div>
                             <div className="mt-4 d-flex justify-content-center">
@@ -229,7 +229,7 @@ export default function Dashboard ( {API_URL, currentHumi, currentTemp} ) {
                             <div className="mt-5 text d-flex justify-content-center">133 ppm</div>
                         </div>
                     </div>
-                    <div className="col-8 gas-container mb-3 ps-2 pe-2">
+                    <div className="col-8 gas-container ps-2 pe-2">
                         <div className="bg-container container-blur container-properties">
                             <div className="title p-5 pb-4 text-header">Điều hòa</div>
                             <div className="d-flex align-items-center justify-content-center">
@@ -310,7 +310,7 @@ export default function Dashboard ( {API_URL, currentHumi, currentTemp} ) {
                             </div>
                         </div>
                     </div>
-                    <div className="col-4 mb-3 rest-container ps-2 pe-2">
+                    <div className="col-4 rest-container ps-2 pe-2">
                         <div className="bg-container container-blur container-properties">
                             <div className="title text-header p-5 pb-4">Nhận diện người</div>
                             <div className="d-flex justify-content-center">
@@ -323,7 +323,7 @@ export default function Dashboard ( {API_URL, currentHumi, currentTemp} ) {
                             <div className="text-center text mt-3">Không phát hiện</div>
                         </div>
                     </div>
-                    <div className="col-4 mb-3 rest-container ps-2 pe-2">
+                    <div className="col-4 rest-container ps-2 pe-2">
                         <div className="bg-container container-blur container-properties">
                             <div className="title text-header p-5">
                                 Đèn
@@ -378,7 +378,7 @@ export default function Dashboard ( {API_URL, currentHumi, currentTemp} ) {
                             </div>
                         </div>
                     </div>
-                    <div className="col-4 mb-3 rest-container ps-2 pe-2">
+                    <div className="col-4 rest-container ps-2 pe-2">
                         <div className="bg-container container-blur container-properties">
                             <div className="title text-header p-5">
                                 Rèm cửa
