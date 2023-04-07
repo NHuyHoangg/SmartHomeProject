@@ -45,7 +45,7 @@ function Profile () {
                             </div>
                             <div class="mb-3 col-5 ms-5">
                                 <label for="phone" class="form-label float-start">Số điện thoại</label>
-                                <input type="text" class="form-control" id="phone" placeholder="0987xxxxxx" 
+                                <input type="number" class="form-control" id="phone" placeholder="0987xxxxxx" 
                                     onChange={e => setPhone(e.target.value)}/>
                             </div>
                             <button type="submit" class="mt-3 p-3 bg-sleepy">Lưu</button>

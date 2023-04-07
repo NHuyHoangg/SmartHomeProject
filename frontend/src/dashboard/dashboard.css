@@ -52,3 +52,15 @@
     cursor: pointer;
     border-radius: 60%;
 }
+
+.main-container .button.active {
+    background-color: var(--color-header);
+}
+
+.width-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 37%;
+    bottom: 5rem;
+}

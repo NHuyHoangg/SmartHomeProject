@@ -24,16 +24,16 @@ function Login ( {setSignup, setLogin} ) {
                         <input type="password" class="form-control" id="password" required
                             onChange={(e)=>setPassword(e.target.value)} />
                     </div>
-                    <div class="alert d-flex align-items-center justify-content-center" role="alert">
+                    {/* <div class="alert d-flex align-items-center justify-content-center" role="alert">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                         <div className="ms-3 py-2">
                             Username hoặc mật khẩu không chính xác
                         </div>
-                    </div>
+                    </div> */}
                     <button type="submit" class="p-3 bg-header" onClick={()=>setLogin(true)}>Đăng nhập</button>
                     <p className="signup-link text-header p-3">Chưa có tài khoản?
-                        <span className="">
-                            <p className="ms-2" onClick={()=>setSignup(true)}>Tạo tài khoản</p>
+                        <span className="ms-2">
+                            <p className="" onClick={()=>setSignup(true)}>Tạo tài khoản</p>
                         </span>
                     </p>
                 </form>

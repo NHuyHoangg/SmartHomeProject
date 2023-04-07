@@ -52,7 +52,7 @@ function Signup ( {setSignup} ) {
                     </div>
                     <div class="mb-3 col-6">
                         <label  for="phone"class="form-label float-start">Số điện thoại</label>
-                        <input type="text" class="form-control" id="phone" required
+                        <input type="number" class="form-control" id="phone" required
                             onChange={e => setPhone(e.target.value)}/>
                     </div>
                     <div class="mb-3 col-6">
@@ -76,8 +76,8 @@ function Signup ( {setSignup} ) {
                     }   
                     <button type="submit" class="p-3 bg-header" onClick={()=>setSignup(false)}>Đăng ký</button>
                     <p className="signup-link text-header p-3">Đã có tài khoản?
-                        <span className="">
-                            <p className="ms-2" onClick={()=>setSignup(false)}>Đăng nhập</p>
+                        <span className="ms-2">
+                            <p className="" onClick={()=>setSignup(false)}>Đăng nhập</p>
                         </span>
                     </p>
                 </form>

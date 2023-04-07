@@ -11,6 +11,7 @@
 #avatar {
     width: 7.5rem;
     height: 7.5rem;
+    cursor: pointer;
 }
 
 #name {
@@ -26,4 +27,5 @@
 #logout {
     width: 5rem;
     height: 5rem;
+    cursor: pointer;
 }
