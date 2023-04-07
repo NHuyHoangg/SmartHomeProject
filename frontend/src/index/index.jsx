@@ -18,15 +18,30 @@ export default function Index( {setLogin, API_URL} ) {
     const [currentGas, setCurrentGas] = useState();
     const [currentLight, setCurrentLight] = useState();
 
-    // setTimeout(()=>{
-    //     setGetapi(!getapi);
-    // }, 10000);
+    setTimeout(()=>{
+        setGetapi(!getapi);
+    }, 10000);
 
     useEffect (()=>{
         axios.get(API_URL+ 'temp')
         .then (response => {
-            if (response)
-                console.log(response)
+            if (response.data)
+                setCurrentTemp(response.data.value);
+        })
+        axios.get(API_URL+ 'humi')
+        .then (response => {
+            if (response.data) 
+                setCurrentHumi(response.data.value);
+        })
+        axios.get(API_URL+ 'gas')
+        .then (response => {
+            if (response.data)
+                setCurrentGas(response.data.value);
+        })
+        axios.get(API_URL+ 'light')
+        .then (response => {
+            if (response.data)
+                setCurrentLight(response.data.value);
         })
     },[getapi])
 
@@ -56,7 +71,7 @@ export default function Index( {setLogin, API_URL} ) {
                     </svg>
                 </div>
             </div>
-            {tab === 0 && <Dashboard API_URL={API_URL}/>}
+            {tab === 0 && <Dashboard API_URL={API_URL} currentHumi={currentHumi} currentTemp={currentTemp}/>}
             {tab === 1 && <Dashboard />}
             {tab === 2 && <Dashboard />}
             {tab === 3 && <Notify />}
