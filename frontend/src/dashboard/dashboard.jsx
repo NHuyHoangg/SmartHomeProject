@@ -1,9 +1,10 @@
 import {useState} from 'react';
 import React from "react";
+import axios from "axios";
 
 import "./dashboard.css";
 
-export default function Dashboard () {
+export default function Dashboard ( {API_URL} ) {
     const [counter, setCounter] = useState(26);
     const addCountHandler = () => {
         if (counter === 30) {
@@ -28,7 +29,11 @@ export default function Dashboard () {
     const [isActiveControlCurtain, setIsActiveControlCurtain] = useState(false);
 
     const handleClickOnAC = () => {
-        setIsActiveOnAC(current => !current);
+        axios.get(API_URL+ 'fan-switch')
+        .then (response => {
+            if (response)
+                setIsActiveOnAC(current => !current);
+        })
     };
     const handleClickAutoAC = () => {
         setIsActiveAutoAC(current => !current);
@@ -43,7 +48,11 @@ export default function Dashboard () {
         setIsActiveAutoLight(current => !current);
     };
     const handleClickOnCurtain = () => {
-        setIsActiveOnCurtain(current => !current);
+        axios.get(API_URL+ 'rem-switch')
+        .then (response => {
+            if (response)
+                setIsActiveOnCurtain(current => !current);
+        })
     };
     const handleClickAutoCurtain = () => {
         setIsActiveAutoCurtain(current => !current);

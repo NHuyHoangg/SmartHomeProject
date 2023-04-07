@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 import "./index.css";
 
@@ -7,9 +8,27 @@ import Dashboard from "../dashboard/dashboard";
 import Profile from "../profile/profile"
 import Notify from "../notify/notify";
 
-export default function Index( {setLogin} ) { 
+export default function Index( {setLogin, API_URL} ) {
 
     const [tab, setTab] = useState(0);
+
+    const [getapi, setGetapi] = useState(true);
+    const [currentTemp, setCurrentTemp] = useState();
+    const [currentHumi, setCurrentHumi] = useState();
+    const [currentGas, setCurrentGas] = useState();
+    const [currentLight, setCurrentLight] = useState();
+
+    // setTimeout(()=>{
+    //     setGetapi(!getapi);
+    // }, 10000);
+
+    useEffect (()=>{
+        axios.get(API_URL+ 'temp')
+        .then (response => {
+            if (response)
+                console.log(response)
+        })
+    },[getapi])
 
     return (
         <div className="row g-0" id="index">
@@ -37,7 +56,7 @@ export default function Index( {setLogin} ) {
                     </svg>
                 </div>
             </div>
-            {tab === 0 && <Dashboard />}
+            {tab === 0 && <Dashboard API_URL={API_URL}/>}
             {tab === 1 && <Dashboard />}
             {tab === 2 && <Dashboard />}
             {tab === 3 && <Notify />}
