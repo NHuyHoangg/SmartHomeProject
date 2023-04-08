@@ -188,7 +188,7 @@ export default function Dashboard ( {API_URL, currentHumi, currentTemp} ) {
                                             <g><path d="M20,24c0,2.2-1.8,4-4,4s-4-1.8-4-4c0-1.9,1.3-3.4,3-3.9V13c0-0.5,0.5-1,1-1s1,0.5,1,1v7.1    C18.7,20.6,20,22.1,20,24z" fill="#EDB544"/></g>
                                         </g>
                                     </svg>
-                                    <div className="ms-4">{currentTemp}°C</div>
+                                    <div className="ms-4">{Math.round(currentTemp)}°C</div>
                                 </div>
                                 <div className=" ms-4 d-flex align-items-center justify-content-start">
                                     <svg width="20%" height="20%" viewBox="0 0 1024 1024">
@@ -199,7 +199,7 @@ export default function Dashboard ( {API_URL, currentHumi, currentTemp} ) {
                                             <path d="M614.9 956.1C433.5 956.1 286 808.5 286 627.2c0-173.4 283.4-532.4 295.5-547.6 5.8-7.3 14.5-11.6 23.8-11.7 9.3-0.1 18.1 3.9 24.1 11 2 2.3 49 58.2 106.8 136.6 10.1 13.8 7.2 33.2-6.6 43.3-13.8 10.1-33.2 7.2-43.3-6.6-31.8-43.2-60.6-79.8-79.9-103.7C517 266.1 347.9 512.3 347.9 627.2c0 147.2 119.8 267 267 267s267-119.8 267-267c0-29.7-13.2-87.9-76.4-196.2-8.6-14.8-3.6-33.7 11.2-42.3 14.8-8.6 33.7-3.6 42.3 11.2 57.1 97.9 84.8 172.2 84.8 227.4 0 181.3-147.6 328.8-328.9 328.8z" fill="#054d85"></path>
                                         </g>
                                     </svg>
-                                    <div className="ms-4">{currentHumi}%</div>
+                                    <div className="ms-4">{Math.round(currentHumi)}%</div>
                                 </div>
                             </div>
                         </div>

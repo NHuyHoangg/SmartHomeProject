@@ -82,8 +82,8 @@ body{
 	background-image: url("img/background1.jpg");
 
 	/* Full height */
-	/* height: 100vh; */
-	position: fixed;
+	height: 100vh;
+	/* position: fixed; */
 	top: 0;
 	left: 0;
 	overflow-y: scroll;

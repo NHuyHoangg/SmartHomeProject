@@ -18,6 +18,10 @@ export default function Index( {setLogin, API_URL} ) {
     const [currentGas, setCurrentGas] = useState();
     const [currentLight, setCurrentLight] = useState();
 
+    const [currentOutTemp, setCurrentOutTemp] = useState();
+    const [currentOutHumi, setCurrentOutHumi] = useState();
+    const [currentWeatherCode, setCurrentWeatherCode] = useState();
+
     setTimeout(()=>{
         setGetapi(!getapi);
     }, 10000);
@@ -42,6 +46,14 @@ export default function Index( {setLogin, API_URL} ) {
         .then (response => {
             if (response.data)
                 setCurrentLight(response.data.value);
+        })
+        axios.get(`https://api.open-meteo.com/v1/forecast?latitude=10.82&longitude=106.63&hourly=relativehumidity_2m&current_weather=true&forecast_days=1&timezone=Asia%2FBangkok`)
+        .then (response => {
+            if (response.data) {
+                setCurrentOutTemp(response.data.current_weather.temperature)
+                setCurrentWeatherCode(response.data.current_weather.weathercode)
+                setCurrentOutHumi(response.data.hourly.relativehumidity_2m)
+            }
         })
     },[getapi])
 
