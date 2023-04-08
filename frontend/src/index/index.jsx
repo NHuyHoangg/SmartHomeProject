@@ -9,7 +9,7 @@ import Profile from "../profile/profile"
 import Notify from "../notify/notify";
 
 export default function Index( {setLogin, API_URL} ) {
-
+  
     const [tab, setTab] = useState(0);
 
     const [getapi, setGetapi] = useState(true);
@@ -83,7 +83,19 @@ export default function Index( {setLogin, API_URL} ) {
                     </svg>
                 </div>
             </div>
-            {tab === 0 && <Dashboard API_URL={API_URL} currentHumi={currentHumi} currentTemp={currentTemp}/>}
+            {
+                tab === 0 && 
+                <Dashboard 
+                    API_URL={API_URL} 
+                    currentHumi={currentHumi} 
+                    currentTemp={currentTemp}
+                    currentGas={currentGas}
+                    currentLight={currentLight}
+                    currentOutTemp={currentOutTemp}
+                    currentOutHumi={currentOutHumi}
+                    currentWeatherCode={currentWeatherCode}
+                />
+            }
             {tab === 1 && <Dashboard />}
             {tab === 2 && <Dashboard />}
             {tab === 3 && <Notify />}
