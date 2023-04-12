@@ -3,6 +3,7 @@ import React from "react";
 import axios from "axios";
 
 import "./dashboard.css";
+import Sunny from '../weatherCode/sunny';
 
 export default function Dashboard ( 
     {API_URL, 
@@ -13,6 +14,8 @@ export default function Dashboard (
 
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     let currentDate = new Date();
+
+    // const day = 
 
     const addCountHandler = () => {
         if (counter === 30) {
@@ -121,14 +124,7 @@ export default function Dashboard (
                             </div>
                             <div className="w-50">
                                 <div className="location ms-5 mb-4 d-flex">
-                                    <svg width="20px" height="20px" viewBox="0 0 512 512">
-                                        <title>location-filled</title>
-                                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <g id="location-outline" fill="#222C34" transform="translate(106.666667, 42.666667)">
-                                                <path d="M149.333333,7.10542736e-15 C231.807856,7.10542736e-15 298.666667,66.8588107 298.666667,149.333333 C298.666667,176.537017 291.413333,202.026667 278.683512,224.008666 C270.196964,238.663333 227.080238,313.32711 149.333333,448 C71.5864284,313.32711 28.4697022,238.663333 19.9831547,224.008666 C7.25333333,202.026667 2.84217094e-14,176.537017 2.84217094e-14,149.333333 C2.84217094e-14,66.8588107 66.8588107,7.10542736e-15 149.333333,7.10542736e-15 Z M149.333333,85.3333333 C113.987109,85.3333333 85.3333333,113.987109 85.3333333,149.333333 C85.3333333,184.679557 113.987109,213.333333 149.333333,213.333333 C184.679557,213.333333 213.333333,184.679557 213.333333,149.333333 C213.333333,113.987109 184.679557,85.3333333 149.333333,85.3333333 Z" id="Combined-Shape"></path>
-                                            </g>
-                                        </g>
-                                    </svg>
+                                    <Sunny size="20px"/>
                                     
                                     <div className="ms-2">Ngoài trời</div>      
                                 </div>
@@ -141,7 +137,8 @@ export default function Dashboard (
                                     </svg>
                                     <div className="ms-4">{
                                         currentOutTemp === '--'? 
-                                        currentOutTemp: Math.round(currentOutTemp)}°C</div>
+                                        currentOutTemp: Math.round(currentOutTemp)}°C
+                                    </div>
                                 </div>
                                 <div className=" ms-4 d-flex align-items-center justify-content-start">
                                     <svg width="20%" height="20%" viewBox="0 0 1024 1024">
@@ -154,7 +151,8 @@ export default function Dashboard (
                                     </svg>
                                     <div className="ms-4">{
                                         currentOutHumi === '--'? 
-                                        currentOutHumi :currentOutHumi[currentDate.getHours()]}%</div>
+                                        currentOutHumi :currentOutHumi[currentDate.getHours()]}%
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +195,10 @@ export default function Dashboard (
                                             <g><path d="M20,24c0,2.2-1.8,4-4,4s-4-1.8-4-4c0-1.9,1.3-3.4,3-3.9V13c0-0.5,0.5-1,1-1s1,0.5,1,1v7.1    C18.7,20.6,20,22.1,20,24z" fill="#EDB544"/></g>
                                         </g>
                                     </svg>
-                                    <div className="ms-4">{Math.round(currentTemp)}°C</div>
+                                    <div className="ms-4">{
+                                        currentTemp === '--'? 
+                                        currentTemp: Math.round(currentTemp)}°C
+                                    </div>
                                 </div>
                                 <div className=" ms-4 d-flex align-items-center justify-content-start">
                                     <svg width="20%" height="20%" viewBox="0 0 1024 1024">
@@ -208,7 +209,10 @@ export default function Dashboard (
                                             <path d="M614.9 956.1C433.5 956.1 286 808.5 286 627.2c0-173.4 283.4-532.4 295.5-547.6 5.8-7.3 14.5-11.6 23.8-11.7 9.3-0.1 18.1 3.9 24.1 11 2 2.3 49 58.2 106.8 136.6 10.1 13.8 7.2 33.2-6.6 43.3-13.8 10.1-33.2 7.2-43.3-6.6-31.8-43.2-60.6-79.8-79.9-103.7C517 266.1 347.9 512.3 347.9 627.2c0 147.2 119.8 267 267 267s267-119.8 267-267c0-29.7-13.2-87.9-76.4-196.2-8.6-14.8-3.6-33.7 11.2-42.3 14.8-8.6 33.7-3.6 42.3 11.2 57.1 97.9 84.8 172.2 84.8 227.4 0 181.3-147.6 328.8-328.9 328.8z" fill="#054d85"></path>
                                         </g>
                                     </svg>
-                                    <div className="ms-4">{Math.round(currentHumi)}%</div>
+                                    <div className="ms-4">{
+                                        currentHumi === '--'? 
+                                        currentHumi: Math.round(currentHumi)}%
+                                    </div>
                                 </div>
                             </div>
                         </div>

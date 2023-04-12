@@ -13,15 +13,15 @@ export default function Index( {setLogin, API_URL} ) {
     const [tab, setTab] = useState(0);
 
     const [getapi, setGetapi] = useState(true);
-    const [currentTemp, setCurrentTemp] = useState();
-    const [currentHumi, setCurrentHumi] = useState();
-    const [currentGas, setCurrentGas] = useState();
-    const [currentLight, setCurrentLight] = useState();
+    const [currentTemp, setCurrentTemp] = useState('--');
+    const [currentHumi, setCurrentHumi] = useState('--');
+    const [currentGas, setCurrentGas] = useState('--');
+    const [currentLight, setCurrentLight] = useState('--');
 
     const [getWeatherapi, setGetWeatherapi] = useState(true);
     const [currentOutTemp, setCurrentOutTemp] = useState('--');
     const [currentOutHumi, setCurrentOutHumi] = useState('--');
-    const [currentWeatherCode, setCurrentWeatherCode] = useState('--');
+    const [currentWeatherCode, setCurrentWeatherCode] = useState(0);
 
     setTimeout(()=>{
         setGetapi(!getapi);
