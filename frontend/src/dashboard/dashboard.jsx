@@ -4,6 +4,17 @@ import axios from "axios";
 
 import "./dashboard.css";
 import Sunny from '../weatherCode/sunny';
+import Drizzle from '../weatherCode/drizzle';
+import SlightRain from '../weatherCode/slight-rain';
+import FoggyNight from '../weatherCode/foggy-night';
+import CloudyDay from '../weatherCode/cloudy-day';
+import CloudyNight from '../weatherCode/cloudy-night';
+import SlightRainDay from '../weatherCode/slight-rain-day';
+import SlightRainNight from '../weatherCode/slight-rain-night';
+import ClearNight from '../weatherCode/clear-night';
+import Cloudy from '../weatherCode/cloudy';
+import FoggyDay from '../weatherCode/foggy-day';
+import ViolentRain from '../weatherCode/violent-rain'
 
 export default function Dashboard ( 
     {API_URL, 

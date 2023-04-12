@@ -1,4 +1,4 @@
-export default function Sunny( {size} ) {
+export default function Clear ({size} ) {
     return (
         <svg width={size} height={size} viewBox="0 0 512 512">
             <title>location-filled</title>
