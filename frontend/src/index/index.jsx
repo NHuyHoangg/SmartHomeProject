@@ -18,13 +18,18 @@ export default function Index( {setLogin, API_URL} ) {
     const [currentGas, setCurrentGas] = useState();
     const [currentLight, setCurrentLight] = useState();
 
-    const [currentOutTemp, setCurrentOutTemp] = useState();
-    const [currentOutHumi, setCurrentOutHumi] = useState();
-    const [currentWeatherCode, setCurrentWeatherCode] = useState();
+    const [getWeatherapi, setGetWeatherapi] = useState(true);
+    const [currentOutTemp, setCurrentOutTemp] = useState('--');
+    const [currentOutHumi, setCurrentOutHumi] = useState('--');
+    const [currentWeatherCode, setCurrentWeatherCode] = useState('--');
 
     setTimeout(()=>{
         setGetapi(!getapi);
     }, 10000);
+
+    setTimeout(()=>{
+        setGetWeatherapi(!getWeatherapi);
+    }, 300000);
 
     useEffect (()=>{
         axios.get(API_URL+ 'temp')
@@ -47,6 +52,9 @@ export default function Index( {setLogin, API_URL} ) {
             if (response.data)
                 setCurrentLight(response.data.value);
         })
+    },[getapi])
+
+    useEffect(()=>{
         axios.get(`https://api.open-meteo.com/v1/forecast?latitude=10.82&longitude=106.63&hourly=relativehumidity_2m&current_weather=true&forecast_days=1&timezone=Asia%2FBangkok`)
         .then (response => {
             if (response.data) {
@@ -55,7 +63,7 @@ export default function Index( {setLogin, API_URL} ) {
                 setCurrentOutHumi(response.data.hourly.relativehumidity_2m)
             }
         })
-    },[getapi])
+    },[getWeatherapi])
 
     return (
         <div className="row g-0" id="index">
