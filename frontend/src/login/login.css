@@ -1,20 +1,9 @@
-/* .Login {
-    background-image: url("img/background2.jpg");
-    background-size: cover;
-    height: 100vh;
-    position: relative;
-} */
-
 .Login .alert {
-    font-size: 16px;
+    font-size: 1.6rem;
     background-color: #B30000;
     color: white;
     border-radius: 10px;
     /* height: 12%; */
-}
-
-.Login .alert svg {
-    width: 80px;
 }
 
 .Login .login-to {
@@ -29,27 +18,27 @@
 
 .Login h1 {
     font-weight: 900;
-    font-size: 48px;
+    font-size: 4.8rem;
 }
 
 .Login .login-to svg {
-    width: 120px;
-    margin-right: 12px;
+    width: 12rem;
+    margin-right: 1rem;
 }
 
 .Login h2 {
     font-weight: 700;
-    font-size: 32px;
+    font-size: 3.2rem;
 }
 
 .Login .form-label {
     font-weight: 700;
-    font-size: 20px;
+    font-size: 2rem;
 }
 
 .Login .form-control {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 1.6rem;
     line-height: 2;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
@@ -63,7 +52,7 @@
     width: 100%;
     color: white;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 2rem;
     border-radius: 10px;
     border: none;
     box-shadow: inset 0 0 0 0 #ff8e62;
@@ -83,7 +72,7 @@
 
 .Login p {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 1.6rem;
 }
 
 .Login span p:hover {
