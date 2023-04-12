@@ -3,6 +3,18 @@ import React from "react";
 import axios from "axios";
 
 import "./dashboard.css";
+import Clear  from "../weatherCode/clear"
+import ClearNight from '../weatherCode/clear-night';
+import CloudyDay from '../weatherCode/cloudy-day';
+import CloudyNight from '../weatherCode/cloudy-night';
+import FoggyDay from '../weatherCode/foggy-day';
+import FoggyNight from '../weatherCode/foggy-night';
+import SlightRainDay from '../weatherCode/slight-rain-day';
+import SlightRainNight from '../weatherCode/slight-rain-night';
+import Cloudy from '../weatherCode/cloudy';
+import Drizzle from '../weatherCode/drizzle';
+import SlightRain from '../weatherCode/slight-rain';
+import ViolentRain from '../weatherCode/violent-rain'
 
 export default function Dashboard ( 
     {API_URL, 
@@ -81,6 +93,37 @@ export default function Dashboard (
         setIsActiveControlCurtain(current => !current);
     };
     
+    const exportWeatherIcon = () => {
+        const size = '60%';
+        
+        switch (currentWeatherCode) {
+            case 2:
+                return currentDate.getHours() < 18 ? <CloudyDay size={size} />: <CloudyNight size={size}/>;
+            case 3: 
+                return <Cloudy size={size}/>;
+            case 45: 
+            case 48: 
+                return currentDate.getHours() < 18 ? <FoggyDay size={size} />: <FoggyNight size={size}/>;
+            case 51: 
+            case 53: 
+            case 55: 
+                return currentDate.getHours() < 18 ? <SlightRainDay size={size} />: <SlightRainNight size={size}/>;
+            case 61: 
+            case 80: 
+                return <Drizzle size={size}/>;
+            case 63: 
+            case 81: 
+                return <SlightRain size={size}/>;
+            case 65: 
+            case 82: 
+                return <ViolentRain size={size}/>;
+            case 0: 
+            case 1: 
+            default:
+                return currentDate.getHours() < 18 ? <Clear size={size} />: <ClearNight size={size}/>;
+        }
+    }
+    
     function classNames(...args) {
         return args.filter(Boolean).join(' ')
     }
@@ -103,21 +146,7 @@ export default function Dashboard (
                     <div className="col-12 weather-container">
                         <div className="bg-container container-blur container-properties d-flex align-items-center">
                             <div className="w-50 d-flex justify-content-center">
-                                <svg width="60%" height="60%" viewBox="0 0 32 32" enable-background="new 0 0 32 32">
-                                    <g id="Layer_21">
-                                        <g><path d="M26,16c0,5.5-4.5,10-10,10S6,21.5,6,16S10.5,6,16,6S26,10.5,26,16z" fill="#EDB544"/></g>
-                                        <g>
-                                            <path d="M16,1c-0.6,0-1,0.4-1,1v2c0,0.6,0.4,1,1,1s1-0.4,1-1V2C17,1.4,16.6,1,16,1z" fill="#F29E7D"/>
-                                            <path d="M16,27c-0.6,0-1,0.4-1,1v2c0,0.6,0.4,1,1,1s1-0.4,1-1v-2C17,27.4,16.6,27,16,27z" fill="#F29E7D"/>
-                                            <path d="M30,15h-2c-0.6,0-1,0.4-1,1s0.4,1,1,1h2c0.6,0,1-0.4,1-1S30.6,15,30,15z" fill="#F29E7D"/>
-                                            <path d="M4,15H2c-0.6,0-1,0.4-1,1s0.4,1,1,1h2c0.6,0,1-0.4,1-1S4.6,15,4,15z" fill="#F29E7D"/>
-                                            <path d="M25.2,5.4l-1.4,1.4c-0.4,0.4-0.4,1,0,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3l1.4-1.4    c0.4-0.4,0.4-1,0-1.4S25.6,5,25.2,5.4z" fill="#F29E7D"/>
-                                            <path d="M6.8,23.8l-1.4,1.4c-0.4,0.4-0.4,1,0,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3l1.4-1.4    c0.4-0.4,0.4-1,0-1.4S7.2,23.4,6.8,23.8z" fill="#F29E7D"/>
-                                            <path d="M6.8,5.4C6.4,5,5.8,5,5.4,5.4s-0.4,1,0,1.4l1.4,1.4C7,8.4,7.3,8.5,7.5,8.5S8,8.4,8.2,8.2    c0.4-0.4,0.4-1,0-1.4L6.8,5.4z" fill="#F29E7D"/>
-                                            <path d="M25.2,23.8c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l1.4,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3    c0.4-0.4,0.4-1,0-1.4L25.2,23.8z" fill="#F29E7D"/>
-                                        </g>
-                                    </g>
-                                </svg>
+                                {exportWeatherIcon(currentWeatherCode)}
                             </div>
                             <div className="w-50">
                                 <div className="location ms-5 mb-4 d-flex">
@@ -129,7 +158,6 @@ export default function Dashboard (
                                             </g>
                                         </g>
                                     </svg>
-                                    
                                     <div className="ms-2">Ngoài trời</div>      
                                 </div>
                                 <div className="ms-4 d-flex align-items-center justify-content-start mb-3">
@@ -139,7 +167,10 @@ export default function Dashboard (
                                             <g><path d="M20,24c0,2.2-1.8,4-4,4s-4-1.8-4-4c0-1.9,1.3-3.4,3-3.9V13c0-0.5,0.5-1,1-1s1,0.5,1,1v7.1    C18.7,20.6,20,22.1,20,24z" fill="#EDB544"/></g>
                                         </g>
                                     </svg>
-                                    <div className="ms-4">{Math.round(currentOutTemp)}°C</div>
+                                    <div className="ms-4">{
+                                        currentOutTemp === '--'? 
+                                        currentOutTemp: Math.round(currentOutTemp)}°C
+                                    </div>
                                 </div>
                                 <div className=" ms-4 d-flex align-items-center justify-content-start">
                                     <svg width="20%" height="20%" viewBox="0 0 1024 1024">
@@ -150,7 +181,10 @@ export default function Dashboard (
                                             <path d="M614.9 956.1C433.5 956.1 286 808.5 286 627.2c0-173.4 283.4-532.4 295.5-547.6 5.8-7.3 14.5-11.6 23.8-11.7 9.3-0.1 18.1 3.9 24.1 11 2 2.3 49 58.2 106.8 136.6 10.1 13.8 7.2 33.2-6.6 43.3-13.8 10.1-33.2 7.2-43.3-6.6-31.8-43.2-60.6-79.8-79.9-103.7C517 266.1 347.9 512.3 347.9 627.2c0 147.2 119.8 267 267 267s267-119.8 267-267c0-29.7-13.2-87.9-76.4-196.2-8.6-14.8-3.6-33.7 11.2-42.3 14.8-8.6 33.7-3.6 42.3 11.2 57.1 97.9 84.8 172.2 84.8 227.4 0 181.3-147.6 328.8-328.9 328.8z" fill="#054d85"></path>
                                         </g>
                                     </svg>
-                                    <div className="ms-4">{currentOutHumi[currentDate.getHours()]}%</div>
+                                    <div className="ms-4">{
+                                        currentOutHumi === '--'? 
+                                        currentOutHumi :currentOutHumi[currentDate.getHours()]}%
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +227,10 @@ export default function Dashboard (
                                             <g><path d="M20,24c0,2.2-1.8,4-4,4s-4-1.8-4-4c0-1.9,1.3-3.4,3-3.9V13c0-0.5,0.5-1,1-1s1,0.5,1,1v7.1    C18.7,20.6,20,22.1,20,24z" fill="#EDB544"/></g>
                                         </g>
                                     </svg>
-                                    <div className="ms-4">{Math.round(currentTemp)}°C</div>
+                                    <div className="ms-4">{
+                                        currentTemp === '--'? 
+                                        currentTemp: Math.round(currentTemp)}°C
+                                    </div>
                                 </div>
                                 <div className=" ms-4 d-flex align-items-center justify-content-start">
                                     <svg width="20%" height="20%" viewBox="0 0 1024 1024">
@@ -204,7 +241,10 @@ export default function Dashboard (
                                             <path d="M614.9 956.1C433.5 956.1 286 808.5 286 627.2c0-173.4 283.4-532.4 295.5-547.6 5.8-7.3 14.5-11.6 23.8-11.7 9.3-0.1 18.1 3.9 24.1 11 2 2.3 49 58.2 106.8 136.6 10.1 13.8 7.2 33.2-6.6 43.3-13.8 10.1-33.2 7.2-43.3-6.6-31.8-43.2-60.6-79.8-79.9-103.7C517 266.1 347.9 512.3 347.9 627.2c0 147.2 119.8 267 267 267s267-119.8 267-267c0-29.7-13.2-87.9-76.4-196.2-8.6-14.8-3.6-33.7 11.2-42.3 14.8-8.6 33.7-3.6 42.3 11.2 57.1 97.9 84.8 172.2 84.8 227.4 0 181.3-147.6 328.8-328.9 328.8z" fill="#054d85"></path>
                                         </g>
                                     </svg>
-                                    <div className="ms-4">{Math.round(currentHumi)}%</div>
+                                    <div className="ms-4">{
+                                        currentHumi === '--'? 
+                                        currentHumi: Math.round(currentHumi)}%
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -231,7 +271,7 @@ export default function Dashboard (
                                     </g>
                                 </svg>
                             </div>
-                            <div className="mt-5 text d-flex justify-content-center">133 ppm</div>
+                            <div className="mt-5 text d-flex justify-content-center">{currentGas} ppm</div>
                         </div>
                     </div>
                     <div className="col-8 gas-container ps-2 pe-2">
