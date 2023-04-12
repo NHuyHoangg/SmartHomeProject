@@ -3,7 +3,6 @@ import React from "react";
 import axios from "axios";
 
 import "./dashboard.css";
-import Sunny from '../weatherCode/sunny';
 
 export default function Dashboard ( 
     {API_URL, 
@@ -14,8 +13,6 @@ export default function Dashboard (
 
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     let currentDate = new Date();
-
-    // const day = 
 
     const addCountHandler = () => {
         if (counter === 30) {
@@ -84,6 +81,37 @@ export default function Dashboard (
         setIsActiveControlCurtain(current => !current);
     };
     
+    const exportWeatherIcon = () => {
+        const size = '60%';
+        
+        switch (currentWeatherCode) {
+            case 2:
+                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+            case 3: 
+                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+            case 45: 
+            case 48: 
+                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+            case 51: 
+            case 53: 
+            case 55: 
+                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+            case 61: 
+            case 80: 
+                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+            case 63: 
+            case 81: 
+                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+            case 65: 
+            case 82: 
+                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+            case 0: 
+            case 1: 
+            default:
+                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+        }
+    }
+    
     function classNames(...args) {
         return args.filter(Boolean).join(' ')
     }
@@ -106,26 +134,18 @@ export default function Dashboard (
                     <div className="col-12 weather-container">
                         <div className="bg-container container-blur container-properties d-flex align-items-center">
                             <div className="w-50 d-flex justify-content-center">
-                                <svg width="60%" height="60%" viewBox="0 0 32 32" enable-background="new 0 0 32 32">
-                                    <g id="Layer_21">
-                                        <g><path d="M26,16c0,5.5-4.5,10-10,10S6,21.5,6,16S10.5,6,16,6S26,10.5,26,16z" fill="#EDB544"/></g>
-                                        <g>
-                                            <path d="M16,1c-0.6,0-1,0.4-1,1v2c0,0.6,0.4,1,1,1s1-0.4,1-1V2C17,1.4,16.6,1,16,1z" fill="#F29E7D"/>
-                                            <path d="M16,27c-0.6,0-1,0.4-1,1v2c0,0.6,0.4,1,1,1s1-0.4,1-1v-2C17,27.4,16.6,27,16,27z" fill="#F29E7D"/>
-                                            <path d="M30,15h-2c-0.6,0-1,0.4-1,1s0.4,1,1,1h2c0.6,0,1-0.4,1-1S30.6,15,30,15z" fill="#F29E7D"/>
-                                            <path d="M4,15H2c-0.6,0-1,0.4-1,1s0.4,1,1,1h2c0.6,0,1-0.4,1-1S4.6,15,4,15z" fill="#F29E7D"/>
-                                            <path d="M25.2,5.4l-1.4,1.4c-0.4,0.4-0.4,1,0,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3l1.4-1.4    c0.4-0.4,0.4-1,0-1.4S25.6,5,25.2,5.4z" fill="#F29E7D"/>
-                                            <path d="M6.8,23.8l-1.4,1.4c-0.4,0.4-0.4,1,0,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3l1.4-1.4    c0.4-0.4,0.4-1,0-1.4S7.2,23.4,6.8,23.8z" fill="#F29E7D"/>
-                                            <path d="M6.8,5.4C6.4,5,5.8,5,5.4,5.4s-0.4,1,0,1.4l1.4,1.4C7,8.4,7.3,8.5,7.5,8.5S8,8.4,8.2,8.2    c0.4-0.4,0.4-1,0-1.4L6.8,5.4z" fill="#F29E7D"/>
-                                            <path d="M25.2,23.8c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l1.4,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3    c0.4-0.4,0.4-1,0-1.4L25.2,23.8z" fill="#F29E7D"/>
-                                        </g>
-                                    </g>
-                                </svg>
+                                {exportWeatherIcon(currentWeatherCode)}
                             </div>
                             <div className="w-50">
                                 <div className="location ms-5 mb-4 d-flex">
-                                    <Sunny size="20px"/>
-                                    
+                                    <svg width="20px" height="20px" viewBox="0 0 512 512">
+                                        <title>location-filled</title>
+                                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <g id="location-outline" fill="#222C34" transform="translate(106.666667, 42.666667)">
+                                                <path d="M149.333333,7.10542736e-15 C231.807856,7.10542736e-15 298.666667,66.8588107 298.666667,149.333333 C298.666667,176.537017 291.413333,202.026667 278.683512,224.008666 C270.196964,238.663333 227.080238,313.32711 149.333333,448 C71.5864284,313.32711 28.4697022,238.663333 19.9831547,224.008666 C7.25333333,202.026667 2.84217094e-14,176.537017 2.84217094e-14,149.333333 C2.84217094e-14,66.8588107 66.8588107,7.10542736e-15 149.333333,7.10542736e-15 Z M149.333333,85.3333333 C113.987109,85.3333333 85.3333333,113.987109 85.3333333,149.333333 C85.3333333,184.679557 113.987109,213.333333 149.333333,213.333333 C184.679557,213.333333 213.333333,184.679557 213.333333,149.333333 C213.333333,113.987109 184.679557,85.3333333 149.333333,85.3333333 Z" id="Combined-Shape"></path>
+                                            </g>
+                                        </g>
+                                    </svg>
                                     <div className="ms-2">Ngoài trời</div>      
                                 </div>
                                 <div className="ms-4 d-flex align-items-center justify-content-start mb-3">
