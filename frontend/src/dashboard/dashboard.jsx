@@ -3,17 +3,17 @@ import React from "react";
 import axios from "axios";
 
 import "./dashboard.css";
-import Sunny from '../weatherCode/sunny';
-import Drizzle from '../weatherCode/drizzle';
-import SlightRain from '../weatherCode/slight-rain';
-import FoggyNight from '../weatherCode/foggy-night';
+import Clear  from "../weatherCode/clear"
+import ClearNight from '../weatherCode/clear-night';
 import CloudyDay from '../weatherCode/cloudy-day';
 import CloudyNight from '../weatherCode/cloudy-night';
+import FoggyDay from '../weatherCode/foggy-day';
+import FoggyNight from '../weatherCode/foggy-night';
 import SlightRainDay from '../weatherCode/slight-rain-day';
 import SlightRainNight from '../weatherCode/slight-rain-night';
-import ClearNight from '../weatherCode/clear-night';
 import Cloudy from '../weatherCode/cloudy';
-import FoggyDay from '../weatherCode/foggy-day';
+import Drizzle from '../weatherCode/drizzle';
+import SlightRain from '../weatherCode/slight-rain';
 import ViolentRain from '../weatherCode/violent-rain'
 
 export default function Dashboard ( 
@@ -98,29 +98,29 @@ export default function Dashboard (
         
         switch (currentWeatherCode) {
             case 2:
-                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+                return currentDate.getHours() < 18 ? <CloudyDay size={size} />: <CloudyNight size={size}/>;
             case 3: 
-                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+                return <Cloudy size={size}/>;
             case 45: 
             case 48: 
-                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+                return currentDate.getHours() < 18 ? <FoggyDay size={size} />: <FoggyNight size={size}/>;
             case 51: 
             case 53: 
             case 55: 
-                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+                return currentDate.getHours() < 18 ? <SlightRainDay size={size} />: <SlightRainNight size={size}/>;
             case 61: 
             case 80: 
-                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+                return <Drizzle size={size}/>;
             case 63: 
             case 81: 
-                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+                return <SlightRain size={size}/>;
             case 65: 
             case 82: 
-                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+                return <ViolentRain size={size}/>;
             case 0: 
             case 1: 
             default:
-                return currentDate.getHours() < 18 ? <Clear size={size} />: <Night size={size}/>;
+                return currentDate.getHours() < 18 ? <Clear size={size} />: <ClearNight size={size}/>;
         }
     }
     
