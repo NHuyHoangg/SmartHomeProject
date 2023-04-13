@@ -73,6 +73,8 @@
     overflow-y: auto;
     left: 50%;
     transform: translate(-50%, 0);
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .notify-container .log-detect.active::-webkit-scrollbar,
@@ -80,17 +82,7 @@
 .notify-container .log-light.active::-webkit-scrollbar,
 .notify-container .log-curtain.active::-webkit-scrollbar,
 .notify-container .log-AC.active::-webkit-scrollbar {
-    width: 6px;
-    background-color: var(--color-container);
-}
-
-.notify-container .log-detect.active::-webkit-scrollbar-thumb,
-.notify-container .log-gas.active::-webkit-scrollbar-thumb,
-.notify-container .log-light.active::-webkit-scrollbar-thumb,
-.notify-container .log-curtain.active::-webkit-scrollbar-thumb,
-.notify-container .log-AC.active::-webkit-scrollbar-thumb {
-    background-color: #32383D;
-    border-radius: 10px;
+    width: 8px;
 }
 
 .notify-container table {

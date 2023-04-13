@@ -52,7 +52,7 @@ function Notify () {
                 </ul>
             </div>
             <div className="notify-container bg-container col-11 offset-4">                
-                <div className={classNames("log-detect col-8 my-5", activeTab === "detect" ? "active" : "")}>
+                <div className={classNames("log-detect col-10 my-5",activeTab === "detect" ? "active" : "")}>
                     <table class="table text-container table-striped">
                         <thead>
                             <tr>
@@ -85,7 +85,7 @@ function Notify () {
                         </tbody>
                     </table>
                 </div>
-                <div className={classNames("log-gas col-8 my-5", activeTab === "gas" ? "active" : "")}>
+                <div className={classNames("log-gas col-10 my-5",activeTab === "gas" ? "active" : "")}>
                     <table class="table text-container table-striped">
                         <thead>
                             <tr>
@@ -118,7 +118,7 @@ function Notify () {
                         </tbody>
                     </table>
                 </div>
-                <div className={classNames("log-light col-8 my-5", activeTab === "light" ? "active" : "")}>
+                <div className={classNames("log-light col-10 my-5",activeTab === "light" ? "active" : "")}>
                     <table class="table text-container table-striped">
                         <thead>
                             <tr>
@@ -151,7 +151,7 @@ function Notify () {
                         </tbody>
                     </table>
                 </div>
-                <div className={classNames("log-curtain col-8 my-5", activeTab === "curtain" ? "active" : "")}>
+                <div className={classNames("log-curtain col-10 my-5",activeTab === "curtain" ? "active" : "")}>
                     <table class="table text-container table-striped">
                         <thead>
                             <tr>
@@ -184,7 +184,7 @@ function Notify () {
                         </tbody>
                     </table>
                 </div>
-                <div className={classNames("log-AC col-8 my-5", activeTab === "AC" ? "active" : "")}>
+                <div className={classNames("log-AC col-10 my-5",activeTab === "AC" ? "active" : "")}>
                     <table class="table text-container table-striped">
                         <thead>
                             <tr>
