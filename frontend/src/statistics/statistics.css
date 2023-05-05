@@ -1,0 +1,153 @@
+/* .Notify {
+    background-image: url('../assets/img/background1.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+} */
+
+.notify-container {
+    width: 65.67%;
+    backdrop-filter: blur(7.5px);
+    border-radius: 20px;
+    position: absolute;
+    top: 15%;
+    margin-right: 20px;
+    height: 82%;
+}
+
+.Notify .tabs {
+    width: 24%;
+    backdrop-filter: blur(7.5px);
+    border-radius: 20px;
+    position: absolute;
+    top: 15%;
+    height: 82%;
+}
+
+.Notify ul {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.Notify li {
+    backdrop-filter: blur(7.5px);
+    font-size: 2rem;
+    padding: 2rem;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 3px solid var(--color-main);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.Notify li:hover {
+    background-color: var(--color-container);
+}
+
+.Notify li.active {
+    color: var( --color-background);
+    background-color: var(--color-header);
+    border: 3px solid var(--color-header)
+}
+
+.notify-container .log-detect,
+.notify-container .log-gas,
+.notify-container .log-light,
+.notify-container .log-curtain,
+.notify-container .log-AC {
+    display: none;
+}
+
+.notify-container .log-detect.active,
+.notify-container .log-gas.active,
+.notify-container .log-light.active,
+.notify-container .log-curtain.active,
+.notify-container .log-AC.active {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.notify-container .log-detect.active::-webkit-scrollbar,
+.notify-container .log-gas.active::-webkit-scrollbar,
+.notify-container .log-light.active::-webkit-scrollbar,
+.notify-container .log-curtain.active::-webkit-scrollbar,
+.notify-container .log-AC.active::-webkit-scrollbar {
+    width: 8px;
+}
+
+.notify-container table {
+    font-size: 2rem;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+}
+
+.notify-container thead {
+    font-weight: 700;
+    color: var(--color-main);
+}
+
+.notify-container tbody {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.notify-container .td-center {
+    text-align: center;
+    width: 20%;
+}
+
+.notify-container th,
+.notify-container td {
+    padding: 2rem;
+    border-right: 1px solid var(--color-container);
+}
+
+.notify-container th {
+    background-color: var(--color-container);
+    border: 1px solid var(--color-main);
+}
+
+.notify-container tbody tr:nth-child(odd) 
+{
+    background-color: var(--color-header);
+}
+
+.notify-container tbody tr:nth-child(even) 
+{
+    background-color: var(--color-sleepy);
+}
+ 
+.notify-container td:first-child {
+    border-left-style:solid;
+    border-top-left-radius:20px;
+    border-bottom-left-radius:20px;
+}
+ 
+.notify-container td:last-child {
+    border-right-style:solid;
+    border-bottom-right-radius:20px;
+    border-top-right-radius:20px;
+}
+
+.notify-container th:first-child {
+    border-left-style:solid;
+    border-top-left-radius:20px;
+    border-bottom-left-radius:20px;
+}
+ 
+.notify-container th:last-child {
+    border-right-style:solid;
+    border-bottom-right-radius:20px;
+    border-top-right-radius:20px;
+}

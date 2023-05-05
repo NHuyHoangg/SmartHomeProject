@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./notify.css";
 
 function Notify () {
     
     const [activeTab, setActiveTab] = useState("detect");
+
+    const [getLog, setGetLog] = useState(true);
+
+    // setTimeout(()=>{
+    //     setGetLog(!getLog);
+    // }, 5000);
+
+    useEffect(()=>{
+       
+    },[getLog])
 
     const handleDetect = () => {
         setActiveTab("detect");

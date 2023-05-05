@@ -8,6 +8,7 @@ import Sidebar from "../sidebar/sidebar";
 import Dashboard from "../dashboard/dashboard";
 import Profile from "../profile/profile"
 import Notify from "../notify/notify";
+import Statistics from "../statistics/statistics";
 import Loading from "../loading/loading";
 
 export default function Index( {setLogin, API_URL} ) {
@@ -27,13 +28,29 @@ export default function Index( {setLogin, API_URL} ) {
     const [currentOutHumi, setCurrentOutHumi] = useState('--');
     const [currentWeatherCode, setCurrentWeatherCode] = useState(0);
 
+    const [tempData, setTempData] = useState();
+    const [humiData, setHumiData] = useState();
+
     setTimeout(()=>{
         setGetapi(!getapi);
-    }, 10000);
+    }, 5000);
 
     setTimeout(()=>{
         setGetWeatherapi(!getWeatherapi);
     }, 300000);
+
+    useEffect (()=>{
+        axios.get(API_URL+ 'tempChart')
+        .then (response => {
+            if (response.data)
+                setTempData(response.data.data);
+        })
+        axios.get(API_URL+ 'humiChart')
+        .then (response => {
+            if (response.data)
+                setHumiData(response.data.data);
+        })
+    },[])
 
     useEffect (()=>{
         axios.get(API_URL+ 'temp')
@@ -112,8 +129,8 @@ export default function Index( {setLogin, API_URL} ) {
                         setLoading = {setLoading}
                     />
                 }
-                {tab === 1 && <Dashboard />}
-                {tab === 2 && <Dashboard />}
+                {/* {tab === 1 && <Dashboard />} */}
+                {tab === 2 && <Statistics API_URL={API_URL} tempData={tempData} humiData={humiData}/>}
                 {tab === 3 && <Notify />}
                 {tab === 4 && <Profile />}
             </React.Fragment>
