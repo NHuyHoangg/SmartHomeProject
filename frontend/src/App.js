@@ -9,17 +9,17 @@ function App() {
 
     const API_URL = "https://iot-backend-dhl.vercel.app/";
 
-    const [user, setUser] = useState();
-    const [login, setLogin] = useState(false);
-    const [signup, setSignup] = useState(false);
+    // const [user, setUser] = useState();
+    // const [login, setLogin] = useState(false);
+    // const [signup, setSignup] = useState(false);
     const [openWarning, setOpenWarning] = useState(false);
 
     return (
         <div className="App">
-            {signup &&  <Signup setUser={setUser} setSignup={setSignup}/>}
-            {!login && !signup && <Login setUser={setUser} setSignup={setSignup} setLogin={setLogin}/>}
-            {login && !openWarning && <Index setOpenWarning={setOpenWarning} setLogin={setLogin} API_URL={API_URL}/>}
-            {login && openWarning && <Warning setOpenWarning={setOpenWarning}/>}
+            {/* {signup &&  <Signup setUser={setUser} setSignup={setSignup}/>} */}
+            {/* {!login && !signup && <Login setUser={setUser} setSignup={setSignup} setLogin={setLogin}/>} */}
+            {!openWarning && <Index setOpenWarning={setOpenWarning} API_URL={API_URL}/>}
+            {openWarning && <Warning setOpenWarning={setOpenWarning}/>}
         </div>
     )
 }

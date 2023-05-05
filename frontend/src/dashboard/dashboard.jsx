@@ -19,11 +19,11 @@ import ViolentRain from '../weatherCode/violent-rain'
 export default function Dashboard ( 
     {API_URL, 
     currentHumi, currentTemp, currentGas, currentLight, 
-    currentOutTemp, currentOutHumi, currentWeatherCode} ) {
+    currentOutTemp, currentOutHumi, currentWeatherCode, setLoading} ) {
     
     const [counter, setCounter] = useState(26);
 
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     let currentDate = new Date();
 
     const addCountHandler = () => {
@@ -49,10 +49,12 @@ export default function Dashboard (
     const [isActiveControlCurtain, setIsActiveControlCurtain] = useState(false);
 
     const handleClickOnAC = () => {
+        setLoading(true);
         axios.get(API_URL+ 'fan-switch')
         .then (response => {
             if (response)
                 setIsActiveOnAC(current => !current);
+                setLoading(false);
         })
     };
     const handleClickAutoAC = () => {
@@ -62,6 +64,7 @@ export default function Dashboard (
         setIsActiveSettingAC(current => !current);
     };
     const handleClickOnLight = () => {
+        setLoading(true);
         axios.get(API_URL+ 'led-1-switch')
         .then (response => {
             if (response)
@@ -71,6 +74,7 @@ export default function Dashboard (
                         axios.get(API_URL+ 'led-3-switch')
                             .then (response => {
                                 setIsActiveOnLight(current => !current);
+                                setLoading(false);
                             })
                     })
                 }
@@ -80,10 +84,12 @@ export default function Dashboard (
         setIsActiveAutoLight(current => !current);
     };
     const handleClickOnCurtain = () => {
+        setLoading(true);
         axios.get(API_URL+ 'rem-switch')
         .then (response => {
             if (response)
                 setIsActiveOnCurtain(current => !current);
+                setLoading(false);
         })
     };
     const handleClickAutoCurtain = () => {
@@ -134,8 +140,9 @@ export default function Dashboard (
                 <div className="row main-container">
                     <div className="col-6 date-container text-header">
                         <div className="bg-container container-blur container-properties text-center">
-                            {currentDate.getDate()} <br/>
                             {days[currentDate.getDay()]}
+                            <br/>
+                            {currentDate.getMonth()}/{currentDate.getDate()}
                         </div>
                     </div>
                     <div className="col-6 date-container text-header">
