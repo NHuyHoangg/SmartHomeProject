@@ -19,7 +19,11 @@ import ViolentRain from '../weatherCode/violent-rain'
 export default function Dashboard ( 
     {API_URL, 
     currentHumi, currentTemp, currentGas, currentLight, 
-    currentOutTemp, currentOutHumi, currentWeatherCode, setLoading} ) {
+    currentOutTemp, currentOutHumi, currentWeatherCode, setLoading,
+    tempAuto, setTempAuto, lightBulbAuto, setLightBulbAuto, lightCurtainAuto, setLightCurtainAuto,
+    isActiveOnAC, setIsActiveOnAC,
+    isActiveOnCurtain, setIsActiveOnCurtain,
+    isActiveOnLight, setIsActiveOnLight} ) {
     
     const [counter, setCounter] = useState(26);
 
@@ -39,26 +43,21 @@ export default function Dashboard (
         setCounter(counter - 1);
     };
 
-    const [isActiveOnAC, setIsActiveOnAC] = useState(false);
-    const [isActiveAutoAC, setIsActiveAutoAC] = useState(false);
     const [isActiveSettingAC, setIsActiveSettingAC] = useState(false);
-    const [isActiveOnLight, setIsActiveOnLight] = useState(false);
-    const [isActiveAutoLight, setIsActiveAutoLight] = useState(false);
-    const [isActiveOnCurtain, setIsActiveOnCurtain] = useState(false);
-    const [isActiveAutoCurtain, setIsActiveAutoCurtain] = useState(false);
-    const [isActiveControlCurtain, setIsActiveControlCurtain] = useState(false);
+    // const [isActiveControlCurtain, setIsActiveControlCurtain] = useState(false);
 
     const handleClickOnAC = () => {
         setLoading(true);
         axios.get(API_URL+ 'fan-switch')
         .then (response => {
-            if (response)
+            if (response) {
                 setIsActiveOnAC(current => !current);
                 setLoading(false);
+            }
         })
     };
     const handleClickAutoAC = () => {
-        setIsActiveAutoAC(current => !current);
+        setTempAuto(!tempAuto);
     };
     const handleClickSettingAC = () => {
         setIsActiveSettingAC('setting');
@@ -67,37 +66,41 @@ export default function Dashboard (
         setLoading(true);
         axios.get(API_URL+ 'led-1-switch')
         .then (response => {
-            if (response)
-                {
-                    axios.get(API_URL+ 'led-2-switch')
-                    .then (response => {
+            if (response) {
+                axios.get(API_URL+ 'led-2-switch')
+                .then (response => {
+                    if (response) {
                         axios.get(API_URL+ 'led-3-switch')
-                            .then (response => {
+                        .then (response => {
+                            if (response){
                                 setIsActiveOnLight(current => !current);
                                 setLoading(false);
-                            })
-                    })
-                }
+                            }
+                        })
+                    }
+                })
+            }
         })
     };
     const handleClickAutoLight = () => {
-        setIsActiveAutoLight(current => !current);
+        setLightBulbAuto(!lightBulbAuto);
     };
     const handleClickOnCurtain = () => {
         setLoading(true);
         axios.get(API_URL+ 'rem-switch')
         .then (response => {
-            if (response)
+            if (response) {
                 setIsActiveOnCurtain(current => !current);
                 setLoading(false);
+            }
         })
     };
     const handleClickAutoCurtain = () => {
-        setIsActiveAutoCurtain(current => !current);
+        setLightCurtainAuto(!lightCurtainAuto);
     };
-    const handleClickControlCurtain = () => {
-        setIsActiveControlCurtain(current => !current);
-    };
+    // const handleClickControlCurtain = () => {
+    //     setIsActiveControlCurtain(current => !current);
+    // };
     
     const exportWeatherIcon = () => {
         const size = '60%';
@@ -128,12 +131,12 @@ export default function Dashboard (
             default:
                 return currentDate.getHours() < 18 ? <Clear size={size} />: <ClearNight size={size}/>;
         }
-    }
+    };
     
     function classNames(...args) {
         return args.filter(Boolean).join(' ')
     }
-    
+
     return(
         <React.Fragment>
             <div className="col-lg-4 offset-1">
@@ -190,7 +193,7 @@ export default function Dashboard (
                                     </svg>
                                     <div className="ms-4">{
                                         currentOutHumi === '--'? 
-                                        currentOutHumi :Math.round(currentOutHumi)}%
+                                        currentOutHumi :Math.round(currentOutHumi[currentDate.getHours()])}%
                                     </div>
                                 </div>
                             </div>
@@ -260,28 +263,7 @@ export default function Dashboard (
             </div>
             <div className="col">
                 <div className="row g-0 main-container ps-3 pe-3">
-                    <div className="col-4 gas-container ps-2 pe-2">
-                        <div className="bg-container container-blur container-properties">
-                            <div className="title text-header p-5">Nồng độ khí gas</div>
-                            <div className="mt-4 d-flex justify-content-center">
-                                <svg width="50%" height="50%" viewBox="-33 0 255 255">
-                                    <defs>
-                                        <linearGradient id="linear-gradient-1" gradientUnits="userSpaceOnUse" x1="94.141" y1="255" x2="94.141" y2="0.188">
-                                        <stop offset="0" stop-color="#ff4c0d"/>
-                                        <stop offset="1" stop-color="#fc9502"/>
-                                        </linearGradient>
-                                    </defs>
-                                    <g id="fire">
-                                        <path d="M187.899,164.809 C185.803,214.868 144.574,254.812 94.000,254.812 C42.085,254.812 -0.000,211.312 -0.000,160.812 C-0.000,154.062 -0.121,140.572 10.000,117.812 C16.057,104.191 19.856,95.634 22.000,87.812 C23.178,83.513 25.469,76.683 32.000,87.812 C35.851,94.374 36.000,103.812 36.000,103.812 C36.000,103.812 50.328,92.817 60.000,71.812 C74.179,41.019 62.866,22.612 59.000,9.812 C57.662,5.384 56.822,-2.574 66.000,0.812 C75.352,4.263 100.076,21.570 113.000,39.812 C131.445,65.847 138.000,90.812 138.000,90.812 C138.000,90.812 143.906,83.482 146.000,75.812 C148.365,67.151 148.400,58.573 155.999,67.813 C163.226,76.600 173.959,93.113 180.000,108.812 C190.969,137.321 187.899,164.809 187.899,164.809 Z" id="path-1" fill="url(#linear-gradient-1)" fill-rule="evenodd"/>
-                                        <path d="M94.000,254.812 C58.101,254.812 29.000,225.711 29.000,189.812 C29.000,168.151 37.729,155.000 55.896,137.166 C67.528,125.747 78.415,111.722 83.042,102.172 C83.953,100.292 86.026,90.495 94.019,101.966 C98.212,107.982 104.785,118.681 109.000,127.812 C116.266,143.555 118.000,158.812 118.000,158.812 C118.000,158.812 125.121,154.616 130.000,143.812 C131.573,140.330 134.753,127.148 143.643,140.328 C150.166,150.000 159.127,167.390 159.000,189.812 C159.000,225.711 129.898,254.812 94.000,254.812 Z" id="path-2" fill="#fc9502" fill-rule="evenodd"/>
-                                        <path d="M95.000,183.812 C104.250,183.812 104.250,200.941 116.000,223.812 C123.824,239.041 112.121,254.812 95.000,254.812 C77.879,254.812 69.000,240.933 69.000,223.812 C69.000,206.692 85.750,183.812 95.000,183.812 Z" id="path-3" fill="#fce202" fill-rule="evenodd"/>
-                                    </g>
-                                </svg>
-                            </div>
-                            <div className="mt-5 text d-flex justify-content-center">{currentGas} ppm</div>
-                        </div>
-                    </div>
-                    <div className="col-8 gas-container ps-2 pe-2">
+                    <div className="col-12 gas-container ps-2 pe-2">
                         <div className={classNames("no-settingAC bg-container container-blur container-properties", isActiveSettingAC ? "setting" : "")}>
                             <div className="title p-5 pb-4 text-header">Điều hòa</div>
                             <div className="d-flex align-items-center justify-content-center">
@@ -301,7 +283,7 @@ export default function Dashboard (
                                 <div className="col">
                                     <div className="d-flex justify-content-center">
                                         <div className={classNames("button p-3 bg-main", isActiveOnAC ? "active" : "")} onClick={handleClickOnAC}>
-                                            <svg fill="#ffffff" height="4rem" width="4rem" viewBox="0 0 297 297">
+                                            <svg fill="#FFFFFF" height="4.2rem" width="4.2rem" viewBox="0 0 297 297">
                                                 <path d="M293.983,118.572c-0.989-4.833-2.213-9.581-3.659-14.231c-0.362-1.162-0.737-2.319-1.126-3.469
                                                     c-0.778-2.3-1.612-4.575-2.498-6.823c-0.443-1.124-0.9-2.241-1.369-3.352c-1.409-3.331-2.936-6.6-4.576-9.802
                                                     c-1.093-2.134-2.237-4.239-3.429-6.312c-5.96-10.365-13.135-19.943-21.331-28.539c-1.639-1.719-3.319-3.399-5.038-5.038
@@ -338,7 +320,7 @@ export default function Dashboard (
                                 </div>
                                 <div className="col">
                                     <div className="d-flex justify-content-center">
-                                        <div className={classNames("button p-1 bg-main", isActiveAutoAC ? "active" : "")} onClick={handleClickAutoAC}>
+                                        <div className={classNames("button p-1 bg-main", tempAuto ? "active" : "")} onClick={handleClickAutoAC}>
                                             {/* <svg width="5.5rem" height="5.5rem" viewBox="0 0 1024 1024">
                                                 <path d="M826.4 491.5H757l39.7-39.7c8.2-8.2 8.2-21.6 0-29.8s-21.5-8.2-29.8 0l-69.5 69.5h-136l96.2-96.2h98.2c11.6 0 21.1-9.4 21.1-21s-9.4-21.1-21.1-21.1h-56.1l49.1-49.1c8.2-8.2 8.2-21.6 0-29.8s-21.5-8.2-29.8 0l-49 49.1v-56.2c0-11.6-9.4-21.1-21.1-21.1-11.6 0-21.1 9.4-21.1 21.1v98.3l-96.2 96.2v-136l69.5-69.5c8.2-8.2 8.2-21.6 0-29.8s-21.5-8.2-29.8 0l-39.7 39.7v-69.4c0-11.6-9.4-21.1-21.1-21.1s-21.1 9.4-21.1 21.1v69.4l-39.7-39.7c-8.2-8.2-21.5-8.2-29.8 0-8.2 8.2-8.2 21.6 0 29.8l69.5 69.5v136.1l-96.2-96.2v-98.2c0-11.6-9.4-21.1-21.1-21.1s-21.1 9.4-21.1 21v56.2l-49.1-49c-8.2-8.2-21.5-8.2-29.8 0-8.2 8.2-8.2 21.6 0 29.8l49.1 49.1H265c-11.6 0-21.1 9.4-21.1 21.1 0 11.6 9.4 21 21.1 21h98.3l96.2 96.2H323.7L254.3 422c-8.2-8.2-21.5-8.2-29.8 0-8.2 8.2-8.2 21.6 0 29.8l39.7 39.7h-69.4c-11.6 0-21.1 9.4-21.1 21.1s9.4 21.1 21.1 21.1h69.4l-39.7 39.7c-8.2 8.2-8.2 21.6 0 29.8 4.1 4.1 9.5 6.2 14.9 6.2s10.8-2.1 14.9-6.2l69.5-69.5h136.1l-96.2 96.2h-98.3c-11.6 0-21.1 9.4-21.1 21.1s9.4 21.1 21.1 21.1h56.1l-49 49c-8.2 8.2-8.2 21.6 0 29.8 4.1 4.1 9.5 6.2 14.9 6.2s10.8-2.1 14.9-6.2l49-49v56.2c0 11.6 9.4 21.1 21.1 21.1s21.1-9.4 21.1-21.1v-98.3l96.2-96.2v136.1l-69.5 69.5c-8.2 8.2-8.2 21.6 0 29.8s21.5 8.2 29.8 0l39.7-39.7v69.4c0 11.6 9.4 21.1 21.1 21.1s21.1-9.4 21.1-21.1v-69.4l39.7 39.7c4.1 4.1 9.5 6.2 14.9 6.2s10.8-2.1 14.9-6.2c8.2-8.2 8.2-21.6 0-29.8l-69.5-69.5v-136l96.2 96.2v98.2c0 11.6 9.4 21.1 21.1 21.1 11.6 0 21.1-9.4 21.1-21v-56.1l49 49c4.1 4.1 9.5 6.2 14.9 6.2s10.8-2.1 14.9-6.2c8.2-8.2 8.2-21.6 0-29.8L700 672.2h56.2c11.6 0 21.1-9.4 21.1-21.1s-9.4-21.1-21.1-21.1h-98.3l-96.2-96.2h136.1l69.4 69.5c4.1 4.1 9.5 6.2 14.9 6.2s10.8-2.1 14.9-6.2c8.2-8.2 8.2-21.6 0-29.8l-40-39.9h69.4c11.6 0 21.1-9.4 21.1-21.1s-9.5-21-21.1-21z" fill="#FFFFFF" />
                                             </svg> */}
@@ -379,15 +361,23 @@ export default function Dashboard (
                     </div>
                     <div className="col-4 rest-container ps-2 pe-2">
                         <div className="bg-container container-blur container-properties">
-                            {/* <div className="title text-header p-5 pb-4">Nhận diện người</div>
+                            <div className="title text-header p-5">Nồng độ khí gas</div>
                             <div className="d-flex justify-content-center">
-                                <svg width="40%" height="40%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path opacity="0.4" d="M21.0901 21.5C21.0901 21.78 20.8701 22 20.5901 22H3.41016C3.13016 22 2.91016 21.78 2.91016 21.5C2.91016 17.36 6.99015 14 12.0002 14C13.0302 14 14.0302 14.14 14.9502 14.41C14.3602 15.11 14.0002 16.02 14.0002 17C14.0002 17.75 14.2101 18.46 14.5801 19.06C14.7801 19.4 15.0401 19.71 15.3401 19.97C16.0401 20.61 16.9702 21 18.0002 21C19.1202 21 20.1302 20.54 20.8502 19.8C21.0102 20.34 21.0901 20.91 21.0901 21.5Z" fill="#292D32"/>
-                                    <path d="M21.8807 16.04C21.7807 15.65 21.6207 15.26 21.4007 14.91C21.2507 14.65 21.0507 14.4 20.8307 14.17C20.1107 13.45 19.1707 13.06 18.2107 13.01C17.1207 12.94 16.0107 13.34 15.1707 14.17C14.3807 14.96 13.9807 16.01 14.0007 17.06C14.0107 18.06 14.4107 19.06 15.1707 19.83C15.7007 20.36 16.3507 20.71 17.0407 20.87C17.4207 20.97 17.8207 21.01 18.2207 20.98C19.1707 20.94 20.1007 20.56 20.8307 19.83C21.8607 18.8 22.2107 17.35 21.8807 16.04ZM19.6007 18.6C19.3107 18.89 18.8307 18.89 18.5407 18.6L17.9907 18.05L17.4607 18.58C17.1707 18.87 16.6907 18.87 16.4007 18.58C16.1107 18.28 16.1107 17.81 16.4007 17.52L16.9307 16.99L16.4207 16.49C16.1307 16.19 16.1307 15.72 16.4207 15.42C16.7207 15.13 17.1907 15.13 17.4907 15.42L17.9907 15.93L18.5207 15.4C18.8107 15.11 19.2807 15.11 19.5807 15.4C19.8707 15.69 19.8707 16.17 19.5807 16.46L19.0507 16.99L19.6007 17.54C19.8907 17.83 19.8907 18.31 19.6007 18.6Z" fill="#292D32"/>
-                                    <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" fill="#292D32"/>
+                                <svg width="40%" height="40%" viewBox="-33 0 255 255">
+                                    <defs>
+                                        <linearGradient id="linear-gradient-1" gradientUnits="userSpaceOnUse" x1="94.141" y1="255" x2="94.141" y2="0.188">
+                                        <stop offset="0" stop-color="#ff4c0d"/>
+                                        <stop offset="1" stop-color="#fc9502"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <g id="fire">
+                                        <path d="M187.899,164.809 C185.803,214.868 144.574,254.812 94.000,254.812 C42.085,254.812 -0.000,211.312 -0.000,160.812 C-0.000,154.062 -0.121,140.572 10.000,117.812 C16.057,104.191 19.856,95.634 22.000,87.812 C23.178,83.513 25.469,76.683 32.000,87.812 C35.851,94.374 36.000,103.812 36.000,103.812 C36.000,103.812 50.328,92.817 60.000,71.812 C74.179,41.019 62.866,22.612 59.000,9.812 C57.662,5.384 56.822,-2.574 66.000,0.812 C75.352,4.263 100.076,21.570 113.000,39.812 C131.445,65.847 138.000,90.812 138.000,90.812 C138.000,90.812 143.906,83.482 146.000,75.812 C148.365,67.151 148.400,58.573 155.999,67.813 C163.226,76.600 173.959,93.113 180.000,108.812 C190.969,137.321 187.899,164.809 187.899,164.809 Z" id="path-1" fill="url(#linear-gradient-1)" fill-rule="evenodd"/>
+                                        <path d="M94.000,254.812 C58.101,254.812 29.000,225.711 29.000,189.812 C29.000,168.151 37.729,155.000 55.896,137.166 C67.528,125.747 78.415,111.722 83.042,102.172 C83.953,100.292 86.026,90.495 94.019,101.966 C98.212,107.982 104.785,118.681 109.000,127.812 C116.266,143.555 118.000,158.812 118.000,158.812 C118.000,158.812 125.121,154.616 130.000,143.812 C131.573,140.330 134.753,127.148 143.643,140.328 C150.166,150.000 159.127,167.390 159.000,189.812 C159.000,225.711 129.898,254.812 94.000,254.812 Z" id="path-2" fill="#fc9502" fill-rule="evenodd"/>
+                                        <path d="M95.000,183.812 C104.250,183.812 104.250,200.941 116.000,223.812 C123.824,239.041 112.121,254.812 95.000,254.812 C77.879,254.812 69.000,240.933 69.000,223.812 C69.000,206.692 85.750,183.812 95.000,183.812 Z" id="path-3" fill="#fce202" fill-rule="evenodd"/>
+                                    </g>
                                 </svg>
                             </div>
-                            <div className="text-center text mt-3">Không phát hiện</div> */}
+                            <div className="mt-5 text d-flex justify-content-center">{currentGas} ppm</div>
                         </div>
                     </div>
                     <div className="col-4 rest-container ps-2 pe-2">
@@ -429,23 +419,15 @@ export default function Dashboard (
                                 </span>
                             </div>
                             <div className="width-container pe-5">
-                                <svg className={classNames('light-on', isActiveOnLight ? "active" : "")} width="75%" height="75%" viewBox="0 0 24 24">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C12.5523 2 13 2.44772 13 3V4C13 4.55228 12.5523 5 12 5C11.4477 5 11 4.55228 11 4V3C11 2.44772 11.4477 2 12 2Z" fill="#F29E7D"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7071 4.29289C20.0976 4.68342 20.0976 5.31658 19.7071 5.70711L18.7071 6.70711C18.3166 7.09763 17.6834 7.09763 17.2929 6.70711C16.9024 6.31658 16.9024 5.68342 17.2929 5.29289L18.2929 4.29289C18.6834 3.90237 19.3166 3.90237 19.7071 4.29289Z" fill="#F29E7D"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19 12C19 11.4477 19.4477 11 20 11H21C21.5523 11 22 11.4477 22 12C22 12.5523 21.5523 13 21 13H20C19.4477 13 19 12.5523 19 12Z" fill="#F29E7D"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2 12C2 11.4477 2.44772 11 3 11H4C4.55228 11 5 11.4477 5 12C5 12.5523 4.55228 13 4 13H3C2.44772 13 2 12.5523 2 12Z" fill="#F29E7D"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.29289 4.29289C4.68342 3.90237 5.31658 3.90237 5.70711 4.29289L6.70711 5.29289C7.09763 5.68342 7.09763 6.31658 6.70711 6.70711C6.31658 7.09763 5.68342 7.09763 5.29289 6.70711L4.29289 5.70711C3.90237 5.31658 3.90237 4.68342 4.29289 4.29289Z" fill="#F29E7D"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C8.68629 6 6 8.68629 6 12C6 13.6332 6.65387 15.1157 7.71186 16.1966C7.97971 16.4703 8.1241 16.7217 8.16867 16.9444L8.69776 19.5886C8.97833 20.9908 10.2095 22 11.6395 22H12.3605C13.7905 22 15.0217 20.9908 15.3022 19.5886L15.8313 16.9444C15.8759 16.7217 16.0203 16.4703 16.2881 16.1966C17.3461 15.1157 18 13.6332 18 12C18 8.68629 15.3137 6 12 6ZM11 16C10.4477 16 10 16.4477 10 17C10 17.5523 10.4477 18 11 18H13C13.5523 18 14 17.5523 14 17C14 16.4477 13.5523 16 13 16H11Z" fill="#F29E7D"/>
+                                <svg width="76%" height="76%" viewBox="0 0 20 22">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C12.5523 2 13 2.44772 13 3V4C13 4.55228 12.5523 5 12 5C11.4477 5 11 4.55228 11 4V3C11 2.44772 11.4477 2 12 2Z" fill={isActiveOnLight? "#F29E7D" : "#222C34"} />
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7071 4.29289C20.0976 4.68342 20.0976 5.31658 19.7071 5.70711L18.7071 6.70711C18.3166 7.09763 17.6834 7.09763 17.2929 6.70711C16.9024 6.31658 16.9024 5.68342 17.2929 5.29289L18.2929 4.29289C18.6834 3.90237 19.3166 3.90237 19.7071 4.29289Z" fill={isActiveOnLight? "#F29E7D" : "#222C34"} />
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19 12C19 11.4477 19.4477 11 20 11H21C21.5523 11 22 11.4477 22 12C22 12.5523 21.5523 13 21 13H20C19.4477 13 19 12.5523 19 12Z" fill={isActiveOnLight? "#F29E7D" : "#222C34"} />
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2 12C2 11.4477 2.44772 11 3 11H4C4.55228 11 5 11.4477 5 12C5 12.5523 4.55228 13 4 13H3C2.44772 13 2 12.5523 2 12Z" fill={isActiveOnLight? "#F29E7D" : "#222C34"} />
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.29289 4.29289C4.68342 3.90237 5.31658 3.90237 5.70711 4.29289L6.70711 5.29289C7.09763 5.68342 7.09763 6.31658 6.70711 6.70711C6.31658 7.09763 5.68342 7.09763 5.29289 6.70711L4.29289 5.70711C3.90237 5.31658 3.90237 4.68342 4.29289 4.29289Z" fill={isActiveOnLight? "#F29E7D" : "#222C34"} />
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C8.68629 6 6 8.68629 6 12C6 13.6332 6.65387 15.1157 7.71186 16.1966C7.97971 16.4703 8.1241 16.7217 8.16867 16.9444L8.69776 19.5886C8.97833 20.9908 10.2095 22 11.6395 22H12.3605C13.7905 22 15.0217 20.9908 15.3022 19.5886L15.8313 16.9444C15.8759 16.7217 16.0203 16.4703 16.2881 16.1966C17.3461 15.1157 18 13.6332 18 12C18 8.68629 15.3137 6 12 6ZM11 16C10.4477 16 10 16.4477 10 17C10 17.5523 10.4477 18 11 18H13C13.5523 18 14 17.5523 14 17C14 16.4477 13.5523 16 13 16H11Z" fill={isActiveOnLight? "#F29E7D" : "#222C34"} />
                                 </svg> 
-                                <svg className={classNames('light-off', isActiveOnLight ? "active" : "")} width="75%" height="75%" viewBox="0 0 24 24">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C12.5523 2 13 2.44772 13 3V4C13 4.55228 12.5523 5 12 5C11.4477 5 11 4.55228 11 4V3C11 2.44772 11.4477 2 12 2Z" fill="#000000"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7071 4.29289C20.0976 4.68342 20.0976 5.31658 19.7071 5.70711L18.7071 6.70711C18.3166 7.09763 17.6834 7.09763 17.2929 6.70711C16.9024 6.31658 16.9024 5.68342 17.2929 5.29289L18.2929 4.29289C18.6834 3.90237 19.3166 3.90237 19.7071 4.29289Z" fill="#000000"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19 12C19 11.4477 19.4477 11 20 11H21C21.5523 11 22 11.4477 22 12C22 12.5523 21.5523 13 21 13H20C19.4477 13 19 12.5523 19 12Z" fill="#000000"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2 12C2 11.4477 2.44772 11 3 11H4C4.55228 11 5 11.4477 5 12C5 12.5523 4.55228 13 4 13H3C2.44772 13 2 12.5523 2 12Z" fill="#000000"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.29289 4.29289C4.68342 3.90237 5.31658 3.90237 5.70711 4.29289L6.70711 5.29289C7.09763 5.68342 7.09763 6.31658 6.70711 6.70711C6.31658 7.09763 5.68342 7.09763 5.29289 6.70711L4.29289 5.70711C3.90237 5.31658 3.90237 4.68342 4.29289 4.29289Z" fill="#000000"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C8.68629 6 6 8.68629 6 12C6 13.6332 6.65387 15.1157 7.71186 16.1966C7.97971 16.4703 8.1241 16.7217 8.16867 16.9444L8.69776 19.5886C8.97833 20.9908 10.2095 22 11.6395 22H12.3605C13.7905 22 15.0217 20.9908 15.3022 19.5886L15.8313 16.9444C15.8759 16.7217 16.0203 16.4703 16.2881 16.1966C17.3461 15.1157 18 13.6332 18 12C18 8.68629 15.3137 6 12 6ZM11 16C10.4477 16 10 16.4477 10 17C10 17.5523 10.4477 18 11 18H13C13.5523 18 14 17.5523 14 17C14 16.4477 13.5523 16 13 16H11Z" fill="#000000"/>
-                                </svg>   
-                                <div className={classNames("float-end mt-2 button bg-main", isActiveAutoLight ? "active" : "")} onClick={handleClickAutoLight}>
+                                <div className={classNames("float-end mt-2 button bg-main", lightBulbAuto ? "active" : "")} onClick={handleClickAutoLight}>
                                     <svg width="5.2rem" height="5.2rem" viewBox="0 0 24 24">
                                         <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM8.18182 12.0909C8.18182 9.98455 9.89364 8.27273 12 8.27273C12.6427 8.27273 13.2536 8.43182 13.7818 8.71818L14.7109 7.78909C13.9282 7.29273 12.9991 7 12 7C9.18727 7 6.90909 9.27818 6.90909 12.0909H5L7.54545 14.6364L10.0909 12.0909H8.18182ZM16.4545 9.54545L13.9091 12.0909H15.8182C15.8182 14.1973 14.1064 15.9091 12 15.9091C11.3573 15.9091 10.7464 15.75 10.2182 15.4636L9.28909 16.3927C10.0718 16.8891 11.0009 17.1818 12 17.1818C14.8127 17.1818 17.0909 14.9036 17.0909 12.0909H19L16.4545 9.54545Z" fill="#FFFFFF"/>
                                     </svg>
@@ -453,6 +435,20 @@ export default function Dashboard (
                             </div>
                         </div>
                     </div>
+                    {/* <div className="col-4 rest-container ps-2 pe-2">
+                        <div className="bg-container container-blur container-properties">
+                            <div className="title text-header p-5 pb-4">Nhận diện người</div>
+                            <div className="d-flex justify-content-center">
+                                <svg width="40%" height="40%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.4" d="M21.0901 21.5C21.0901 21.78 20.8701 22 20.5901 22H3.41016C3.13016 22 2.91016 21.78 2.91016 21.5C2.91016 17.36 6.99015 14 12.0002 14C13.0302 14 14.0302 14.14 14.9502 14.41C14.3602 15.11 14.0002 16.02 14.0002 17C14.0002 17.75 14.2101 18.46 14.5801 19.06C14.7801 19.4 15.0401 19.71 15.3401 19.97C16.0401 20.61 16.9702 21 18.0002 21C19.1202 21 20.1302 20.54 20.8502 19.8C21.0102 20.34 21.0901 20.91 21.0901 21.5Z" fill="#292D32"/>
+                                    <path d="M21.8807 16.04C21.7807 15.65 21.6207 15.26 21.4007 14.91C21.2507 14.65 21.0507 14.4 20.8307 14.17C20.1107 13.45 19.1707 13.06 18.2107 13.01C17.1207 12.94 16.0107 13.34 15.1707 14.17C14.3807 14.96 13.9807 16.01 14.0007 17.06C14.0107 18.06 14.4107 19.06 15.1707 19.83C15.7007 20.36 16.3507 20.71 17.0407 20.87C17.4207 20.97 17.8207 21.01 18.2207 20.98C19.1707 20.94 20.1007 20.56 20.8307 19.83C21.8607 18.8 22.2107 17.35 21.8807 16.04ZM19.6007 18.6C19.3107 18.89 18.8307 18.89 18.5407 18.6L17.9907 18.05L17.4607 18.58C17.1707 18.87 16.6907 18.87 16.4007 18.58C16.1107 18.28 16.1107 17.81 16.4007 17.52L16.9307 16.99L16.4207 16.49C16.1307 16.19 16.1307 15.72 16.4207 15.42C16.7207 15.13 17.1907 15.13 17.4907 15.42L17.9907 15.93L18.5207 15.4C18.8107 15.11 19.2807 15.11 19.5807 15.4C19.8707 15.69 19.8707 16.17 19.5807 16.46L19.0507 16.99L19.6007 17.54C19.8907 17.83 19.8907 18.31 19.6007 18.6Z" fill="#292D32"/>
+                                    <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" fill="#292D32"/>
+                                </svg>
+                            </div>
+                            <div className="text-center text mt-3">Không phát hiện</div>
+                        </div>
+                    </div> */}
+                    
                     <div className="col-4 rest-container ps-2 pe-2">
                         <div className="bg-container container-blur container-properties">
                             <div className="title text-header p-5">
@@ -492,19 +488,13 @@ export default function Dashboard (
                                 </span>
                             </div>
                             <div className="width-container pe-5">
-                                <svg className={classNames('curtain-on', isActiveOnCurtain ? "active" : "")} fill="#F29E7D" height="75%" width="75%" viewBox="0 0 256 256">
+                                <svg fill={isActiveOnCurtain? "#F29E7D" : "#222C34" } height="75%" width="75%" viewBox="0 0 256 256">
                                     <path id="XMLID_7_" d="M90.6,171.9l26.2-23.7l3.7,4L94.3,176L90.6,171.9z M126,214.4l-3.7-4l26.2-23.7l3.7,4L126,214.4z M94.9,199.4
                                     l70-60l3.5,4.1l-70,60L94.9,199.4z M5.7,1v254h57.4l-0.7-8.4h132.9l-0.7,8.4h56.9V1H5.7z M154,13.5c-0.5,5.2-0.6,12.3-0.6,18.7
                                     c0,12.8,1,25.2,3,36.7h-54.9c1.8-11.5,2.6-22.6,2.6-34.5c0-7.1-0.2-14.6-0.8-20.9H154z M55.4,162.5c20.5-17.2,36.3-46.5,43.8-81
                                     h59.5c7.7,33.5,23.4,62.1,43.5,79l-6.1,73.6H61.3L55.4,162.5z"/>
                                 </svg>
-                                <svg className={classNames('curtain-off', isActiveOnCurtain ? "active" : "")} fill="#222C34" height="75%" width="75%" viewBox="0 0 256 256">
-                                    <path id="XMLID_7_" d="M90.6,171.9l26.2-23.7l3.7,4L94.3,176L90.6,171.9z M126,214.4l-3.7-4l26.2-23.7l3.7,4L126,214.4z M94.9,199.4
-                                    l70-60l3.5,4.1l-70,60L94.9,199.4z M5.7,1v254h57.4l-0.7-8.4h132.9l-0.7,8.4h56.9V1H5.7z M154,13.5c-0.5,5.2-0.6,12.3-0.6,18.7
-                                    c0,12.8,1,25.2,3,36.7h-54.9c1.8-11.5,2.6-22.6,2.6-34.5c0-7.1-0.2-14.6-0.8-20.9H154z M55.4,162.5c20.5-17.2,36.3-46.5,43.8-81
-                                    h59.5c7.7,33.5,23.4,62.1,43.5,79l-6.1,73.6H61.3L55.4,162.5z"/>
-                                </svg>
-                                <div className={classNames("float-end mt-2 button bg-main", isActiveAutoCurtain ? "active" : "")} onClick={handleClickAutoCurtain}>
+                                <div className={classNames("float-end mt-2 button bg-main", lightCurtainAuto ? "active" : "")} onClick={handleClickAutoCurtain}>
                                     <svg width="5.2rem" height="5.2rem" viewBox="0 0 24 24">
                                         <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM8.18182 12.0909C8.18182 9.98455 9.89364 8.27273 12 8.27273C12.6427 8.27273 13.2536 8.43182 13.7818 8.71818L14.7109 7.78909C13.9282 7.29273 12.9991 7 12 7C9.18727 7 6.90909 9.27818 6.90909 12.0909H5L7.54545 14.6364L10.0909 12.0909H8.18182ZM16.4545 9.54545L13.9091 12.0909H15.8182C15.8182 14.1973 14.1064 15.9091 12 15.9091C11.3573 15.9091 10.7464 15.75 10.2182 15.4636L9.28909 16.3927C10.0718 16.8891 11.0009 17.1818 12 17.1818C14.8127 17.1818 17.0909 14.9036 17.0909 12.0909H19L16.4545 9.54545Z" fill="#FFFFFF"/>
                                     </svg>
@@ -514,12 +504,12 @@ export default function Dashboard (
                                         <path d="M20.1 9.2214C18.29 9.2214 17.55 7.9414 18.45 6.3714C18.97 5.4614 18.66 4.3014 17.75 3.7814L16.02 2.7914C15.23 2.3214 14.21 2.6014 13.74 3.3914L13.63 3.5814C12.73 5.1514 11.25 5.1514 10.34 3.5814L10.23 3.3914C9.78 2.6014 8.76 2.3214 7.97 2.7914L6.24 3.7814C5.33 4.3014 5.02 5.4714 5.54 6.3814C6.45 7.9414 5.71 9.2214 3.9 9.2214C2.86 9.2214 2 10.0714 2 11.1214V12.8814C2 13.9214 2.85 14.7814 3.9 14.7814C5.71 14.7814 6.45 16.0614 5.54 17.6314C5.02 18.5414 5.33 19.7014 6.24 20.2214L7.97 21.2114C8.76 21.6814 9.78 21.4014 10.25 20.6114L10.36 20.4214C11.26 18.8514 12.74 18.8514 13.65 20.4214L13.76 20.6114C14.23 21.4014 15.25 21.6814 16.04 21.2114L17.77 20.2214C18.68 19.7014 18.99 18.5314 18.47 17.6314C17.56 16.0614 18.3 14.7814 20.11 14.7814C21.15 14.7814 22.01 13.9314 22.01 12.8814V11.1214C22 10.0814 21.15 9.2214 20.1 9.2214ZM12 15.2514C10.21 15.2514 8.75 13.7914 8.75 12.0014C8.75 10.2114 10.21 8.7514 12 8.7514C13.79 8.7514 15.25 10.2114 15.25 12.0014C15.25 13.7914 13.79 15.2514 12 15.2514Z" fill="#FFFFFF"/>
                                     </svg>
                                 </div> */}
-                                <div className={classNames("float-end p-3 button bg-main", isActiveControlCurtain ? "active" : "")} onClick={handleClickControlCurtain}>
+                                {/* <div className={classNames("float-end p-3 button bg-main", isActiveControlCurtain ? "active" : "")} onClick={handleClickControlCurtain}>
                                     <svg width="3.2rem" height="3.2rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                         <g id="SVGRepo_iconCarrier"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path fill-rule="nonzero" d="M18 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h12zm-1 2H7v16h10V4zm-2 11v2h-2v-2h2zm-4 0v2H9v-2h2zm2-9v2h2v2h-2.001L13 12h-2l-.001-2H9V8h2V6h2z"></path> </g> </g>
                                     </svg>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

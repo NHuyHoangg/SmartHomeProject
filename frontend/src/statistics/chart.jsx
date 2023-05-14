@@ -3,7 +3,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 
 export default class Example extends PureComponent {
-    static demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v';
 
     constructor(props) {
         super(props);
@@ -12,7 +11,8 @@ export default class Example extends PureComponent {
             tempData.push({name: props.data[i][0], value: props.data[i][1]});
         }
         this.state = {
-        data: tempData
+        data: tempData,
+        type: props.type
         // [
         //     {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
         //     {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
@@ -26,7 +26,38 @@ export default class Example extends PureComponent {
     }
 
     render() {
-        const { data } = this.state;
+        const data= this.state.data;
+        const type= this.state.type;
+
+        const chooseColor = (type) => {
+            switch (type) {
+                case 'temp':
+                    return '#EDB544';
+                case 'humi':
+                    return '#222C34';
+                case 'gas':
+                    return '#2B5C64';
+                case 'light':
+                    return '#F29E7D';
+                default:
+                    return '#EDB544';
+            }
+        }
+
+        const rangeYaxis = (type) => {
+            switch (type) {
+                case 'temp':
+                    return [0,45];
+                case 'humi':
+                    return  [0,100];
+                case 'gas':
+                    return [0,5000];
+                case 'light':
+                    return [0,100];
+                default:
+                    return [0,100];
+            }
+        }
 
         return (
         <ResponsiveContainer width="95%" height="90%">
@@ -43,9 +74,13 @@ export default class Example extends PureComponent {
             >
             <CartesianGrid strokeDasharray="4 4" />
             <XAxis dataKey="name" />
-            <YAxis />
+            <YAxis type="number" domain={rangeYaxis(type)} />
             <Tooltip />
-            <Line type="monotone" dataKey="value" stroke="#EDB544" strokeWidth={3} />
+            <Line 
+                type="monotone" 
+                dataKey="value" 
+                stroke={chooseColor(type)} 
+                strokeWidth={3} />
             </LineChart>
         </ResponsiveContainer>
         );

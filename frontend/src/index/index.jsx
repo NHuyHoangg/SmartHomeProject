@@ -14,6 +14,7 @@ import Loading from "../loading/loading";
 export default function Index( {setLogin, API_URL} ) {
   
     const [loading, setLoading] = useState(false);
+    const [first, setFirst] = useState(true);
     
     const [tab, setTab] = useState(0);
 
@@ -30,6 +31,15 @@ export default function Index( {setLogin, API_URL} ) {
 
     const [tempData, setTempData] = useState();
     const [humiData, setHumiData] = useState();
+    const [lightData, setLightData] = useState();
+    const [gasData, setGasData] = useState();
+
+    const [tempAuto, setTempAuto] = useState(true);
+    const [lightBulbAuto, setLightBulbAuto] = useState(true);
+    const [lightCurtainAuto, setLightCurtainAuto] = useState(true);
+    const [isActiveOnAC, setIsActiveOnAC] = useState(false);
+    const [isActiveOnLight, setIsActiveOnLight] = useState(false);
+    const [isActiveOnCurtain, setIsActiveOnCurtain] = useState(false);
 
     setTimeout(()=>{
         setGetapi(!getapi);
@@ -50,28 +60,71 @@ export default function Index( {setLogin, API_URL} ) {
             if (response.data)
                 setHumiData(response.data.data);
         })
+        axios.get(API_URL+ 'lightChart')
+        .then (response => {
+            if (response.data)
+                setLightData(response.data.data);
+        })
+        axios.get(API_URL+ 'GasChart')
+        .then (response => {
+            if (response.data)
+                setGasData(response.data.data);
+        })
     },[])
 
     useEffect (()=>{
-        axios.get(API_URL+ 'temp')
+        if (first) setLoading(true);
+        axios.get(API_URL+ 'all')
         .then (response => {
-            if (response.data)
-                setCurrentTemp(response.data.value);
-        })
-        axios.get(API_URL+ 'humi')
-        .then (response => {
-            if (response.data) 
-                setCurrentHumi(response.data.value);
-        })
-        axios.get(API_URL+ 'gas')
-        .then (response => {
-            if (response.data)
-                setCurrentGas(response.data.value);
-        })
-        axios.get(API_URL+ 'light')
-        .then (response => {
-            if (response.data)
-                setCurrentLight(response.data.value);
+            if (response.data) {
+                setCurrentTemp(response.data[0].value);
+                if (tempAuto && !isActiveOnAC && response.data[0].value > 30) {
+                    axios.get(API_URL+ 'fan-switch')
+                    .then (res => {
+                        if (res) {
+                            setIsActiveOnAC(!isActiveOnAC)
+                        }
+                    })
+                }
+
+                // setTempAuto(response.data[1].value);
+                setCurrentHumi(response.data[3].value);
+
+                setCurrentLight(response.data[4].value);
+                if (lightBulbAuto && !isActiveOnLight && response.data[4].value < 20) {
+                    axios.get(API_URL+ 'led-1-switch')
+                    .then (response => {
+                        if (response) {
+                            axios.get(API_URL+ 'led-2-switch')
+                            .then (response => {
+                                if (response) {
+                                    axios.get(API_URL+ 'led-3-switch')
+                                    .then (response => {
+                                        if (response) {
+                                            setIsActiveOnLight(!isActiveOnLight);
+                                            setLoading(false);
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                if (lightCurtainAuto && !isActiveOnCurtain && response.data[4].value > 50) {
+                    axios.get(API_URL+ 'rem-switch')
+                    .then (response => {
+                        if (response) {
+                            setIsActiveOnCurtain(!isActiveOnCurtain);
+                            setLoading(false);
+                        }
+                    })
+                }
+                setCurrentGas(response.data[8].value);
+                if(first) {
+                    if(loading) setLoading(false);
+                    setFirst(false);
+                }
+            }
         })
     },[getapi])
 
@@ -90,7 +143,7 @@ export default function Index( {setLogin, API_URL} ) {
         <div className="row g-0" id="index">
             <Sidebar tab={tab} setTab={setTab} />
             {
-            // loading ? <Loading />:
+            loading ? <Loading />:
             <React.Fragment>
                 <div className="col-4 offset-8 p-4 d-flex align-items-center" id="username">
                     <div id="avatar" onClick={()=>setTab(4)}>
@@ -126,11 +179,30 @@ export default function Index( {setLogin, API_URL} ) {
                         currentOutTemp={currentOutTemp}
                         currentOutHumi={currentOutHumi}
                         currentWeatherCode={currentWeatherCode}
+                        tempAuto={tempAuto}
+                        setTempAuto={setTempAuto}
+                        lightBulbAuto={lightBulbAuto}
+                        setLightBulbAuto={setLightBulbAuto}
+                        lightCurtainAuto={lightCurtainAuto}
+                        setLightCurtainAuto={setLightCurtainAuto}
                         setLoading = {setLoading}
+                        isActiveOnAC={isActiveOnAC}
+                        setIsActiveOnAC={isActiveOnAC}
+                        isActiveOnCurtain={isActiveOnCurtain}
+                        setIsActiveOnCurtain={setIsActiveOnCurtain}
+                        isActiveOnLight={isActiveOnLight}
+                        setIsActiveOnLight={setIsActiveOnLight}
                     />
                 }
                 {/* {tab === 1 && <Dashboard />} */}
-                {tab === 2 && <Statistics API_URL={API_URL} tempData={tempData} humiData={humiData}/>}
+                {
+                    tab === 2 && 
+                    <Statistics 
+                        tempData={tempData} 
+                        humiData={humiData}
+                        gasData={gasData} 
+                        lightData={lightData} 
+                    />}
                 {tab === 3 && <Notify />}
                 {tab === 4 && <Profile />}
             </React.Fragment>

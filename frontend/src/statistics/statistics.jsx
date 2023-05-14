@@ -1,11 +1,9 @@
-import React, { useState, useEffect} from "react";
+import React, { useState } from "react";
 
-// import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
-import axios from "axios";
 import "./statistics.css";
-// import ChartExample from "./chart";
+import ChartExample from "./chart";
 
-export default function Statistics ( {API_URL, tempData, humiData}) {
+export default function Statistics ( {tempData, humiData, lightData, gasData}) {
     
     const [activeTab, setActiveTab] = useState("temp");
     const handleGas = () => {
@@ -16,6 +14,9 @@ export default function Statistics ( {API_URL, tempData, humiData}) {
     };
     const handleHumi = () => {
         setActiveTab("humi");
+    };
+    const handleLight = () => {
+        setActiveTab("light");
     };
 
     function classNames(...args) {
@@ -38,11 +39,17 @@ export default function Statistics ( {API_URL, tempData, humiData}) {
                         <i class="fa-solid fa-caret-right fa-lg me-3"></i>
                         Nồng độ khí gas
                     </li>
+                    <li className={classNames("light-tab", activeTab === "light" ? "active" : "")} onClick={handleLight}>
+                        <i class="fa-solid fa-caret-right fa-lg me-3"></i>
+                        Cường độ ánh sáng
+                    </li>
                 </ul>
             </div>
             <div className="stat-container bg-container col-11 offset-4">                
-                <ChartExample data={tempData}/>
-                {/* <ChartExample data={humiData}/> */}
+                {activeTab === 'temp' && <ChartExample data={tempData} type={activeTab} />}
+                {activeTab === 'humi' && <ChartExample data={humiData} type={activeTab} />}
+                {activeTab === 'gas' && <ChartExample data={gasData} type={activeTab} />}
+                {activeTab === 'light' && <ChartExample data={lightData} type={activeTab} />}
             </div>
         </div>
     )
