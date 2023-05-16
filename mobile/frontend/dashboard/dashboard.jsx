@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
     } */
 
     button: {
-        borderRadius: '50%',
+        borderRadius: 20,
         border: 'none',
         alignItems: 'center',
         fontWeight: 700,

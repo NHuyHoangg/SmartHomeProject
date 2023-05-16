@@ -19,6 +19,7 @@
     "react-native": "0.71.7",
     "react-native-css-transformer": "^1.2.4",
     "react-native-paper": "^5.7.2",
+    "react-native-svg": "13.4.0",
     "react-native-table-component": "^1.2.2",
     "react-native-web": "~0.18.10"
   },

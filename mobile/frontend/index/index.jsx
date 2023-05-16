@@ -94,7 +94,7 @@ export default function Index({ setLogin, API_URL }) {
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignSelf: 'flex-end', marginBottom: 20, marginTop: 20, marginRight: 10}}>
                         <View style={{ justifyContent: 'center'}} className={styles.name}>
                             <View><Text style={{fontWeight: 700, color: '#2B5C64', fontSize: 15}}>Chúc một ngày tốt lành,</Text></View>
-                            <span><Text style={{fontWeight: 700, color: '#2B5C64', fontSize: 15}}>LƯƠNG HOÀNG</Text></span>
+                            <Text style={{fontWeight: 700, color: '#2B5C64', fontSize: 15}}>LƯƠNG HOÀNG</Text>
                         </View>
                         <View className={styles.avatar} onClick={() => setTab(4)}>
                             <Avatar size={'80'} />
