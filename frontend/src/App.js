@@ -15,11 +15,13 @@ function App() {
     const [openWarning, setOpenWarning] = useState(false);
 
     return (
-        <div className="App">
-            {/* {signup &&  <Signup setUser={setUser} setSignup={setSignup}/>} */}
-            {/* {!login && !signup && <Login setUser={setUser} setSignup={setSignup} setLogin={setLogin}/>} */}
-            {!openWarning && <Index setOpenWarning={setOpenWarning} API_URL={API_URL}/>}
-            {openWarning && <Warning setOpenWarning={setOpenWarning}/>}
+        <div className={"App bg" + (openWarning ? " hidden-scroll": '')}>
+            <div>
+                {/* {signup &&  <Signup setUser={setUser} setSignup={setSignup}/>} */}
+                {/* {!login && !signup && <Login setUser={setUser} setSignup={setSignup} setLogin={setLogin}/>} */}
+                {!openWarning && <Index setOpenWarning={setOpenWarning} API_URL={API_URL}/>}
+                {openWarning && <Warning setOpenWarning={setOpenWarning} API_URL={API_URL}/>}
+            </div>
         </div>
     )
 }

@@ -1,15 +1,12 @@
 .Warning {
     background-color: #B30000;
     height: 100vh;
-}
-
-.Warning video {
-    display: none;
+    overflow-y: scroll;
 }
 
 .Warning svg {
-    height: 256px;
-    width: 256px;
+    height: 30vh;
+    width: 30vh;
     fill: white;
 }
 
@@ -38,4 +35,19 @@
 
 .Warning .btn:hover {
     opacity: 0.9;
+}
+
+.Warning::-webkit-scrollbar {
+	width: 1rem;
+}
+
+/* Track */
+.Warning::-webkit-scrollbar-track {
+	background: none;
+}
+
+/* Handle */
+.Warning::-webkit-scrollbar-thumb {
+	background: var(--color-container);
+	border-radius: 1rem;
 }

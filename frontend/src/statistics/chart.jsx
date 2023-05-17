@@ -51,7 +51,7 @@ export default class Example extends PureComponent {
                 case 'humi':
                     return  [0,100];
                 case 'gas':
-                    return [0,5000];
+                    return [200,10000];
                 case 'light':
                     return [0,100];
                 default:
