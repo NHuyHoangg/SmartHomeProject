@@ -1,0 +1,212 @@
+.main-container {
+    height: 82vh;
+    font-size: 1rem;
+}
+
+.main-container .title {
+    font-size: 2.7em;
+    font-weight: 1000;
+}
+
+.main-container .text {
+    font-size: 2.4em;
+    font-weight: 700;
+    color: #222C34;
+}
+
+.date-container,.weather-container {
+    height: 5em; /* suy luan tu font-size ben duoi */
+    margin-bottom: 12px;
+    font-size: 4em;
+    font-weight: 900;
+}
+
+.container-properties {
+    height: 100%;
+    border-radius: 20px;
+}
+
+.date-container div:first-child{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-container .location {
+    font-size: 0.5em;
+    font-weight: bold;
+}
+
+.gas-container {
+    height: 35.2em;
+    margin-bottom: 13.4px;
+}
+
+.rest-container {
+    height: 25.8em;
+}
+
+.main-container .celsius {
+    font-size: 10em;
+    font-weight: 800;
+}
+
+.main-container .button {
+    cursor: pointer;
+    border-radius: 60%;
+}
+
+.main-container .button.active {
+    background-color: var(--color-header);
+}
+
+.settingAC {
+    display: none;
+}
+
+.no-settingAC.setting {
+    display: none;
+}
+
+.settingAC.setting {
+    display: block;
+}
+
+.settingAC input {
+    float: right;
+    width: 40%;
+    display: inline-block;
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 2;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+}
+
+/* .settingAC input:focus {
+    outline: none !important;
+    border: 1px solid var(--color-header);
+} */
+
+.settingAC button {
+    width: 40%;
+    border-radius: 10px;
+    border: none;
+    margin: 0 auto;
+    font-weight: 700;
+}
+
+.light-on,
+.curtain-on {
+    display: none;
+}
+
+.light-on.active,
+.curtain-on.active {
+    display: inline-block;
+}
+
+.light-off.active,
+.curtain-off.active {
+    display: none;
+}
+
+.width-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 37%;
+    bottom: 5em;
+}
+
+@media only screen and (max-width: 1100px) {
+    .main-container {
+    }
+}
+
+
+
+body{
+	box-sizing: border-box;
+	/* background-color: #F0EAE2; */
+	font-family: 'Nunito', sans-serif;
+	height: 100%;
+}
+
+.bg {
+	/* The image used */
+	background-image: url("../assets/background1.jpg");
+
+	/* Full height */
+	height: 100vh;
+	/* position: fixed; */
+	top: 0;
+	left: 0;
+	overflow-y: scroll;
+
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+:root {
+	--color-sleepy: #EDB544;
+	--color-header: #F29E7D;
+	--color-main: #2B5C64;
+	--color-text: #222C34;
+	--color-container: rgba(255, 255, 255, 0.5);
+	--color-background: #FFFFFF;
+}
+
+.text-sleepy {
+	color: var(--color-sleepy);
+}
+
+.text-header {
+	color: var(--color-header);
+}
+
+.text-main {
+	color: var(--color-main);
+}
+
+.text-text {
+	color: var(--color-text);
+}
+
+.text-container {
+	color: var(--color-container);
+}
+
+.text-background {
+	color: var(--color-background);
+}
+
+.bg-sleepy {
+	background-color: var(--color-sleepy);
+}
+
+.bg-header {
+	background-color: var(--color-header);
+}
+
+.bg-main {
+	background-color: var(--color-main);
+}
+
+.bg-text {
+	background-color: var(--color-text);
+}
+
+.bg-container {
+	background-color: var(--color-container);
+}
+
+.bg-background {
+	background-color: var(--color-background);
+}
+
+.container-blur {
+	backdrop-filter: blur(8px);
+}
