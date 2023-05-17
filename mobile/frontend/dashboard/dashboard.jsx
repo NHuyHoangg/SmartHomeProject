@@ -1,10 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { Image, ImageBackground, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Image, ImageBackground, Button, StyleSheet, Text, TextInput, View, TouchableHighlight, ScrollView } from 'react-native';
 // import style from './dashboard.module.css';
 import React from "react";
 import axios from "axios";
 import { useState } from 'react';
-import { image } from '../assets/background2.jpg'
 
 import Home from '../icon/home';
 import Location from '../icon/loacation';
@@ -35,6 +34,7 @@ import Cloudy from '../icon/cloudy';
 import Drizzle from '../icon/drizzle';
 import SlightRain from '../icon/slight-rain';
 import ViolentRain from '../icon/violent-rain'
+
 
 export default function Dashboard(
     { API_URL,
@@ -118,7 +118,7 @@ export default function Dashboard(
     };
 
     const exportWeatherIcon = () => {
-        const size = '60%';
+        const size = '50';
 
         switch (currentWeatherCode) {
             case 2:
@@ -157,7 +157,7 @@ export default function Dashboard(
             <View className={styles.main_container}>
                 <View className={styles.weather_container}>
                     {exportWeatherIcon(currentWeatherCode)}
-                    <View style={{ paddingLeft: 5 }}>
+                    <View style={{ paddingLeft: 10 }}>
                         <View className={styles.location} style={{ flex: 1, flexDirection: 'row' }}>
                             <Location size={20} />
                             <View>
@@ -185,8 +185,8 @@ export default function Dashboard(
                     </View>
                 </View>
                 <View className={styles.weather_container}>
-                    <Home size={'60%'} />
-                    <View style={{ paddingLeft: 5 }}>
+                    <Home size={'50'} />
+                    <View style={{ paddingLeft: 10 }}>
                         <View style={{ flex: 1, flexDirection: 'row' }}>
                             <Location size={20} />
                             <View>
@@ -221,7 +221,7 @@ export default function Dashboard(
                     <View><Text className={styles.text} style={{ marginTop: 5 }}>{currentGas} ppm</Text></View>
                 </View>
                 <View className={styles.gas_container}>
-                    <Text className={styles.title} style={styles.title}>Ánh sáng</Text>
+                    <Text className={styles.title} style={styles.title}>Cường độ ánh sáng</Text>
                     <Fire size={'60'} />
                     <View><Text className={styles.text} style={{ marginTop: 5 }}>{currentGas} %</Text></View>
                 </View>
@@ -229,68 +229,67 @@ export default function Dashboard(
             <View className={styles.main_container}>
                 <View className={styles.gas_container}>
                     <Text style={styles.title}>Đèn</Text>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', width: '100%', justifyContent: 'space-around' }}>
-                        {isActiveOnLight ? <LightPubOn size={'60'} /> : <LightPubOff size={'60'} />}
-                        <View style={{ flexDirection: 'column' }}>
-                            <View style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveOnLight && styles.active].join(" ")} onClick={handleClickOnLight}>
+                    <View style={{ flexDirection: 'column', alignItems: 'center', width: '100%', justifyContent: 'space-around' }}>
+                        <View style={{ flexDirection: 'row', marginBottom: 5 }}>
+                            <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveOnLight && styles.active]} onPress={handleClickOnLight}>
                                 <On size={'40'} />
-                            </View>
-                            <View style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveAutoLight && styles.active].join(" ")} onClick={handleClickAutoLight}>
+                            </TouchableHighlight>
+                            <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveAutoLight && styles.active]} onPress={handleClickAutoLight}>
                                 <Auto size={'40'} />
-                            </View>
+                            </TouchableHighlight>
                         </View>
+                        {isActiveOnLight ? <LightPubOn size={'60'} /> : <LightPubOff size={'60'} />}
                     </View>
                 </View>
                 <View className={styles.gas_container}>
                     <Text style={styles.title}>Rèm cửa</Text>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', width: '100%', justifyContent: 'space-around' }}>
-                        {isActiveOnCurtain ? <CurtainOn size={'60'} /> : <CurtainOff size={'60'} />}
-                        <View style={{ flexDirection: 'column' }}>
-                            <View style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveOnCurtain && styles.active].join(" ")} onClick={handleClickOnCurtain}>
+                    <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', width: '100%', justifyContent: 'space-around' }}>
+                        <View style={{ flexDirection: 'row', marginBottom: 5 }}>
+                            <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveOnCurtain && styles.active]} onPress={handleClickOnCurtain}>
                                 <On style={{ backgroundColor: '#2B5C64' }} size={'40'} />
-                            </View>
-                            <View style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveAutoCurtain && styles.active].join(" ")} onClick={handleClickAutoCurtain}>
+                            </TouchableHighlight>
+                            <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveAutoCurtain && styles.active]} onPress={handleClickAutoCurtain}>
                                 <Auto size={'40'} />
-                            </View>
-                            <View style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveControlCurtain && styles.active].join(" ")} onClick={handleClickControlCurtain}>
+                            </TouchableHighlight>
+                            <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveControlCurtain && styles.active]} onPress={handleClickControlCurtain}>
                                 <RemoteControler size={'40'} />
-                            </View>
+                            </TouchableHighlight>
                         </View>
+                        {isActiveOnCurtain ? <CurtainOn size={'60'} /> : <CurtainOff size={'60'} />}
                     </View>
                 </View>
             </View>
             {isActiveSettingAC === 'setting' ? '' :
-            
             <View className={styles.main_container}>
                 <View className={styles.gas_container}>
-                    <View style={{ justifyContent: 'center' }} className={[isActiveSettingAC && styles.setting].join(" ")}>
+                    <View style={{ justifyContent: 'center' }} className={[isActiveSettingAC && styles.setting]}>
                         <Text style={styles.title}>Điều hòa</Text>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', padding: 10 }}>
-                            <View className={styles.button} onClick={removeCountHandler}>
+                            <TouchableHighlight underlayColor={'#ffffff'} className={styles.button} onPress={removeCountHandler}>
                                 <CircleMinus size={'30'} />
-                            </View>
+                            </TouchableHighlight>
                             <View style={{ justifyContent: 'center' }} className={[styles.text_main, styles.celsius]}><Text style={{ fontSize: 30 }}>{counter}°C</Text></View>
-                            <View className={styles.button} onClick={addCountHandler}>
+                            <TouchableHighlight underlayColor={'#ffffff'} className={styles.button} onPress={addCountHandler}>
                                 <CirclePlus size={'30'} />
-                            </View>
+                            </TouchableHighlight>
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: 5 }}>
                             <View style={{ alignItems: 'center', padding: 10 }}>
-                                <View style={{ alignContent: 'center' }} className={[styles.button, styles.bg_main, isActiveOnAC && styles.active].join(" ")} onClick={handleClickOnAC}>
-                                    <On className={[styles.button, styles.bg_main, isActiveOnAC && styles.active].join(" ")} onClick={handleClickOnAC} size={'40'} />
-                                </View>
+                                <TouchableHighlight style={{ alignContent: 'center' }} className={[styles.button, styles.bg_main, isActiveOnAC && styles.active]} onPress={handleClickOnAC}>
+                                    <On className={[styles.button, styles.bg_main, isActiveOnAC && styles.active]} size={'40'} />
+                                </TouchableHighlight>
                                 <Text style={{marginTop: 10}} className={styles.text}>Bật/Tắt</Text>
                             </View>
                             <View style={{ alignItems: 'center', padding: 10 }}>
-                                <View style={{ alignContent: 'center' }} className={[styles.button, styles.bg_main, isActiveAutoAC && styles.active].join(" ")} onClick={handleClickAutoAC}>
-                                    <AutoAC size={'40'} />
-                                </View>
+                                <TouchableHighlight style={{ alignContent: 'center' }} className={[styles.button, styles.bg_main, isActiveAutoAC && styles.active]} onPress={handleClickAutoAC}>
+                                    <AutoAC className={[styles.button, styles.bg_main, isActiveOnAC && styles.active]} size={'40'} />
+                                </TouchableHighlight>
                                 <Text style={{marginTop: 10}} className={styles.text}>Tự động</Text>
                             </View>
                             <View style={{ alignItems: 'center', padding: 10 }}>
-                                <View style={{ alignContent: 'center' }} className={[styles.button, styles.bg_main, isActiveSettingAC && styles.active].join(" ")} onClick={handleClickSettingAC}>
+                                <TouchableHighlight style={{ alignContent: 'center' }} className={[styles.button, styles.bg_main, isActiveSettingAC && styles.active]} onPress={handleClickSettingAC}>
                                     <Setting size={'40'} />
-                                </View>
+                                </TouchableHighlight>
                                 <Text style={{marginTop: 10}} className={styles.text}>Cài đặt</Text>
                             </View>
                         </View>
@@ -323,6 +322,7 @@ export default function Dashboard(
 
 const styles = StyleSheet.create({
     main_container: {
+        flex: 1,
         flexDirection: 'row',
         maxWidth: '100%',
         justifyContent: 'space-between',
@@ -330,8 +330,8 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 20,
-        fontWeight: 1000,
+        fontSize: 18,
+        fontWeight: 900,
         color: '#F29E7D',
         textAlign: 'center',
         marginBottom: 5,
@@ -344,6 +344,7 @@ const styles = StyleSheet.create({
     },
 
     weather_container: {
+        flex: 1,
         fontWeight: 900,
         flex: 1, 
         flexDirection: 'row',
@@ -371,7 +372,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         borderRadius: 20,
         padding: 10,
         marginLeft: 5,
@@ -432,7 +433,6 @@ const styles = StyleSheet.create({
     body: {
         boxSizing: 'border-box',
         /* background-color: #F0EAE2, */
-        fontFamily: 'Nunito',
         height: '100%',
     },
 
