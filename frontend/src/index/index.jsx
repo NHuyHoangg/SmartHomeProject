@@ -11,7 +11,8 @@ import Notify from "../notify/notify";
 import Statistics from "../statistics/statistics";
 import Loading from "../loading/loading";
 
-export default function Index( {setLogin, API_URL} ) {
+
+export default function Index( {setOpenWarning, API_URL} ) {
   
     const [loading, setLoading] = useState(false);
     const [first, setFirst] = useState(true);
@@ -35,11 +36,14 @@ export default function Index( {setLogin, API_URL} ) {
     const [gasData, setGasData] = useState();
 
     const [tempAuto, setTempAuto] = useState(true);
-    const [lightBulbAuto, setLightBulbAuto] = useState(true);
     const [lightCurtainAuto, setLightCurtainAuto] = useState(true);
     const [isActiveOnAC, setIsActiveOnAC] = useState(false);
-    const [isActiveOnLight, setIsActiveOnLight] = useState(false);
+    const [isActiveOnLight1, setIsActiveOnLight1] = useState(false);
+    const [isActiveOnLight2, setIsActiveOnLight2] = useState(false);
+    const [isActiveOnLight3, setIsActiveOnLight3] = useState(false);
     const [isActiveOnCurtain, setIsActiveOnCurtain] = useState(false);
+
+    const [messages, setMessages] = useState();
 
     setTimeout(()=>{
         setGetapi(!getapi);
@@ -78,54 +82,44 @@ export default function Index( {setLogin, API_URL} ) {
         .then (response => {
             if (response.data) {
                 setCurrentTemp(response.data[0].value);
-                if (tempAuto && !isActiveOnAC && response.data[0].value > 30) {
-                    axios.get(API_URL+ 'fan-switch')
-                    .then (res => {
-                        if (res) {
-                            setIsActiveOnAC(!isActiveOnAC)
-                        }
-                    })
+                if (response.data[2].value === 'FAN-ON') {
+                    setIsActiveOnAC(true);
                 }
 
-                // setTempAuto(response.data[1].value);
                 setCurrentHumi(response.data[3].value);
 
                 setCurrentLight(response.data[4].value);
-                if (lightBulbAuto && !isActiveOnLight && response.data[4].value < 20) {
-                    axios.get(API_URL+ 'led-1-switch')
-                    .then (response => {
-                        if (response) {
-                            axios.get(API_URL+ 'led-2-switch')
-                            .then (response => {
-                                if (response) {
-                                    axios.get(API_URL+ 'led-3-switch')
-                                    .then (response => {
-                                        if (response) {
-                                            setIsActiveOnLight(!isActiveOnLight);
-                                            setLoading(false);
-                                        }
-                                    })
-                                }
-                            })
-                        }
-                    })
+                if (response.data[1].value === 'REM-ON') {
+                    setIsActiveOnCurtain(true);
                 }
-                if (lightCurtainAuto && !isActiveOnCurtain && response.data[4].value > 50) {
-                    axios.get(API_URL+ 'rem-switch')
-                    .then (response => {
-                        if (response) {
-                            setIsActiveOnCurtain(!isActiveOnCurtain);
-                            setLoading(false);
-                        }
-                    })
+                
+
+                if (response.data[1].value === 'LED1-ON') {
+                    setIsActiveOnLight1(true);
                 }
-                setCurrentGas(response.data[8].value);
-                if(first) {
-                    if(loading) setLoading(false);
-                    setFirst(false);
+                if (response.data[5].value === 'LED2-ON') {
+                    setIsActiveOnLight2(true);
                 }
+
+                setCurrentGas(response.data[7].value);
+                if (response.data[7].value >= 2000) {
+                    setOpenWarning(true);
+                }
+
+                setIsActiveOnLight3(response.data[9].value);
+            }
+            if (first) {
+                setLoading(false);
+                setFirst(false);
             }
         })
+
+        axios.get(API_URL + 'getMessage')
+        .then (response => {
+            if (response.data)
+                setMessages(response.data);
+        })
+
     },[getapi])
 
     useEffect(()=>{
@@ -181,17 +175,19 @@ export default function Index( {setLogin, API_URL} ) {
                         currentWeatherCode={currentWeatherCode}
                         tempAuto={tempAuto}
                         setTempAuto={setTempAuto}
-                        lightBulbAuto={lightBulbAuto}
-                        setLightBulbAuto={setLightBulbAuto}
                         lightCurtainAuto={lightCurtainAuto}
                         setLightCurtainAuto={setLightCurtainAuto}
                         setLoading = {setLoading}
                         isActiveOnAC={isActiveOnAC}
-                        setIsActiveOnAC={isActiveOnAC}
+                        setIsActiveOnAC={setIsActiveOnAC}
                         isActiveOnCurtain={isActiveOnCurtain}
                         setIsActiveOnCurtain={setIsActiveOnCurtain}
-                        isActiveOnLight={isActiveOnLight}
-                        setIsActiveOnLight={setIsActiveOnLight}
+                        isActiveOnLight1={isActiveOnLight1}
+                        setIsActiveOnLight1={setIsActiveOnLight1}
+                        isActiveOnLight2={isActiveOnLight2}
+                        setIsActiveOnLight2={setIsActiveOnLight2}
+                        isActiveOnLight3={isActiveOnLight3}
+                        setIsActiveOnLight3={setIsActiveOnLight3}
                     />
                 }
                 {/* {tab === 1 && <Dashboard />} */}
@@ -203,7 +199,7 @@ export default function Index( {setLogin, API_URL} ) {
                         gasData={gasData} 
                         lightData={lightData} 
                     />}
-                {tab === 3 && <Notify />}
+                {tab === 3 && <Notify messages={messages}/>}
                 {tab === 4 && <Profile />}
             </React.Fragment>
             }             

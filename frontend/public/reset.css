@@ -109,6 +109,10 @@ body{
 	background-size: cover;
 }
 
+.hidden-scroll {
+	overflow-y: hidden !important;
+}
+
 :root {
 	--color-sleepy: #EDB544;
 	--color-header: #F29E7D;

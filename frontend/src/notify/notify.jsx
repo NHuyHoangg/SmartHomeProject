@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./notify.css";
 
-function Notify () {
+function Notify ( {messages} ) {
     
     const [activeTab, setActiveTab] = useState("detect");
 
