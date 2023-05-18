@@ -1,12 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import axios from "axios";
 
 import "./sidebar.css";
 
-export default function Sidebar( {tab, setTab} ) { 
+export default function Sidebar( {API_URL, tab, setTab, messages} ) { 
+
+    const [countMessages, setCountMessages] = useState(0);
 
     const handleSwitchTab = (tab) => {
+        setCountMessages(0);
         setTab(tab);
+        if (tab === 3) {
+            axios.get(API_URL + 'updateMessage')
+            .then (response => {})
+        }
     }
+
+    useEffect (()=>{
+        
+        if (messages) {
+            let temp = 0;
+        
+            messages.forEach(element => {
+                if (element.status === 'NEW') 
+                    temp ++;
+            });
+            
+            setCountMessages(temp);
+        }
+    },[messages])
 
     return (
         <div className="h-100 mr-2 position-fixed bg-container" id="sidebar">
@@ -54,7 +77,13 @@ export default function Sidebar( {tab, setTab} ) {
                             c0-3.879,3.144-7.023,7.023-7.023h30.433c3.879,0,7.023,3.145,7.023,7.023V246.587z"/>
                         </svg>
                     </li>
-                    <li id="tab-mess" className="sidebar-icon" onClick={()=>handleSwitchTab(3)}>
+                    <li id="tab-mess" className="sidebar-icon position-relative" onClick={()=>handleSwitchTab(3)}>
+                        {
+                            countMessages !==0 &&
+                            <div className="badge bg-danger position-absolute end-0 fs-6 rounded-circle">
+                                <div>{countMessages}</div>
+                            </div>
+                        }
                         <svg fill={tab === 3? '#F29E7D': '#2B5C64'} width="100%" height="100%" viewBox="0 -3 24 24" id="meteor-icon-kit__solid-envelope" >
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M23.4006 1.20046L13.1469 8.9765C12.4583 9.4585 11.5417 9.4585 10.8531 8.9765L0.599433 1.20046C1.14673 0.47153 2.0183 0 3 0H21C21.9817 0 22.8533 0.47153 23.4006 1.20046zM24 3.25413V15C24 16.6569 22.6569 18 21 18H3C1.34315 18 0 16.6569 0 15V3.25413L9.70615 10.615C11.0834 11.5791 12.9166 11.5791 14.2938 10.615L24 3.25413z" />
                         </svg>
