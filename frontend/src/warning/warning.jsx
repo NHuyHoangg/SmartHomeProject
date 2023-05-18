@@ -15,7 +15,7 @@ function Warning ( {API_URL, setOpenWarning} ) {
             if (response) {
                 if (response.data[7].value < 2000) {
                     setOpenWarning(false);
-                }
+                } 
             }
         })
     },[getapi])

@@ -6,13 +6,10 @@
 } */
 
 .notify-container {
-    width: 65.67%;
     backdrop-filter: blur(7.5px);
     border-radius: 20px;
-    position: absolute;
-    top: 15%;
     margin-right: 20px;
-    height: 82%;
+    height: 82vh;
 }
 
 .Notify .tabs {

@@ -7,8 +7,17 @@ export default class Example extends PureComponent {
     constructor(props) {
         super(props);
         let tempData = [];
-        for(let i=0; i< props.data.length; i+=20) {
-            tempData.push({name: props.data[i][0], value: props.data[i][1]});
+        for(let i=0; i< props.data.length; i++) {
+            let date = new Date(Date.parse(props.data[i][0]));
+            let dateFormat = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false }) + ', ';
+            let mm = date.getMonth() + 1; // Months start at 0!
+            let dd = date.getDate();
+
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+
+            dateFormat += dd + '/' + mm; 
+            tempData.push({name: dateFormat, value: props.data[i][1]});
         }
         this.state = {
         data: tempData,

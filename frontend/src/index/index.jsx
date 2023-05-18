@@ -35,8 +35,7 @@ export default function Index( {setOpenWarning, API_URL} ) {
     const [lightData, setLightData] = useState();
     const [gasData, setGasData] = useState();
 
-    const [tempAuto, setTempAuto] = useState(true);
-    const [lightCurtainAuto, setLightCurtainAuto] = useState(true);
+    const [status, setStatus] = useState(1);
     const [isActiveOnAC, setIsActiveOnAC] = useState(false);
     const [isActiveOnLight1, setIsActiveOnLight1] = useState(false);
     const [isActiveOnLight2, setIsActiveOnLight2] = useState(false);
@@ -47,7 +46,7 @@ export default function Index( {setOpenWarning, API_URL} ) {
 
     setTimeout(()=>{
         setGetapi(!getapi);
-    }, 5000);
+    }, 2000);
 
     setTimeout(()=>{
         setGetWeatherapi(!getWeatherapi);
@@ -89,24 +88,33 @@ export default function Index( {setOpenWarning, API_URL} ) {
                 setCurrentHumi(response.data[3].value);
 
                 setCurrentLight(response.data[4].value);
-                if (response.data[1].value === 'REM-ON') {
+                if (response.data[6].value === 'REM-ON') {
                     setIsActiveOnCurtain(true);
+                } else {
+                    setIsActiveOnCurtain(false);
                 }
                 
 
                 if (response.data[1].value === 'LED1-ON') {
                     setIsActiveOnLight1(true);
+                } else {
+                    setIsActiveOnLight1(false);
                 }
                 if (response.data[5].value === 'LED2-ON') {
                     setIsActiveOnLight2(true);
+                } else {
+                    setIsActiveOnLight2(false);
                 }
 
                 setCurrentGas(response.data[7].value);
                 if (response.data[7].value >= 2000) {
                     setOpenWarning(true);
+                } else {
+                    setOpenWarning(false);
                 }
 
                 setIsActiveOnLight3(response.data[9].value);
+                setStatus(response.data[8].value);
             }
             if (first) {
                 setLoading(false);
@@ -114,11 +122,13 @@ export default function Index( {setOpenWarning, API_URL} ) {
             }
         })
 
-        axios.get(API_URL + 'getMessage')
-        .then (response => {
-            if (response.data)
-                setMessages(response.data);
-        })
+        if (first) {
+            axios.get(API_URL + 'getMessage')
+            .then (response => {
+                if (response.data)
+                    setMessages(response.data);
+            })
+        }
 
     },[getapi])
 
@@ -126,6 +136,20 @@ export default function Index( {setOpenWarning, API_URL} ) {
         axios.get(`https://api.open-meteo.com/v1/forecast?latitude=10.82&longitude=106.63&hourly=relativehumidity_2m&current_weather=true&forecast_days=1&timezone=Asia%2FBangkok`)
         .then (response => {
             if (response.data) {
+                if (response.data.current_weather.temperature > 32 && 
+                    response.data.current_weather.weathercode !== currentWeatherCode &&
+                    (response.data.current_weather.weathercode === 0 || 
+                    response.data.current_weather.weathercode === 1 )) {
+                        axios.post(API_URL + 'addMessage', {
+                            info: "Nhiệt độ ngoài trời đang rất cao! Hãy che chắn cẩn thận khi ra ngoài."
+                        })
+                }
+                else if (response.data.current_weather.weathercode !== currentWeatherCode && 
+                    (response.data.current_weather.weathercode !== 2)) {
+                        axios.post(API_URL + 'addMessage', {
+                            info: "Trời sắp mưa! Hãy mang theo dù khi ra ngoài."
+                        })
+                }
                 setCurrentOutTemp(response.data.current_weather.temperature)
                 setCurrentWeatherCode(response.data.current_weather.weathercode)
                 setCurrentOutHumi(response.data.hourly.relativehumidity_2m)
@@ -173,10 +197,8 @@ export default function Index( {setOpenWarning, API_URL} ) {
                         currentOutTemp={currentOutTemp}
                         currentOutHumi={currentOutHumi}
                         currentWeatherCode={currentWeatherCode}
-                        tempAuto={tempAuto}
-                        setTempAuto={setTempAuto}
-                        lightCurtainAuto={lightCurtainAuto}
-                        setLightCurtainAuto={setLightCurtainAuto}
+                        status={status}
+                        setStatus={setStatus}
                         setLoading = {setLoading}
                         isActiveOnAC={isActiveOnAC}
                         setIsActiveOnAC={setIsActiveOnAC}

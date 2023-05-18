@@ -53,7 +53,7 @@
 
 .main-container .button {
     cursor: pointer;
-    border-radius: 30px;
+    border-radius: 60%;
     width: fit-content;
 }
 
