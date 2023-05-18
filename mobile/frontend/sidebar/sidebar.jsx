@@ -14,14 +14,14 @@ export default function Sidebar({ tab, setTab }) {
     }
 
     return (
-        <View style={{ width: '100%', borderRadius: 10, backgroundColor: 'rgba(255, 255, 255, 0.5)'}} className={styles.sidebar}>
+        <View style={{ height: '100%', width: '100%', borderRadius: 10, backgroundColor: 'rgba(255, 255, 255, 0.5)'}} className={styles.sidebar}>
             <View style={{ padding: 20, flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
                 <TouchableHighlight underlayColor={'#ffffff'} className={styles.sidebar_icon} onPress={() => handleSwitchTab(0)}>
                     <DashboardIcon width={'40'} height={'40'} fill={tab === 0 ? '#F29E7D' : '#2B5C64'} />
                 </TouchableHighlight>
-                <TouchableHighlight underlayColor={'#ffffff'} className={styles.sidebar_icon} onPress={() => handleSwitchTab(1)}>
+                {/* <TouchableHighlight underlayColor={'#ffffff'} className={styles.sidebar_icon} onPress={() => handleSwitchTab(1)}>
                     <VoiceIcon tab={tab} size={'40'} />
-                </TouchableHighlight>
+                </TouchableHighlight> */}
                 <TouchableHighlight underlayColor={'#ffffff'} className={styles.sidebar_icon} onPress={() => handleSwitchTab(2)}>
                     <StatisticsIcon tab={tab} size={'40'} />
                 </TouchableHighlight>
