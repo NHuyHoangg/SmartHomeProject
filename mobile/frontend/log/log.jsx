@@ -1,38 +1,58 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
-import { Image, ImageBackground, Button, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
+import { Image, ImageBackground, Button, StyleSheet, Text, TextInput, View, ScrollView, TouchableHighlight } from 'react-native';
 // import "./notify.css";
 
 export default function Log() {
 
-    const CONTENT = {
+    const dataDetect = {
         tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
         tableData: [
             ['Phát hiện có người.', '10:15', '16/02/2023'],
             ['Phát hiện có người.', '10:15', '16/02/2023'],
             ['Phát hiện có người.', '10:15', '16/02/2023'],
             ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
+        ],
+    };
+
+    const dataGas = {
+        tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
+        tableData: [
+            ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
+            ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
+            ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
+            ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
+        ],
+    };
+
+    const dataLight = {
+        tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
+        tableData: [
+            ['Đèn được tắt.', '10:15', '16/02/2023'],
+            ['Đèn được bật.', '10:15', '16/02/2023'],
+            ['Đèn được tắt.', '10:15', '16/02/2023'],
+            ['Đèn được bật.', '10:15', '16/02/2023'],
+        ],
+    };
+
+    const dataCurtain = {
+        tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
+        tableData: [
+            ['Đóng rèm cửa.', '10:15', '16/02/2023'],
+            ['Mở rèm cửa.', '10:15', '16/02/2023'],
+            ['Đóng rèm cửa.', '10:15', '16/02/2023'],
+            ['Mở rèm cửa.', '10:15', '16/02/2023'],
+        ],
+    };
+
+    const dataAC = {
+        tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
+        tableData: [
+            ['Điều hoà được tắt.', '10:15', '16/02/2023'],
+            ['Đèn được bật.', '10:15', '16/02/2023'],
+            ['Điều hoà được tắt.', '10:15', '16/02/2023'],
+            ['Đèn được bật.', '10:15', '16/02/2023'],
         ],
     };
 
@@ -72,37 +92,57 @@ export default function Log() {
         <View className={styles.body}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0, backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
                 <View style={{ flexDirection: 'row' }}>
-                    <View className={[styles.tabs, activeTab === "detect" ? styles.active : ""]} onClick={handleDetect}>
+                    <TouchableHighlight underlayColor={'#ffffff'} className={[styles.tabs, activeTab === "detect" ? styles.active : ""]} onPress={handleDetect}>
                         <Text className={[styles.tab_text, activeTab === "detect" ? styles.active : ""]}>Nhận diện người</Text>
-                    </View>
-                    <View className={[styles.tabs, activeTab === "gas" ? styles.active : ""]} onClick={handleGas}>
+                    </TouchableHighlight>
+                    <TouchableHighlight underlayColor={'#ffffff'} className={[styles.tabs, activeTab === "gas" ? styles.active : ""]} onPress={handleGas}>
                         <Text className={[styles.tab_text, activeTab === "gas" ? styles.active : ""]}>Nồng độ khí gas</Text>
-                    </View>
-                    <View className={[styles.tabs, activeTab === "light" ? styles.active : ""]} onClick={handleLight}>
+                    </TouchableHighlight>
+                    <TouchableHighlight underlayColor={'#ffffff'} className={[styles.tabs, activeTab === "light" ? styles.active : ""]} onPress={handleLight}>
                         <Text className={[styles.tab_text, activeTab === "light" ? styles.active : ""]}>Đèn</Text>
-                    </View>
-                    <View className={[styles.tabs, activeTab === "curtain" ? styles.active : ""]} onClick={handleCurtain}>
+                    </TouchableHighlight>
+                    <TouchableHighlight underlayColor={'#ffffff'} className={[styles.tabs, activeTab === "curtain" ? styles.active : ""]} onPress={handleCurtain}>
                         <Text className={[styles.tab_text, activeTab === "curtain" ? styles.active : ""]}>Rèm cửa</Text>
-                    </View>
-                    <View className={[styles.tabs, activeTab === "AC" ? styles.active : ""]} onClick={handleAC}>
+                    </TouchableHighlight>
+                    <TouchableHighlight underlayColor={'#ffffff'} className={[styles.tabs, activeTab === "AC" ? styles.active : ""]} onPress={handleAC}>
                         <Text className={[styles.tab_text, activeTab === "AC" ? styles.active : ""]}>Điều hoà</Text>
-                    </View>
+                    </TouchableHighlight>
                 </View>
             </ScrollView>
-            <ScrollView style={{ maxHeight: 550, marginTop: 30 }} className={styles.stat_container}>
+            <ScrollView style={{ marginTop: 30 }} className={styles.stat_container}>
                 {activeTab === "detect" ?
                     <View>
-                        <Table borderStyle={{ borderWidth: 1 }} textStyle={{ fontSize: 50}}>
+                        <Table borderStyle={{ borderWidth: 1 }}>
                             <Row
-                                data={CONTENT.tableHead}
-                                flexArr={[2, 1, 1]}
+                                data={dataDetect.tableHead}
+                                flexArr={[3, 1.5, 2]}
                                 style={styles.head}
                                 textStyle={styles.text_header}
                             />
                             <TableWrapper style={styles.wrapper}>
                                 <Rows
-                                    data={CONTENT.tableData}
-                                    flexArr={[2, 1, 1]}
+                                    data={dataDetect.tableData}
+                                    flexArr={[3, 1.5, 2]}
+                                    style={styles.row}
+                                    textStyle={styles.text}
+                                />
+                            </TableWrapper>
+                        </Table>
+                    </View> : ""}
+                
+                {activeTab === "gas" ?
+                    <View>
+                        <Table borderStyle={{ borderWidth: 1 }}>
+                            <Row
+                                data={dataGas.tableHead}
+                                flexArr={[3, 1.5, 2]}
+                                style={styles.head}
+                                textStyle={styles.text_header}
+                            />
+                            <TableWrapper style={styles.wrapper}>
+                                <Rows
+                                    data={dataGas.tableData}
+                                    flexArr={[3, 1.5, 2]}
                                     style={styles.row}
                                     textStyle={styles.text}
                                 />
@@ -110,138 +150,65 @@ export default function Log() {
                         </Table>
                     </View> : ""}
 
-                {/* <View className={classNames("log-gas col-10 my-5",activeTab === "gas" ? "active" : "")}>
-                    <table class="table text-container table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nội dung</th>
-                                <th className="td-center" scope="col">Thời gian</th>
-                                <th className="td-center" scope="col">Ngày</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.</td>
-                                <td className="td-center">10:15</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.</td>
-                                <td className="td-center">09:49</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.</td>
-                                <td className="td-center">09:26</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.</td>
-                                <td className="td-center">08:37</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </View>
-                <View className={classNames("log-light col-10 my-5",activeTab === "light" ? "active" : "")}>
-                    <table class="table text-container table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nội dung</th>
-                                <th className="td-center" scope="col">Thời gian</th>
-                                <th className="td-center" scope="col">Ngày</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Đèn được tắt.</td>
-                                <td className="td-center">10:15</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Đèn được bật.</td>
-                                <td className="td-center">09:49</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Đèn được tắt.</td>
-                                <td className="td-center">09:26</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Đèn được bật.</td>
-                                <td className="td-center">08:37</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </View>
-                <View className={classNames("log-curtain col-10 my-5",activeTab === "curtain" ? "active" : "")}>
-                    <table class="table text-container table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nội dung</th>
-                                <th className="td-center" scope="col">Thời gian</th>
-                                <th className="td-center" scope="col">Ngày</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Đóng rèm cửa.</td>
-                                <td className="td-center">10:15</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Mở rèm cửa.</td>
-                                <td className="td-center">09:49</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Đóng rèm cửa.</td>
-                                <td className="td-center">09:26</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Mở rèm cửa.</td>
-                                <td className="td-center">08:37</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </View>
-                <View className={classNames("log-AC col-10 my-5",activeTab === "AC" ? "active" : "")}>
-                    <table class="table text-container table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nội dung</th>
-                                <th className="td-center" scope="col">Thời gian</th>
-                                <th className="td-center" scope="col">Ngày</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Điều hoà được tắt.</td>
-                                <td className="td-center">10:15</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Điều hoà được bật.</td>
-                                <td className="td-center">09:49</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Điều hoà được tắt.</td>
-                                <td className="td-center">09:26</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Điều hoà được bật.</td>
-                                <td className="td-center">08:37</td>
-                                <td className="td-center">16/02/2023</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </View> */}
+                {activeTab === "light" ?
+                    <View>
+                        <Table borderStyle={{ borderWidth: 1 }}>
+                            <Row
+                                data={dataLight.tableHead}
+                                flexArr={[3, 1.5, 2]}
+                                style={styles.head}
+                                textStyle={styles.text_header}
+                            />
+                            <TableWrapper style={styles.wrapper}>
+                                <Rows
+                                    data={dataLight.tableData}
+                                    flexArr={[3, 1.5, 2]}
+                                    style={styles.row}
+                                    textStyle={styles.text}
+                                />
+                            </TableWrapper>
+                        </Table>
+                    </View> : ""}
+
+                {activeTab === "curtain" ?
+                    <View>
+                        <Table borderStyle={{ borderWidth: 1 }}>
+                            <Row
+                                data={dataCurtain.tableHead}
+                                flexArr={[3, 1.5, 2]}
+                                style={styles.head}
+                                textStyle={styles.text_header}
+                            />
+                            <TableWrapper style={styles.wrapper}>
+                                <Rows
+                                    data={dataCurtain.tableData}
+                                    flexArr={[3, 1.5, 2]}
+                                    style={styles.row}
+                                    textStyle={styles.text}
+                                />
+                            </TableWrapper>
+                        </Table>
+                    </View> : ""}
+
+                {activeTab === "AC" ?
+                    <View>
+                        <Table borderStyle={{ borderWidth: 1 }}>
+                            <Row
+                                data={dataAC.tableHead}
+                                flexArr={[3, 1.5, 2]}
+                                style={styles.head}
+                                textStyle={styles.text_header}
+                            />
+                            <TableWrapper style={styles.wrapper}>
+                                <Rows
+                                    data={dataAC.tableData}
+                                    flexArr={[3, 1.5, 2]}
+                                    style={styles.row}
+                                    textStyle={styles.text}
+                                />
+                            </TableWrapper>
+                        </Table>
+                    </View> : ""}
             </ScrollView>
         </View>
     )
@@ -273,8 +240,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.5)'
     },
 
-    head: { 
-        height: 40, 
+    head: {
+        height: 40,
         backgroundColor: '#2B5C64',
     },
 
@@ -282,26 +249,23 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         fontWeight: 700,
         textAlign: 'center',
-        fontFamily: 'Nunito'
     },
 
-    wrapper: { 
+    wrapper: {
         flexDirection: 'row',
     },
 
-    title: { 
-        flex: 1, 
-        backgroundColor: '#2ecc71' 
+    title: {
+        flex: 1,
+        backgroundColor: '#2ecc71'
     },
 
-    row: { 
+    row: {
         backgroundColor: '#EDB544',
-        fontFamily: 'Nunito'
     },
 
-    text: { 
+    text: {
         textAlign: 'center',
-        fontFamily: 'Nunito',
         padding: 10,
         fontWeight: 500,
     },
