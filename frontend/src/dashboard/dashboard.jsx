@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import React from "react";
 import axios from "axios";
 
@@ -30,6 +30,10 @@ export default function Dashboard (
     const [counter, setCounter] = useState(26);
 
     const [currStatus, setCurrStatus] = useState(Number(status));
+
+    useEffect(()=>{
+        setCurrStatus(Number(status))
+    },[status])
 
     const days = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'];
     let currentDate = new Date();
@@ -235,7 +239,7 @@ export default function Dashboard (
                                     </svg>
                                     <div className="ms-4">{
                                         currentOutTemp === '--'? 
-                                        currentOutTemp: Math.round(currentOutTemp)}°C
+                                        currentOutTemp: currentOutTemp}°C
                                     </div>
                                 </div>
                                 <div className=" ms-4 d-flex align-items-center justify-content-start">
@@ -249,7 +253,7 @@ export default function Dashboard (
                                     </svg>
                                     <div className="ms-4">{
                                         currentOutHumi === '--'? 
-                                        currentOutHumi :Math.round(currentOutHumi[currentDate.getHours()])}%
+                                        currentOutHumi :currentOutHumi[currentDate.getHours()]}%
                                     </div>
                                 </div>
                             </div>
@@ -295,7 +299,7 @@ export default function Dashboard (
                                     </svg>
                                     <div className="ms-4">{
                                         currentTemp === '--'? 
-                                        currentTemp: Math.round(currentTemp)}°C
+                                        currentTemp: currentTemp}°C
                                     </div>
                                 </div>
                                 <div className=" ms-4 d-flex align-items-center justify-content-start">
@@ -309,7 +313,7 @@ export default function Dashboard (
                                     </svg>
                                     <div className="ms-4">{
                                         currentHumi === '--'? 
-                                        currentHumi: Math.round(currentHumi)}%
+                                        currentHumi: currentHumi}%
                                     </div>
                                 </div>
                             </div>
