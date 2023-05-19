@@ -38,6 +38,21 @@ body {
 	-ms-user-select: none!important;
 	user-select: none!important;
 }
+
+::-webkit-scrollbar {
+	width: 1rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: var(--color-container);
+	border-radius: 1rem;
+}
 ol, ul {
 	list-style: none;
 }
@@ -92,6 +107,10 @@ body{
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+}
+
+.hidden-scroll {
+	overflow-y: hidden !important;
 }
 
 :root {
