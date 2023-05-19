@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
@@ -60,7 +60,7 @@ export default class Example extends PureComponent {
                 case 'humi':
                     return  [0,100];
                 case 'gas':
-                    return [200,10000];
+                    return [500,3000];
                 case 'light':
                     return [0,100];
                 default:
