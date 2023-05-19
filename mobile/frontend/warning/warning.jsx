@@ -25,11 +25,7 @@ export default function Warning () {
             <Alert width={'350'} height={'350'} fill={'#ffffff'} />
             <Text style={{color: '#ffffff', fontWeight: 900, fontSize: 50}}>CẢNH BÁO</Text>
             <Text style={{color: '#ffffff', fontWeight: 500, fontSize: 25, textAlign: 'center'}}>Khí gas vượt ngưỡng cho phép!</Text>
-            <Text style={{color: '#ffffff', fontWeight: 500, fontSize: 25, textAlign: 'center'}}>Vui lòng nhanh chóng xử lý để tránh gặp nguy hiểm</Text>
-            <View style={{margin: 20}}>
-                <Button color={'#ffffff'} title='TẮT CẢNH BÁO'></Button>
-            </View>
-            
+            <Text style={{color: '#ffffff', fontWeight: 500, fontSize: 25, textAlign: 'center'}}>Vui lòng nhanh chóng xử lý để tránh gặp nguy hiểm</Text>            
         </View>
     )
 }

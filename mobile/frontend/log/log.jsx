@@ -1,60 +1,61 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
+import { DataTable } from 'react-native-paper';
 import { Image, ImageBackground, Button, StyleSheet, Text, TextInput, View, ScrollView, TouchableHighlight } from 'react-native';
 // import "./notify.css";
 
-export default function Log() {
+export default function Log({ messages }) {
 
-    const dataDetect = {
-        tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
-        tableData: [
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-            ['Phát hiện có người.', '10:15', '16/02/2023'],
-        ],
-    };
+    // const dataDetect = {
+    //     tableHead: ['Nội dung', 'Thời gian', 'Ngày'],        
+    //     tableData: [
+    //         ['Phát hiện có người.', '10:15', '16/02/2023'],
+    //         ['Phát hiện có người.', '10:15', '16/02/2023'],
+    //         ['Phát hiện có người.', '10:15', '16/02/2023'],
+    //         ['Phát hiện có người.', '10:15', '16/02/2023'],
+    //     ],
+    // };
 
-    const dataGas = {
-        tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
-        tableData: [
-            ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
-            ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
-            ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
-            ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
-        ],
-    };
+    // const dataGas = {
+    //     tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
+    //     tableData: [
+    //         ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
+    //         ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
+    //         ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
+    //         ['Nồng độ khí gas đạt 661 ppm, vượt ngưỡng cho phép.', '10:15', '16/02/2023'],
+    //     ],
+    // };
 
-    const dataLight = {
-        tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
-        tableData: [
-            ['Đèn được tắt.', '10:15', '16/02/2023'],
-            ['Đèn được bật.', '10:15', '16/02/2023'],
-            ['Đèn được tắt.', '10:15', '16/02/2023'],
-            ['Đèn được bật.', '10:15', '16/02/2023'],
-        ],
-    };
+    // const dataLight = {
+    //     tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
+    //     tableData: [
+    //         ['Đèn được tắt.', '10:15', '16/02/2023'],
+    //         ['Đèn được bật.', '10:15', '16/02/2023'],
+    //         ['Đèn được tắt.', '10:15', '16/02/2023'],
+    //         ['Đèn được bật.', '10:15', '16/02/2023'],
+    //     ],
+    // };
 
-    const dataCurtain = {
-        tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
-        tableData: [
-            ['Đóng rèm cửa.', '10:15', '16/02/2023'],
-            ['Mở rèm cửa.', '10:15', '16/02/2023'],
-            ['Đóng rèm cửa.', '10:15', '16/02/2023'],
-            ['Mở rèm cửa.', '10:15', '16/02/2023'],
-        ],
-    };
+    // const dataCurtain = {
+    //     tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
+    //     tableData: [
+    //         ['Đóng rèm cửa.', '10:15', '16/02/2023'],
+    //         ['Mở rèm cửa.', '10:15', '16/02/2023'],
+    //         ['Đóng rèm cửa.', '10:15', '16/02/2023'],
+    //         ['Mở rèm cửa.', '10:15', '16/02/2023'],
+    //     ],
+    // };
 
-    const dataAC = {
-        tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
-        tableData: [
-            ['Điều hoà được tắt.', '10:15', '16/02/2023'],
-            ['Đèn được bật.', '10:15', '16/02/2023'],
-            ['Điều hoà được tắt.', '10:15', '16/02/2023'],
-            ['Đèn được bật.', '10:15', '16/02/2023'],
-        ],
-    };
+    // const dataAC = {
+    //     tableHead: ['Nội dung', 'Thời gian', 'Ngày'],
+    //     tableData: [
+    //         ['Điều hoà được tắt.', '10:15', '16/02/2023'],
+    //         ['Đèn được bật.', '10:15', '16/02/2023'],
+    //         ['Điều hoà được tắt.', '10:15', '16/02/2023'],
+    //         ['Đèn được bật.', '10:15', '16/02/2023'],
+    //     ],
+    // };
 
     const [activeTab, setActiveTab] = useState("detect");
 
@@ -68,21 +69,32 @@ export default function Log() {
 
     }, [getLog])
 
-    const handleDetect = () => {
-        setActiveTab("detect");
-    };
-    const handleGas = () => {
-        setActiveTab("gas");
-    };
-    const handleLight = () => {
-        setActiveTab("light");
-    };
-    const handleCurtain = () => {
-        setActiveTab("curtain");
-    };
-    const handleAC = () => {
-        setActiveTab("AC");
-    };
+    const formatDate = (date) => {
+        const yyyy = date.getFullYear();
+        let mm = date.getMonth() + 1; // Months start at 0!
+        let dd = date.getDate();
+
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+
+        return dd + '/' + mm + '/' + yyyy;
+    }
+
+    // const handleDetect = () => {
+    //     setActiveTab("detect");
+    // };
+    // const handleGas = () => {
+    //     setActiveTab("gas");
+    // };
+    // const handleLight = () => {
+    //     setActiveTab("light");
+    // };
+    // const handleCurtain = () => {
+    //     setActiveTab("curtain");
+    // };
+    // const handleAC = () => {
+    //     setActiveTab("AC");
+    // };
 
     // function classNames(...args) {
     //     return args.filter(Boolean).join(' ')
@@ -90,125 +102,46 @@ export default function Log() {
 
     return (
         <View className={styles.body}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0, backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
-                <View style={{ flexDirection: 'row' }}>
-                    <TouchableHighlight underlayColor={'#ffffff'} className={[styles.tabs, activeTab === "detect" ? styles.active : ""]} onPress={handleDetect}>
-                        <Text className={[styles.tab_text, activeTab === "detect" ? styles.active : ""]}>Nhận diện người</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight underlayColor={'#ffffff'} className={[styles.tabs, activeTab === "gas" ? styles.active : ""]} onPress={handleGas}>
-                        <Text className={[styles.tab_text, activeTab === "gas" ? styles.active : ""]}>Nồng độ khí gas</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight underlayColor={'#ffffff'} className={[styles.tabs, activeTab === "light" ? styles.active : ""]} onPress={handleLight}>
-                        <Text className={[styles.tab_text, activeTab === "light" ? styles.active : ""]}>Đèn</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight underlayColor={'#ffffff'} className={[styles.tabs, activeTab === "curtain" ? styles.active : ""]} onPress={handleCurtain}>
-                        <Text className={[styles.tab_text, activeTab === "curtain" ? styles.active : ""]}>Rèm cửa</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight underlayColor={'#ffffff'} className={[styles.tabs, activeTab === "AC" ? styles.active : ""]} onPress={handleAC}>
-                        <Text className={[styles.tab_text, activeTab === "AC" ? styles.active : ""]}>Điều hoà</Text>
-                    </TouchableHighlight>
-                </View>
-            </ScrollView>
             <ScrollView style={{ marginTop: 30 }} className={styles.stat_container}>
                 {activeTab === "detect" ?
+                    // <View>
+                    //     <Table borderStyle={{ borderWidth: 1 }}>
+                    //         <Row
+                    //             data={dataDetect.tableHead}
+                    //             flexArr={[3, 1.5, 2]}
+                    //             style={styles.head}
+                    //             textStyle={styles.text_header}
+                    //         />
+                    //         <TableWrapper style={styles.wrapper}>
+                    //             <Rows
+                    //                 data={dataDetect.tableData}
+                    //                 flexArr={[3, 1.5, 2]}
+                    //                 style={styles.row}
+                    //                 textStyle={styles.text}
+                    //             />
+                    //         </TableWrapper>
+                    //     </Table>
+                    // </View> 
                     <View>
-                        <Table borderStyle={{ borderWidth: 1 }}>
-                            <Row
-                                data={dataDetect.tableHead}
-                                flexArr={[3, 1.5, 2]}
-                                style={styles.head}
-                                textStyle={styles.text_header}
-                            />
-                            <TableWrapper style={styles.wrapper}>
-                                <Rows
-                                    data={dataDetect.tableData}
-                                    flexArr={[3, 1.5, 2]}
-                                    style={styles.row}
-                                    textStyle={styles.text}
-                                />
-                            </TableWrapper>
-                        </Table>
-                    </View> : ""}
-                
-                {activeTab === "gas" ?
-                    <View>
-                        <Table borderStyle={{ borderWidth: 1 }}>
-                            <Row
-                                data={dataGas.tableHead}
-                                flexArr={[3, 1.5, 2]}
-                                style={styles.head}
-                                textStyle={styles.text_header}
-                            />
-                            <TableWrapper style={styles.wrapper}>
-                                <Rows
-                                    data={dataGas.tableData}
-                                    flexArr={[3, 1.5, 2]}
-                                    style={styles.row}
-                                    textStyle={styles.text}
-                                />
-                            </TableWrapper>
-                        </Table>
-                    </View> : ""}
-
-                {activeTab === "light" ?
-                    <View>
-                        <Table borderStyle={{ borderWidth: 1 }}>
-                            <Row
-                                data={dataLight.tableHead}
-                                flexArr={[3, 1.5, 2]}
-                                style={styles.head}
-                                textStyle={styles.text_header}
-                            />
-                            <TableWrapper style={styles.wrapper}>
-                                <Rows
-                                    data={dataLight.tableData}
-                                    flexArr={[3, 1.5, 2]}
-                                    style={styles.row}
-                                    textStyle={styles.text}
-                                />
-                            </TableWrapper>
-                        </Table>
-                    </View> : ""}
-
-                {activeTab === "curtain" ?
-                    <View>
-                        <Table borderStyle={{ borderWidth: 1 }}>
-                            <Row
-                                data={dataCurtain.tableHead}
-                                flexArr={[3, 1.5, 2]}
-                                style={styles.head}
-                                textStyle={styles.text_header}
-                            />
-                            <TableWrapper style={styles.wrapper}>
-                                <Rows
-                                    data={dataCurtain.tableData}
-                                    flexArr={[3, 1.5, 2]}
-                                    style={styles.row}
-                                    textStyle={styles.text}
-                                />
-                            </TableWrapper>
-                        </Table>
-                    </View> : ""}
-
-                {activeTab === "AC" ?
-                    <View>
-                        <Table borderStyle={{ borderWidth: 1 }}>
-                            <Row
-                                data={dataAC.tableHead}
-                                flexArr={[3, 1.5, 2]}
-                                style={styles.head}
-                                textStyle={styles.text_header}
-                            />
-                            <TableWrapper style={styles.wrapper}>
-                                <Rows
-                                    data={dataAC.tableData}
-                                    flexArr={[3, 1.5, 2]}
-                                    style={styles.row}
-                                    textStyle={styles.text}
-                                />
-                            </TableWrapper>
-                        </Table>
-                    </View> : ""}
+                        <DataTable style={{ borderWidth: 1 }}>
+                            <DataTable.Header style={{ backgroundColor: '#2B5C64', borderWidth: 1 }}>
+                                <DataTable.Title textStyle={styles.text_header}>Nội dung</DataTable.Title>
+                                <DataTable.Title textStyle={styles.text_header}>Thời gian</DataTable.Title>
+                                <DataTable.Title numeric textStyle={styles.text_header}>Ngày</DataTable.Title>
+                            </DataTable.Header>
+                            {messages.map((message) => {
+                                let date = new Date(Date.parse(message.time));
+                                return (
+                                    <DataTable.Row style={{ backgroundColor: '#EDB544', borderWidth: 1 }}>
+                                        <DataTable.Cell>{message.description}</DataTable.Cell>
+                                        <DataTable.Cell textStyle={styles.text}>{date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</DataTable.Cell>
+                                        <DataTable.Cell numeric textStyle={styles.text}>{formatDate(date)}</DataTable.Cell>
+                                    </DataTable.Row>
+                                )
+                            })}
+                        </DataTable>
+                    </View>
+                    : ""}
             </ScrollView>
         </View>
     )
@@ -249,6 +182,7 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         fontWeight: 700,
         textAlign: 'center',
+        fontSize: 20
     },
 
     wrapper: {

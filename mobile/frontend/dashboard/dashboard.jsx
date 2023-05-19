@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { Image, ImageBackground, Button, StyleSheet, Text, TextInput, View, TouchableHighlight, ScrollView } from 'react-native';
+import { Image, ImageBackground, Button, StyleSheet, Text, TextInput, View, TouchableHighlight, ScrollView, ActivityIndicator } from 'react-native';
 // import style from './dashboard.module.css';
 import React from "react";
 import axios from "axios";
-import { useState } from 'react';
+import {useState, useEffect} from 'react';
 
 import Home from '../icon/home';
 import Location from '../icon/loacation';
@@ -21,6 +21,9 @@ import LightPubOff from '../icon/light-pub-off';
 import CurtainOn from '../icon/curtain-on';
 import CurtainOff from '../icon/curtain-off';
 import RemoteControler from '../icon/remote-controler';
+import UserTick from '../icon/user-tick-svgrepo-com.svg'
+import UserRemove from '../icon/user-remove-svgrepo-com.svg'
+import CursorBox from '../icon/cursor-box-svgrepo-com.svg'
 
 import Clear from "../icon/clear"
 import ClearNight from '../icon/clear-night';
@@ -40,13 +43,19 @@ export default function Dashboard(
     { API_URL,
         currentHumi, currentTemp, currentGas, currentLight,
         currentOutTemp, currentOutHumi, currentWeatherCode, setLoading,
-        tempAuto, setTempAuto, lightCurtainAuto, setLightCurtainAuto,
+        status, setStatus,
         isActiveOnAC, setIsActiveOnAC,
         isActiveOnCurtain, setIsActiveOnCurtain,
         isActiveOnLight1, setIsActiveOnLight1,
+        isActiveOnLight3, setIsActiveOnLight3,
         isActiveOnLight2, setIsActiveOnLight2 }) {
 
     const [counter, setCounter] = useState(26);
+    const [currStatus, setCurrStatus] = useState(Number(status));
+
+    useEffect(()=>{
+        setCurrStatus(Number(status))
+    },[status])
 
     let currentDate = new Date();
 
@@ -64,69 +73,108 @@ export default function Dashboard(
     };
 
     const [isActiveSettingAC, setIsActiveSettingAC] = useState(false);
-    const [isActiveControlCurtain, setIsActiveControlCurtain] = useState(false);
+    // const [isActiveControlCurtain, setIsActiveControlCurtain] = useState(false);
 
     const handleClickOnAC = () => {
-        setLoading(true);
-        axios.get(API_URL + 'fan-switch')
-            .then(response => {
+        if (status==="2") {
+            setLoading(true);
+            axios.get(API_URL+ 'fan-switch')
+            .then (response => {
                 if (response) {
-                    setIsActiveOnAC(current => !current);
+                    if (isActiveOnAC) {
+                        axios.post(API_URL + 'addMessage', {
+                            info: "Máy lạnh vừa được tắt."
+                        })
+                    } else {
+                        axios.post(API_URL + 'addMessage', {
+                            info: "Máy lạnh vừa được bật."
+                        })
+                    }
+                    setIsActiveOnAC(!isActiveOnAC);
                     setLoading(false);
                 }
             })
-    };
-    const handleClickAutoAC = () => {
-        setTempAuto(!tempAuto);
+        }
     };
     const handleClickSettingAC = () => {
         setIsActiveSettingAC('setting');
     };
-    const handleClickOnLight1 = () => {
+
+    const handleStatusButton = (id) => {
         setLoading(true);
-        axios.get(API_URL + 'led-1-switch')
+        setCurrStatus(Number(id));
+        axios.post(API_URL + 'status', { id: id })
             .then(response => {
                 if (response) {
+                    setStatus(id);
+                    setLoading(false);
+                }
+            })
+    };
+    const handleClickOnLight1 = () => {
+        if (status === "2") {
+            setLoading(true);
+            axios.get(API_URL+ 'led-1-switch')
+            .then (response => {
+                if (response) {
+                    if (isActiveOnLight1) {
+                        axios.post(API_URL + 'addMessage', {
+                            info: "Đèn 1 vừa được tắt."
+                        })
+                    } else {
+                        axios.post(API_URL + 'addMessage', {
+                            info: "Đèn 1 vừa được bật."
+                        })
+                    }
                     setIsActiveOnLight1(!isActiveOnLight1);
                     setLoading(false);
                 }
             })
+        }
     };
+
     const handleClickOnLight2 = () => {
-        setLoading(true);
-        axios.get(API_URL + 'led-2-switch')
-            .then(response => {
+        if (status === "2") {
+            setLoading(true);
+            axios.get(API_URL+ 'led-2-switch')
+            .then (response => {
                 if (response) {
+                    if (isActiveOnLight2) {
+                        axios.post(API_URL + 'addMessage', {
+                            info: "Đèn 2 vừa được tắt."
+                        })
+                    } else {
+                        axios.post(API_URL + 'addMessage', {
+                            info: "Đèn 2 vừa được bật."
+                        })
+                    }
                     setIsActiveOnLight2(!isActiveOnLight2);
                     setLoading(false);
                 }
             })
+        }
     };
-    // const handleClickOnLight3 = () => {
-    //     setLoading(true);
-    //     axios.get(API_URL+ 'led-3-switch')
-    //     .then (response => {
-    //         if (response) {
-    //             setIsActiveOnLight3(!isActiveOnLight3);
-    //             setLoading(false);
-    //         }
-    //     })
-    // };
+
     const handleClickOnCurtain = () => {
-        setLoading(true);
-        axios.get(API_URL + 'rem-switch')
-            .then(response => {
+        if (status === "2") {
+            setLoading(true);
+            axios.get(API_URL+ 'rem-switch')
+            .then (response => {
                 if (response) {
+                    if (isActiveOnCurtain) {
+                        axios.post(API_URL + 'addMessage', {
+                            info: "Rèm vừa được đóng."
+                        })
+                    } else {
+                        axios.post(API_URL + 'addMessage', {
+                            info: "Rèm vừa được mở."
+                        })
+                    }
                     setIsActiveOnCurtain(current => !current);
                     setLoading(false);
                 }
             })
-    };
-    const handleClickAutoCurtain = () => {
-        setLightCurtainAuto(!lightCurtainAuto);
-    };
-    const handleClickControlCurtain = () => {
-        setIsActiveControlCurtain(current => !current);
+        }
     };
 
     const exportWeatherIcon = () => {
@@ -152,6 +200,8 @@ export default function Dashboard(
                 return <SlightRain size={size} />;
             case 65:
             case 82:
+            case 99:
+            case 95:
                 return <ViolentRain size={size} />;
             case 0:
             case 1:
@@ -159,14 +209,13 @@ export default function Dashboard(
                 return currentDate.getHours() < 18 ? <Clear size={size} /> : <ClearNight size={size} />;
         }
     };
-    // console.log(currentTemp)
 
     // function classNames(...args) {
     //     return args.filter(Boolean).join(' ')
     // }
 
     return (
-        <View style={{ justifyContent: 'space-evenly'}}>
+        <View style={{ justifyContent: 'space-evenly' }}>
             <View className={styles.main_container}>
                 <View className={styles.weather_container}>
                     {exportWeatherIcon(currentWeatherCode)}
@@ -233,61 +282,45 @@ export default function Dashboard(
                     <Fire size={'60'} />
                     <View><Text className={styles.text} style={{ marginTop: 5 }}>{currentGas} ppm</Text></View>
                 </View>
-                {/* <View className={styles.gas_container}>
-                    <Text className={styles.title} style={styles.title}>Cường độ ánh sáng</Text>
-                    <Fire size={'60'} />
-                    <View><Text className={styles.text} style={{ marginTop: 5 }}>{currentGas} %</Text></View>
-                </View> */}
                 <View className={styles.gas_container}>
-                    <Text style={styles.title}>Rèm cửa</Text>
-                    <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', width: '100%', justifyContent: 'space-around' }}>
-                        <View style={{ flexDirection: 'row', marginBottom: 5 }}>
-                            <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveOnCurtain && styles.active]} onPress={handleClickOnCurtain}>
-                                <On style={{ backgroundColor: '#2B5C64' }} size={'40'} />
-                            </TouchableHighlight>
-                            <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, lightCurtainAuto && styles.active]} onPress={handleClickAutoCurtain}>
-                                <Auto size={'40'} />
-                            </TouchableHighlight>
-                            <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveControlCurtain && styles.active]} onPress={handleClickControlCurtain}>
-                                <RemoteControler size={'40'} />
-                            </TouchableHighlight>
+                    <Text style={styles.title}>Nhận diện người</Text>
+                    {isActiveOnLight3 ?
+                        <View style={{ alignItems: 'center' }}>
+                            <UserRemove width={'60'} height={'60'} />
+                            <View><Text className={styles.text} style={{ marginTop: 5 }}>Không phát hiện</Text></View>
                         </View>
-                        {isActiveOnCurtain ? <CurtainOn size={'60'} /> : <CurtainOff size={'60'} />}
-                    </View>
+                        :
+                        <View style={{ alignItems: 'center' }}>
+                            <UserTick width={'60'} height={'60'} />
+                            <View><Text className={styles.text} style={{ marginTop: 5 }}>Có người</Text></View>
+                        </View>}
                 </View>
             </View>
             <View className={styles.main_container}>
-                <View className={styles.gas_container}>
-                    <Text style={styles.title}>Đèn 1</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%', justifyContent: 'space-around' }}>
+                <TouchableHighlight underlayColor={'#ffffff'} className={[styles.gas_container, isActiveOnLight1 && styles.bg_header]} onPress={handleClickOnLight1}>
+                    <View style={{ flex: 1, alignItems: 'center'}}> 
+                        {isActiveOnLight1 && <Text style={styles.title_active}>Đèn 1</Text>}
+                        {!isActiveOnLight1 && <Text style={styles.title}>Đèn 1</Text>}
                         {isActiveOnLight1 ? <LightPubOn size={'60'} /> : <LightPubOff size={'60'} />}
-                        <View style={{ flexDirection: 'row', marginBottom: 5 }}>
-                            <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveOnLight1 && styles.active]} onPress={handleClickOnLight1}>
-                                <On size={'40'} />
-                            </TouchableHighlight>
-                            {/* <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveAutoLight && styles.active]} onPress={handleClickAutoLight}>
-                                <Auto size={'40'} />
-                            </TouchableHighlight> */}
-                        </View>
                     </View>
-                </View>
-                <View className={styles.gas_container}>
-                    <Text style={styles.title}>Đèn 2</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%', justifyContent: 'space-around' }}>
+                </TouchableHighlight>
+                <TouchableHighlight underlayColor={'#ffffff'} className={[styles.gas_container, isActiveOnLight2 && styles.bg_header]} onPress={handleClickOnLight2}>
+                    <View style={{ flex: 1, alignItems: 'center'}}>
+                        {isActiveOnLight2 && <Text style={styles.title_active}>Đèn 2</Text>}
+                        {!isActiveOnLight2 && <Text style={styles.title}>Đèn 2</Text>}
                         {isActiveOnLight2 ? <LightPubOn size={'60'} /> : <LightPubOff size={'60'} />}
-                        <View style={{ flexDirection: 'row', marginBottom: 5 }}>
-                            <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveOnLight2 && styles.active]} onPress={handleClickOnLight2}>
-                                <On size={'40'} />
-                            </TouchableHighlight>
-                            {/* <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_main, isActiveAutoLight && styles.active]} onPress={handleClickAutoLight}>
-                                <Auto size={'40'} />
-                            </TouchableHighlight> */}
-                        </View>
                     </View>
-                </View>
+                </TouchableHighlight>
+                <TouchableHighlight underlayColor={'#ffffff'} className={[styles.gas_container, isActiveOnCurtain && styles.bg_header]} onPress={handleClickOnCurtain}>
+                    <View style={{ flex: 1, alignItems: 'center'}}>
+                        {isActiveOnCurtain && <Text style={styles.title_active}>Rèm cửa</Text>}
+                        {!isActiveOnCurtain && <Text style={styles.title}>Rèm cửa</Text>}
+                        {isActiveOnCurtain ? <CurtainOn size={'60'} /> : <CurtainOff size={'60'} />}
+                    </View>
+                </TouchableHighlight>
             </View>
-            {isActiveSettingAC === 'setting' ? '' :
-                <View className={styles.main_container}>
+            <View className={styles.main_container}>
+                {isActiveSettingAC === 'setting' ? '' :
                     <View className={styles.gas_container}>
                         <View style={{ justifyContent: 'center' }} className={[isActiveSettingAC && styles.setting]}>
                             <Text style={styles.title}>Điều hòa</Text>
@@ -295,7 +328,9 @@ export default function Dashboard(
                                 <TouchableHighlight underlayColor={'#ffffff'} className={styles.button} onPress={removeCountHandler}>
                                     <CircleMinus size={'30'} />
                                 </TouchableHighlight>
-                                <View style={{ justifyContent: 'center' }} className={[styles.text_main, styles.celsius]}><Text style={{ fontSize: 30, color: '#2B5C64' }}>{counter}°C</Text></View>
+                                <View style={{ justifyContent: 'center', paddingLeft: 20, paddingRight: 20 }} className={[styles.text_main, styles.celsius]}>
+                                    <Text style={{ fontSize: 30, color: '#2B5C64' }}>{counter}°C</Text>
+                                </View>
                                 <TouchableHighlight underlayColor={'#ffffff'} className={styles.button} onPress={addCountHandler}>
                                     <CirclePlus size={'30'} />
                                 </TouchableHighlight>
@@ -308,12 +343,6 @@ export default function Dashboard(
                                     <Text style={{ marginTop: 10 }} className={styles.text}>Bật/Tắt</Text>
                                 </View>
                                 <View style={{ alignItems: 'center', padding: 10 }}>
-                                    <TouchableHighlight style={{ alignContent: 'center' }} className={[styles.button, styles.bg_main, tempAuto && styles.active]} onPress={handleClickAutoAC}>
-                                        <AutoAC className={[styles.button, styles.bg_main, isActiveOnAC && styles.active]} size={'40'} />
-                                    </TouchableHighlight>
-                                    <Text style={{ marginTop: 10 }} className={styles.text}>Tự động</Text>
-                                </View>
-                                <View style={{ alignItems: 'center', padding: 10 }}>
                                     <TouchableHighlight style={{ alignContent: 'center' }} className={[styles.button, styles.bg_main, isActiveSettingAC && styles.active]} onPress={handleClickSettingAC}>
                                         <Setting size={'40'} />
                                     </TouchableHighlight>
@@ -321,15 +350,12 @@ export default function Dashboard(
                                 </View>
                             </View>
                         </View>
-                    </View>
-                </View>
-            }
-            {isActiveSettingAC === 'setting' ?
-                <View className={styles.main_container}>
+                    </View>}
+                {isActiveSettingAC === 'setting' ?
                     <View className={styles.gas_container}>
                         <View style={{ justifyContent: 'center' }}>
                             <Text style={styles.title}>Điều hòa</Text>
-                            <View style={{ justifyContent: 'center', margin: 4, padding: 5 }}>
+                            <View style={{ width: '80%', justifyContent: 'center', margin: 4, padding: 5 }}>
                                 <View>
                                     <Text className={styles.text} style={{ marginBottom: 5 }}>Nhiệt độ tự động bật</Text>
                                     <TextInput style={{ padding: 5, backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: 10 }} type="text" placeholder="26°C" />
@@ -341,8 +367,21 @@ export default function Dashboard(
                                 <Button style={{ borderRadius: 50 }} color='#F29E7D' title='Lưu' type="submit"></Button>
                             </View>
                         </View>
+                    </View> : ''}
+                <View style={{ flex: 0 }} className={[styles.gas_container, styles.bg_main]}>
+                    <View style={{ padding: 10, flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_text, currStatus === 1 && styles.active]} onPress={() => handleStatusButton(1)}>
+                            <RemoteControler size={'50'} />
+                        </TouchableHighlight>
+                        <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_text, currStatus === 2 && styles.active]} onPress={() => handleStatusButton(2)}>
+                            <CursorBox width={'50'} height={'50'} />
+                        </TouchableHighlight>
+                        <TouchableHighlight style={{ margin: 5 }} className={[styles.button, styles.bg_text, currStatus === 3 && styles.active]} onPress={() => handleStatusButton(3)}>
+                            <Auto size={'50'} />
+                        </TouchableHighlight>
                     </View>
-                </View> : ''}
+                </View>
+            </View>
         </View>
     );
 }
@@ -360,6 +399,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 900,
         color: '#F29E7D',
+        textAlign: 'center',
+        marginBottom: 5,
+    },
+
+    title_active: {
+        fontSize: 18,
+        fontWeight: 900,
+        color: '#FFFFFF',
         textAlign: 'center',
         marginBottom: 5,
     },
@@ -424,6 +471,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#F29E7D',
     },
 
+    active_title: {
+        color: '#000000',
+    },
+
     input: {
         // float: right,
         textAlign: 'right',
@@ -441,7 +492,7 @@ const styles = StyleSheet.create({
     } */
 
     button: {
-        borderRadius: 20,
+        borderRadius: 30,
         border: 'none',
         alignItems: 'center',
         fontWeight: 700,
