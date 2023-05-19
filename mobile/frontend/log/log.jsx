@@ -126,16 +126,16 @@ export default function Log({ messages }) {
                         <DataTable style={{ borderWidth: 1 }}>
                             <DataTable.Header style={{ backgroundColor: '#2B5C64', borderWidth: 1 }}>
                                 <DataTable.Title textStyle={styles.text_header}>Nội dung</DataTable.Title>
-                                <DataTable.Title textStyle={styles.text_header}>Thời gian</DataTable.Title>
-                                <DataTable.Title numeric textStyle={styles.text_header}>Ngày</DataTable.Title>
+                                <DataTable.Title numeric textStyle={styles.text_header}>Thời gian</DataTable.Title>
+                                {/* <DataTable.Title numeric textStyle={styles.text_header}>Ngày</DataTable.Title> */}
                             </DataTable.Header>
                             {messages.map((message) => {
                                 let date = new Date(Date.parse(message.time));
                                 return (
                                     <DataTable.Row style={{ backgroundColor: '#EDB544', borderWidth: 1 }}>
                                         <DataTable.Cell>{message.description}</DataTable.Cell>
-                                        <DataTable.Cell textStyle={styles.text}>{date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</DataTable.Cell>
-                                        <DataTable.Cell numeric textStyle={styles.text}>{formatDate(date)}</DataTable.Cell>
+                                        <DataTable.Cell numeric textStyle={styles.text}>{date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</DataTable.Cell>
+                                        {/* <DataTable.Cell numeric textStyle={styles.text}>{formatDate(date)}</DataTable.Cell> */}
                                     </DataTable.Row>
                                 )
                             })}
