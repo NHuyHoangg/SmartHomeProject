@@ -75,7 +75,7 @@ export default function Index( {setOpenWarning, API_URL} ) {
             if (response.data)
                 setGasData(response.data.data);
         })
-    },[])
+    },[getapi])
 
     useEffect (()=>{
         if (first) setLoading(true);
@@ -160,12 +160,12 @@ export default function Index( {setOpenWarning, API_URL} ) {
                     setOpenWarning(false);
                 }
 
-                setIsActiveOnLight3(response.data[9].value);
-                if (response.data[9].value == 1 && isActiveOnLight3 !== response.data[9].value) {
+                if (response.data[9].value === "1" && isActiveOnLight3 === "0") {
                     axios.post(API_URL + 'addMessage', {
                         info: "Phát hiện người."
                     })
                 }
+                setIsActiveOnLight3(response.data[9].value);
                 setStatus(response.data[8].value);
             }
         })
