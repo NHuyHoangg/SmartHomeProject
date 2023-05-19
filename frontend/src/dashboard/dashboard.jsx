@@ -239,7 +239,7 @@ export default function Dashboard (
                                     </svg>
                                     <div className="ms-4">{
                                         currentOutTemp === '--'? 
-                                        currentOutTemp: currentOutTemp}°C
+                                        currentOutTemp: Math.round(currentOutTemp)}°C
                                     </div>
                                 </div>
                                 <div className=" ms-4 d-flex align-items-center justify-content-start">
