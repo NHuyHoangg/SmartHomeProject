@@ -108,7 +108,12 @@ def readSerial():
                 mess = mess[end+1:]
 
 
+cnt = 0;
+
 while True:
+    if cnt == 0:
+        client.publish("dhl-status", 0)
+        cnt=cnt+1
     if isMicrobitConnected:
         readSerial()
     time.sleep(1)
