@@ -284,7 +284,7 @@ export default function Dashboard(
                 </View>
                 <View className={styles.gas_container}>
                     <Text style={styles.title}>Nhận diện người</Text>
-                    {isActiveOnLight3 ?
+                    {isActiveOnLight3 === '0' ?
                         <View style={{ alignItems: 'center' }}>
                             <UserRemove width={'60'} height={'60'} />
                             <View><Text className={styles.text} style={{ marginTop: 5 }}>Không phát hiện</Text></View>
